@@ -1,33 +1,100 @@
-<h4 class="text-center">Ingresar Gasto</h4>
-<hr />
-<div *ngIf="formularioIncorrecto" class="text-center">
-  <span class="badge bg-danger textError">{{
-    textIncorrecto | uppercase
-  }}</span>
-</div>
-<div class="form-group mb-4">
-  <label for="gasto">Gasto</label>
-  <input
-    type="text"
-    id="gasto"
-    [(ngModel)]="nombreGasto"
-    class="form-control form-control-lg"
-    placeholder="Ej: Comida"
-  />
-  <div class="form-group mb-4">
-    <label for="gasto">Cantidad</label>
-    <input
-      type="number"
-      id="gasto"
-      [(ngModel)]="cantidad"
-      class="form-control form-control-lg"
-      placeholder="Ingrese cantidad"
-    />
-  </div>
-  <button
-    class="btn btn-secondary btn-lg btn-block mt-2"
-    (click)="agregarGasto()"
+<section class="expense-form-section" aria-labelledby="expense-form-title">
+  <header class="expense-form-header">
+    <h2 id="expense-form-title" class="expense-form-title">Add an Expense</h2>
+    <p class="expense-form-subtitle">Record something you spent money on (like "Coffee: 3.50€" or "Gas: 45.00€"). This amount will be subtracted from your remaining budget.</p>
+  </header>
+
+  <form 
+    class="expense-form" 
+    (ngSubmit)="agregarGasto()"
+    [attr.aria-label]="'Expense input form'"
+    novalidate
   >
-    AGREGAR GASTO
-  </button>
-</div>
+    <div 
+      class="error-banner"
+      role="alert"
+      aria-live="assertive"
+      [class.visible]="error().show"
+      *ngIf="error().show"
+    >
+      <span class="error-text">{{ error().message }}</span>
+    </div>
+
+    <div 
+      class="success-banner"
+      role="status"
+      aria-live="polite"
+      [class.visible]="successMessage() !== ''"
+      *ngIf="successMessage() !== ''"
+    >
+      <span class="success-text">{{ successMessage() }}</span>
+    </div>
+
+    <div class="form-group">
+      <label for="nombre-gasto" class="form-label">
+        Expense Name
+        <span class="sr-only">required</span>
+      </label>
+      <input
+        id="nombre-gasto"
+        type="text"
+        [ngModel]="nombreGasto()"
+        (ngModelChange)="onNombreChange($event)"
+        (keydown)="onKeyDown($event)"
+        data-input="nombre"
+        class="form-input"
+        [class.input-error]="error().show && nombreGasto().trim() === ''"
+        placeholder="Groceries, Coffee, Gas..."
+        maxlength="50"
+        aria-describedby="nombre-help"
+        [attr.aria-invalid]="error().show && nombreGasto().trim() === ''"
+        aria-required="true"
+        autocomplete="off"
+      />
+      <p id="nombre-help" class="form-help">
+        Briefly describe the type of expense
+      </p>
+    </div>
+
+    <div class="form-group">
+      <label for="cantidad-gasto" class="form-label">
+        Amount
+        <span class="sr-only">in euros, required</span>
+      </label>
+      <div class="input-wrapper">
+        <input
+          id="cantidad-gasto"
+          type="number"
+          [ngModel]="cantidad()"
+          (ngModelChange)="onCantidadChange($event)"
+          (keydown)="onKeyDown($event)"
+          data-input="cantidad"
+          class="form-input"
+          [class.input-error]="error().show"
+          placeholder="0.00"
+          min="0"
+          [max]="restanteDisponible"
+          step="0.01"
+          aria-describedby="cantidad-help restante-info"
+          [attr.aria-invalid]="error().show"
+          aria-required="true"
+        />
+        <span class="input-currency" aria-hidden="true">EUR</span>
+      </div>
+      <p id="cantidad-help" class="form-help">
+        Available: 
+        <strong id="restante-info" class="restante-amount">{{ restanteDisponible | number:'1.2-2' }} EUR</strong>
+      </p>
+    </div>
+
+    <button
+      type="submit"
+      class="btn-submit"
+      [disabled]="isSubmitting()"
+      [attr.aria-busy]="isSubmitting()"
+    >
+      <span *ngIf="!isSubmitting()">Add Expense</span>
+      <span *ngIf="isSubmitting()" aria-hidden="true">Adding...</span>
+    </button>
+  </form>
+</section>

@@ -1,15 +1,16 @@
-<div class="container">
-  <h2 class="text-center">Gastos</h2>
-  <div class="card">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-lg-6">
-          <app-ingresar-gasto></app-ingresar-gasto>
-        </div>
-        <div class="col-lg-6">
-          <app-listar-gasto></app-listar-gasto>
-        </div>
-      </div>
-    </div>
+<div class="expenses-page" role="main">
+  <header class="expenses-page-header">
+    <h1 class="expenses-page-title">Budget Tracker</h1>
+    <p class="expenses-page-subtitle">Add your expenses below. Each expense will be automatically subtracted from your budget.</p>
+  </header>
+
+  <div class="expenses-layout">
+    <aside class="expenses-sidebar" aria-label="Add expense form">
+      <app-ingresar-gasto></app-ingresar-gasto>
+    </aside>
+
+    <main class="expenses-main" aria-label="Budget summary and expense list">
+      <app-listar-gasto></app-listar-gasto>
+    </main>
   </div>
 </div>

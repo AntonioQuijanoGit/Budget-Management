@@ -21,6 +21,16 @@
       }
     },
     {
+      "label": "Open in Simple Browser",
+      "type": "shell",
+      "command": "code",
+      "args": [
+        "--open-url",
+        "http://localhost:4200"
+      ],
+      "problemMatcher": []
+    },
+    {
       "type": "npm",
       "script": "test",
       "isBackground": true,

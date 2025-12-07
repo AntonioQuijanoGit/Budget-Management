@@ -15,7 +15,15 @@ export class PresupuestoService {
   }
 
   agregarGasto(gasto: any) {
+    if (!gasto || !gasto.nombre || !gasto.cantidad) {
+      console.error('Gasto inválido:', gasto);
+      return;
+    }
+    
+    // Actualizar el restante
     this.restante = this.restante - gasto.cantidad;
+    
+    // Emitir el gasto a través del Subject
     this.gastos$.next(gasto);
   }
 

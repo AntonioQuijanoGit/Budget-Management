@@ -3,6 +3,19 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "ng serve (Simple Browser)",
+      "type": "chrome",
+      "request": "launch",
+      "preLaunchTask": "npm: start",
+      "url": "http://localhost:4200/",
+      "webRoot": "${workspaceFolder}",
+      "runtimeExecutable": "${execPath}",
+      "runtimeArgs": [
+        "--open-url",
+        "http://localhost:4200/"
+      ]
+    },
+    {
       "name": "ng serve",
       "type": "chrome",
       "request": "launch",
