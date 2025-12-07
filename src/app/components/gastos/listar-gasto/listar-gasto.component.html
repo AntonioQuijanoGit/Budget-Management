@@ -47,23 +47,25 @@
 
   <!-- Progress Bar -->
   <div class="budget-progress" *ngIf="presupuesto() > 0">
-    <div role="progressbar" 
-         [attr.aria-valuenow]="porcentajeUsado()" 
-         aria-valuemin="0" 
-         aria-valuemax="100"
-         [attr.aria-label]="'Budget used: ' + porcentajeUsado() + ' percent'"
-         class="progress-bar-wrapper">
+    <div class="progress-info">
+      <span class="progress-text">Budget Usage</span>
+      <span class="progress-percentage" [attr.aria-label]="'You have used ' + porcentajeUsado() + ' percent of your budget'">
+        {{ porcentajeUsado() | number:'1.0-0' }}%
+      </span>
+    </div>
+    <div 
+      role="progressbar" 
+      [attr.aria-valuenow]="porcentajeUsado()" 
+      aria-valuemin="0" 
+      aria-valuemax="100"
+      [attr.aria-label]="'Budget used: ' + porcentajeUsado() + ' percent'"
+      class="progress-bar-wrapper">
       <div 
         class="progress-bar-fill" 
         [style.width.%]="porcentajeUsado()"
         [ngClass]="'progress-bar-fill--' + estadoPresupuesto()"
         aria-hidden="true"
       ></div>
-    </div>
-    <div class="progress-labels" aria-hidden="true">
-      <span class="progress-label">0%</span>
-      <span class="progress-label">{{ porcentajeUsado() | number:'1.0-0' }}% used</span>
-      <span class="progress-label">100%</span>
     </div>
   </div>
 

@@ -83,7 +83,9 @@
       </div>
       <p id="cantidad-help" class="form-help">
         Available: 
-        <strong id="restante-info" class="restante-amount">{{ restanteDisponible | number:'1.2-2' }} EUR</strong>
+        <strong id="restante-info" class="restante-amount">
+          {{ (restanteDisponible | number:'1.2-2') || '0.00' }} EUR
+        </strong>
       </p>
     </div>
 
@@ -93,8 +95,7 @@
       [disabled]="isSubmitting()"
       [attr.aria-busy]="isSubmitting()"
     >
-      <span *ngIf="!isSubmitting()">Add Expense</span>
-      <span *ngIf="isSubmitting()" aria-hidden="true">Adding...</span>
+      Add Expense
     </button>
   </form>
 </section>

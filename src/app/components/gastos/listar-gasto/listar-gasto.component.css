@@ -189,18 +189,36 @@
   animation: fadeIn var(--transition-base) ease-out;
 }
 
-.budget-progress .progress-bar-wrapper {
-  position: relative;
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.progress-text {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: var(--font-mono);
+}
+
+.progress-percentage {
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  font-weight: 500;
+  font-family: var(--font-sans);
 }
 
 .progress-bar-wrapper {
   width: 100%;
-  height: 2px;
-  background: var(--color-border);
+  height: 8px;
+  background: rgba(0, 0, 0, 0.08);
   border-radius: var(--radius-full);
   overflow: hidden;
   position: relative;
-  margin-bottom: var(--spacing-xs);
 }
 
 .progress-bar-fill {
@@ -209,15 +227,6 @@
   border-radius: var(--radius-full);
   transition: width var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  animation: shimmer 2s infinite linear;
-  background: linear-gradient(
-    90deg,
-    var(--color-text) 0%,
-    var(--color-text) 50%,
-    rgba(0, 0, 0, 0.1) 50%,
-    rgba(0, 0, 0, 0.1) 100%
-  );
-  background-size: 200% 100%;
 }
 
 .progress-bar-fill--success {
@@ -230,27 +239,6 @@
 
 .progress-bar-fill--danger {
   background: var(--color-danger);
-}
-
-.progress-labels {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.6875rem;
-  color: var(--color-text-muted);
-  font-weight: 300;
-  font-family: var(--font-mono);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.progress-label {
-  flex: 1;
-}
-
-.progress-label:nth-child(2) {
-  text-align: center;
-  font-weight: 300;
-  color: var(--color-text-muted);
 }
 
 /* ============================================

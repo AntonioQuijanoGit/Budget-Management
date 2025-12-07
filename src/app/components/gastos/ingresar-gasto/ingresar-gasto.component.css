@@ -17,6 +17,7 @@
 .expense-form-section:hover {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.06);
   transform: translateY(-2px);
+  border: 1px solid var(--color-border);
 }
 
 .expense-form-header {
@@ -143,7 +144,7 @@
 .form-input {
   width: 100%;
   text-align: center;
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: var(--spacing-sm) var(--spacing-md);
   font-size: 0.9375rem;
@@ -155,12 +156,20 @@
   text-overflow: ellipsis;
 }
 
+.form-input:not(.input-error) {
+  border-color: var(--color-border);
+}
+
 .form-input:not(:placeholder-shown) {
   text-align: left;
 }
+
+.form-input {
   transition: all var(--transition-base);
   -moz-appearance: textfield;
   letter-spacing: 0.01em;
+  box-sizing: border-box;
+  outline: none;
 }
 
 .form-input:hover:not(:disabled) {
@@ -194,6 +203,10 @@
 .form-input.input-error {
   border-color: var(--color-danger);
   animation: shake 0.4s ease-in-out;
+}
+
+.form-input:not(.input-error) {
+  border-color: var(--color-border);
 }
 
 .form-input.input-error:focus {
@@ -233,6 +246,8 @@
 .restante-amount {
   color: var(--color-text);
   font-weight: 400;
+  display: inline-block;
+  opacity: 1;
 }
 
 /* ============================================
@@ -240,30 +255,49 @@
    ============================================ */
 .btn-submit {
   width: 100%;
-  background: var(--color-text);
-  border: 1px solid var(--color-text);
+  background: #000000 !important;
+  border: 1px solid #000000 !important;
   border-radius: var(--radius-md);
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-size: 0.875rem;
-  font-weight: 500;
-  font-family: var(--font-sans);
+  padding: 12px 24px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  font-family: var(--font-sans) !important;
   letter-spacing: 0.05em;
-  color: var(--color-bg);
+  color: #ffffff !important;
   cursor: pointer;
   transition: all var(--transition-base);
   position: relative;
   min-height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   margin-top: var(--spacing-sm);
+  text-transform: uppercase;
+  line-height: 1.5 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.btn-submit::before,
+.btn-submit::after {
+  display: none !important;
+}
+
+/* Asegurar que todo el contenido del botón sea blanco */
+.btn-submit,
+.btn-submit * {
+  color: #ffffff !important;
 }
 
 .btn-submit:hover:not(:disabled) {
-  background: var(--color-text-muted);
-  border-color: var(--color-text-muted);
+  background: #333333;
+  border-color: #333333;
   transform: translateY(-2px) scale(1.02);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.btn-submit:hover:not(:disabled) * {
+  color: #ffffff !important;
 }
 
 .btn-submit:active:not(:disabled) {
@@ -274,6 +308,15 @@
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
+}
+
+.btn-submit:disabled {
+  background: #000000;
+}
+
+.btn-submit:disabled * {
+  color: #ffffff !important;
+  opacity: 0.6;
 }
 
 .btn-submit:focus-visible {

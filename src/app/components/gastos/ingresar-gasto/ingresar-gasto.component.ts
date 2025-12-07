@@ -23,6 +23,10 @@ export class IngresarGastoComponent implements OnInit {
   restante = signal<number>(0);
   successMessage = signal<string>('');
 
+  get buttonText(): string {
+    return this.isSubmitting() ? 'Adding...' : 'Add Expense';
+  }
+
   constructor(private _presupuestoService: PresupuestoService) {}
 
   ngOnInit(): void {
@@ -166,6 +170,8 @@ export class IngresarGastoComponent implements OnInit {
 
   get restanteDisponible(): number {
     this.updateRestante();
-    return this.restante();
+    const restanteValue = this.restante();
+    // Asegurar que siempre devolvamos un número válido
+    return restanteValue >= 0 ? restanteValue : 0;
   }
 }
