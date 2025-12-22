@@ -1,0 +1,43 @@
+<section class="page">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">Transactions</p>
+      <h1 class="page-title">Manage Your Income & Expenses</h1>
+      <p class="page-subtitle">
+        Add, edit, or delete transactions. Filter by category, date, and search quickly.
+      </p>
+    </div>
+    <div class="header-search">
+      <ui-search 
+        placeholder="Search transactions..." 
+        [value]="searchQuery()"
+        (valueChange)="onSearchChange($event)"
+      ></ui-search>
+    </div>
+  </header>
+
+  <div class="page-grid">
+    <div class="left">
+      <app-transaction-form
+        [categories]="categories()"
+        [editing]="editing()"
+        (save)="handleSave($event)"
+        (cancelEdit)="cancelEdit()"
+      ></app-transaction-form>
+    </div>
+    <div class="right">
+      <app-transaction-filters
+        [categories]="categories()"
+        [value]="filtersSvc.filters()"
+        (change)="onFiltersChange($event)"
+      ></app-transaction-filters>
+      <app-transaction-list
+        [transactions]="filtered()"
+        [categories]="categories()"
+        (edit)="handleEdit($event)"
+        (remove)="handleRemove($event)"
+      ></app-transaction-list>
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,15 @@
+<section class="page">
+  <header class="page-header">
+    <p class="eyebrow">Categories</p>
+    <h1 class="page-title">Organize Your Categories & Icons</h1>
+    <p class="page-subtitle">Customize colors, icons, and budgets per category.</p>
+  </header>
+
+  <app-category-manager
+    [categories]="categories()"
+    (add)="add($event)"
+    (update)="update($event)"
+    (remove)="remove($event)"
+  ></app-category-manager>
+</section>
+

@@ -1,0 +1,155 @@
+.ui-input {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0; /* Permite que se ajuste dentro de contenedores flex/grid */
+}
+
+.ui-input__label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.02em;
+  word-break: break-word; /* Permite que labels largos se ajusten */
+}
+
+.ui-input__required {
+  color: var(--color-error);
+  margin-left: var(--space-1);
+}
+
+.ui-input__control {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-2);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2) var(--space-3);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast);
+  min-width: 0; /* Permite que se ajuste */
+  overflow: hidden; /* Previene que el contenido se salga */
+}
+
+/* Para inputs de fecha, permitir overflow visible para mostrar el año completo */
+.ui-input__control:has(input[type="date"]),
+.ui-input__control:has(input[type="time"]),
+.ui-input__control:has(input[type="datetime-local"]) {
+  overflow: visible; /* Permite que el contenido se muestre completamente */
+}
+
+.ui-input__control:has(textarea) {
+  align-items: start; /* Alinea arriba cuando hay textarea */
+  padding-top: var(--space-3); /* Más padding arriba para textarea */
+}
+
+.ui-input.size-lg .ui-input__control {
+  padding: var(--space-3) var(--space-4);
+}
+
+.ui-input__control:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) var(--opacity-medium), transparent);
+}
+
+.ui-input__icon {
+  color: var(--color-text-tertiary);
+}
+
+.ui-input__icon.right {
+  justify-self: end;
+}
+
+.ui-input__affix {
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+}
+
+.ui-input input,
+.ui-input textarea,
+.ui-input select {
+  width: 100%;
+  min-width: 0; /* Permite que se ajuste */
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family);
+}
+
+/* Inputs de fecha necesitan ancho mínimo para mostrar el año completo */
+.ui-input input[type="date"],
+.ui-input input[type="time"],
+.ui-input input[type="datetime-local"] {
+  min-width: 140px; /* Ancho mínimo para mostrar fecha completa */
+  overflow: visible; /* Permitir que se vea el contenido completo */
+  width: 100%; /* Asegurar que ocupe todo el ancho disponible */
+}
+
+/* Asegurar que el contenedor del input de fecha también permita el ancho necesario */
+.ui-input:has(input[type="date"]) .ui-input__control,
+.ui-input:has(input[type="time"]) .ui-input__control,
+.ui-input:has(input[type="datetime-local"]) .ui-input__control {
+  min-width: 0; /* Permite que se ajuste dentro del grid */
+  overflow: visible; /* Permite que el contenido se muestre completamente */
+}
+
+.ui-input input[type="text"],
+.ui-input input[type="number"],
+.ui-input input[type="email"],
+.ui-input input[type="password"],
+.ui-input input[type="search"] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ui-input input::placeholder,
+.ui-input textarea::placeholder {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; /* Placeholder en una línea */
+}
+
+.ui-input textarea {
+  resize: vertical;
+  min-width: 0; /* Permite que se ajuste */
+  max-width: 100%; /* No se sale del contenedor */
+  overflow-wrap: break-word; /* Rompe palabras largas */
+  word-wrap: break-word;
+}
+
+.ui-input select {
+  padding: var(--space-1) 0;
+}
+
+.ui-input.has-error .ui-input__control {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-error) var(--opacity-medium), transparent);
+}
+
+.ui-input.is-disabled .ui-input__control {
+  opacity: 0.65;
+  cursor: not-allowed;
+  background: var(--color-bg-tertiary);
+}
+
+.ui-input__helper {
+  margin: 0;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+}
+
+.ui-input__error {
+  margin: 0;
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+

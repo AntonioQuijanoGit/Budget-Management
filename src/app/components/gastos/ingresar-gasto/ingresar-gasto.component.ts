@@ -2,6 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PresupuestoService } from '../../../services/presupuesto.service';
+import { CardComponent } from '../../ui/card/card.component';
+import { InputComponent } from '../../ui/input/input.component';
+import { ButtonComponent } from '../../ui/button/button.component';
+import { BadgeComponent } from '../../ui/badge/badge.component';
 
 interface ErrorState {
   show: boolean;
@@ -11,7 +15,7 @@ interface ErrorState {
 @Component({
   selector: 'app-ingresar-gasto',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, CardComponent, InputComponent, ButtonComponent, BadgeComponent],
   templateUrl: './ingresar-gasto.component.html',
   styleUrl: './ingresar-gasto.component.css',
 })
@@ -25,6 +29,10 @@ export class IngresarGastoComponent implements OnInit {
 
   get buttonText(): string {
     return this.isSubmitting() ? 'Adding...' : 'Add Expense';
+  }
+
+  get errorMessage(): string {
+    return this.error().show ? this.error().message : '';
   }
 
   constructor(private _presupuestoService: PresupuestoService) {}

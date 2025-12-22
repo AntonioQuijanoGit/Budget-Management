@@ -1,0 +1,12 @@
+/* Using base .page styles from page-base.css */
+
+.page {
+  max-width: 960px; /* Categories can be narrower */
+}
+
+@media (max-width: 768px) { /* --breakpoint-md */
+  .page {
+    padding: var(--space-4) var(--space-3);
+  }
+}
+

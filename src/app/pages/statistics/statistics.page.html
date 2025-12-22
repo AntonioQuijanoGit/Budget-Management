@@ -1,0 +1,35 @@
+<section class="page">
+  <header class="page-header">
+    <p class="eyebrow">Statistics</p>
+    <h1 class="page-title">Detailed Analysis</h1>
+    <p class="page-subtitle">Top categories, averages, and quick trends.</p>
+  </header>
+
+  <div class="grid">
+    <div class="card summary">
+      <h3>Summary</h3>
+      <ul>
+        <li *ngFor="let s of summary()">
+          <span>{{ s.label }}</span>
+          <strong>{{ s.value }}</strong>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="row-head">
+        <h3>Top Expense Categories</h3>
+        <lucide-icon name="PieChart" [size]="18"></lucide-icon>
+      </div>
+      <ul>
+        <li *ngFor="let cat of topCategories()">
+          <span class="dot" [style.background]="cat.color"></span>
+          <span class="name">{{ cat.label }}</span>
+          <strong>{{ cat.value | number: '1.2-2' }} €</strong>
+        </li>
+      </ul>
+      <p *ngIf="topCategories().length === 0" class="empty">Add expenses to see the ranking.</p>
+    </div>
+  </div>
+</section>
+

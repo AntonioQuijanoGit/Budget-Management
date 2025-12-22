@@ -1,0 +1,25 @@
+<ui-card eyebrow="History" title="Transactions" [hoverable]="true">
+  <ui-badge variant="neutral" size="sm">
+    {{ transactions.length }} items
+  </ui-badge>
+
+  <div *ngIf="hasItems; else empty">
+    <div class="list">
+      <app-transaction-card
+        *ngFor="let tx of transactions"
+        [transaction]="tx"
+        [category]="findCategory(tx.categoryId)"
+        (edit)="edit.emit($event)"
+        (remove)="remove.emit($event)"
+      ></app-transaction-card>
+    </div>
+  </div>
+
+  <ng-template #empty>
+    <div class="empty">
+      <p class="empty-title">No Transactions</p>
+      <p class="empty-sub">Add your first expense or income to get started.</p>
+    </div>
+  </ng-template>
+</ui-card>
+

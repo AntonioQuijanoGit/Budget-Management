@@ -1,0 +1,100 @@
+<ui-card
+  [eyebrow]="editingTx ? 'Edit Transaction' : 'Add Transaction'"
+  [title]="editingTx ? ('Editing: ' + editingTx.description) : 'New Transaction'"
+  [hoverable]="true"
+  [class.editing-mode]="editingTx"
+>
+  <div class="badge-group">
+    <ui-badge [variant]="type === 'income' ? 'success' : 'primary'" size="sm">
+      {{ type === 'income' ? 'Income' : 'Expense' }}
+    </ui-badge>
+    <ui-badge variant="warning" size="sm" *ngIf="editingTx">
+      Editing Mode
+    </ui-badge>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" class="form-grid" aria-label="Transaction form">
+    <ui-input
+      label="Type"
+      name="type"
+      [options]="[
+        { label: 'Expense', value: 'expense' },
+        { label: 'Income', value: 'income' }
+      ]"
+      [(ngModel)]="type"
+    ></ui-input>
+
+    <ui-input
+      label="Category"
+      name="category"
+      [options]="categoryOptions"
+      [(ngModel)]="categoryId"
+      [error]="errors().categoryId"
+    ></ui-input>
+
+    <ui-input
+      label="Amount"
+      name="amount"
+      type="number"
+      [step]="0.01"
+      [min]="0"
+      [(ngModel)]="amount"
+      [required]="true"
+      [error]="errors().amount"
+      suffix="€"
+    ></ui-input>
+
+    <ui-input
+      label="Date"
+      name="date"
+      type="date"
+      [(ngModel)]="date"
+    ></ui-input>
+
+    <div class="full">
+      <ui-input
+        label="Description"
+        name="description"
+        placeholder="e.g. Groceries, Salary, Rent..."
+        [(ngModel)]="description"
+        [required]="true"
+        [error]="errors().description"
+      ></ui-input>
+    </div>
+
+    <div class="full">
+      <ui-input
+        label="Notes (optional)"
+        name="notes"
+        [textarea]="true"
+        [rows]="2"
+        placeholder="Add additional details..."
+        [(ngModel)]="notes"
+      ></ui-input>
+    </div>
+
+    <div class="full">
+      <ui-tags-input
+        label="Tags (optional)"
+        helper="Press Enter or type a comma to add tags"
+        [(ngModel)]="tags"
+        name="tags"
+      ></ui-tags-input>
+    </div>
+
+    <div class="actions">
+      <ui-button type="submit" variant="primary" [loading]="submitting()">
+        {{ editingTx ? 'Save Changes' : 'Add' }}
+      </ui-button>
+      <ui-button
+        type="button"
+        variant="ghost"
+        *ngIf="editingTx"
+        (buttonClick)="onCancelEdit()"
+      >
+        Cancel
+      </ui-button>
+    </div>
+  </form>
+</ui-card>
+

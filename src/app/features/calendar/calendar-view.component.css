@@ -1,0 +1,88 @@
+.card {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-md);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-5);
+}
+
+.title {
+  margin: var(--space-1) 0 0;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  gap: var(--space-2);
+}
+
+.cell {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
+  background: var(--color-bg-tertiary);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  text-align: center;
+}
+
+.amount {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.amount.has {
+  color: var(--color-error);
+  font-weight: var(--font-weight-semibold);
+}
+
+.calendar-actions {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.calendar-nav-btn {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+  transition: all var(--transition-base);
+  min-width: 32px;
+  height: 32px;
+}
+
+.calendar-nav-btn:hover {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-primary);
+}
+
+.calendar-nav-btn:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-primary) 65%, transparent);
+  outline-offset: 2px;
+}
+
+.calendar-nav-btn:active {
+  transform: scale(0.98);
+}
+

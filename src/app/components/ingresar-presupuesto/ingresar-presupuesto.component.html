@@ -1,65 +1,31 @@
-<div class="budget-container" role="main">
-  <div class="budget-card">
-    <header class="budget-header">
-      <h1 class="budget-title">Set Your Budget</h1>
-      <p class="budget-subtitle">Enter the total amount of money you want to track. This is NOT a single expense, but your total available budget.</p>
-    </header>
+<section class="budget-page" role="main">
+  <ui-card eyebrow="Budget" title="Define your budget" [hoverable]="true" padding="lg">
+    <p class="muted">
+      Enter the total amount available. Each transaction will reduce it to show you the remaining balance.
+    </p>
 
-    <form 
-      class="budget-form" 
-      (ngSubmit)="agregar()"
-      [attr.aria-label]="'Budget input form'"
-      novalidate
-    >
-      <div class="form-group">
-        <label for="presupuesto-input" class="form-label">
-          Total Budget Amount
-        </label>
-        <div class="input-wrapper">
-          <input
-            id="presupuesto-input"
-            type="number"
-            [ngModel]="cantidad"
-            (ngModelChange)="onInputChange($event)"
-            (keydown.enter)="agregar()"
-            class="form-input"
-            [class.input-error]="cantidadIncorrecta()"
-            placeholder="500.00"
-            min="0"
-            step="0.01"
-            aria-describedby="presupuesto-error presupuesto-help"
-            [attr.aria-invalid]="cantidadIncorrecta()"
-            aria-required="true"
-            aria-label="Budget amount in euros"
-            autofocus
-          />
-          <span class="input-currency" aria-hidden="true">EUR</span>
-        </div>
-        
-        <div 
-          id="presupuesto-error"
-          class="error-message"
-          role="alert"
-          aria-live="assertive"
-          [class.visible]="cantidadIncorrecta()"
-          *ngIf="cantidadIncorrecta()"
-        >
-          Budget must be greater than zero
-        </div>
-        
-        <p id="presupuesto-help" class="form-help">
-          <strong>Example:</strong> If you have 500€ available this month, enter 500.00. Then you can add individual expenses (like "Groceries: 25.50€") and the app will show you how much you have left.
-        </p>
-      </div>
+    <form class="stack" (ngSubmit)="agregar()" aria-label="Budget form" novalidate>
+      <ui-input
+        label="Total amount"
+        name="budget"
+        type="number"
+        [ngModel]="cantidad"
+        (ngModelChange)="onInputChange($event)"
+        [error]="cantidadIncorrecta() ? 'Budget must be greater than zero' : ''"
+        [min]="0"
+        [step]="0.01"
+        placeholder="500.00"
+        suffix="EUR"
+        [required]="true"
+      ></ui-input>
 
-      <button
-        type="submit"
-        class="btn-primary"
-        [disabled]="isSubmitting()"
-        [attr.aria-busy]="isSubmitting()"
-      >
-        Start Tracking Expenses
-      </button>
+      <p class="helper">
+        Example: if you have €500 for the month, enter 500.00. Each expense will subtract from the available amount.
+      </p>
+
+      <ui-button type="submit" variant="primary" [loading]="isSubmitting()">
+        Start
+      </ui-button>
     </form>
-  </div>
-</div>
+  </ui-card>
+</section>

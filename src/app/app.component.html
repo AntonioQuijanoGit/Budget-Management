@@ -1,1 +1,86 @@
-<router-outlet></router-outlet>
+<div class="app-shell" [class.legacy-route]="isLegacyRoute()">
+  <aside class="sidebar" *ngIf="!isLegacyRoute()" aria-label="Main navigation">
+    <div class="logo">Budget Pro</div>
+    <nav>
+      <a routerLink="/dashboard" routerLinkActive="active">
+        <lucide-icon name="Home" [size]="18"></lucide-icon>
+        Dashboard
+      </a>
+      <a routerLink="/transactions" routerLinkActive="active">
+        <lucide-icon name="List" [size]="18"></lucide-icon>
+        Transactions
+      </a>
+      <a routerLink="/categories" routerLinkActive="active">
+        <lucide-icon name="Tag" [size]="18"></lucide-icon>
+        Categories
+      </a>
+      <a routerLink="/budgets" routerLinkActive="active">
+        <lucide-icon name="Wallet" [size]="18"></lucide-icon>
+        Budgets
+      </a>
+      <a routerLink="/goals" routerLinkActive="active">
+        <lucide-icon name="Target" [size]="18"></lucide-icon>
+        Goals
+      </a>
+      <a routerLink="/recurring" routerLinkActive="active">
+        <lucide-icon name="Repeat" [size]="18"></lucide-icon>
+        Recurring
+      </a>
+      <a routerLink="/reminders" routerLinkActive="active">
+        <lucide-icon name="Bell" [size]="18"></lucide-icon>
+        Reminders
+      </a>
+      <a routerLink="/statistics" routerLinkActive="active">
+        <lucide-icon name="BarChart3" [size]="18"></lucide-icon>
+        Statistics
+      </a>
+      <a routerLink="/history" routerLinkActive="active">
+        <lucide-icon name="Calendar" [size]="18"></lucide-icon>
+        Calendar
+      </a>
+      <a routerLink="/settings" routerLinkActive="active">
+        <lucide-icon name="Settings" [size]="18"></lucide-icon>
+        Settings
+      </a>
+    </nav>
+  </aside>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <app-help-button (open)="openTutorial()"></app-help-button>
+  <app-tutorial-modal
+    [open]="tutorialOpen()"
+    [step]="tutorialStep()"
+    [steps]="tutorialSteps"
+    (close)="closeTutorial()"
+    (skip)="closeTutorial()"
+    (next)="nextStep()"
+    (prev)="prevStep()"
+  ></app-tutorial-modal>
+  <ui-toast-container></ui-toast-container>
+
+  <nav class="bottom-nav" *ngIf="!isLegacyRoute()" aria-label="Bottom navigation">
+    <a routerLink="/dashboard" routerLinkActive="active">
+      <lucide-icon name="Home" [size]="18"></lucide-icon>
+      <span>Dashboard</span>
+    </a>
+    <a routerLink="/transactions" routerLinkActive="active">
+      <lucide-icon name="List" [size]="18"></lucide-icon>
+      <span>Transactions</span>
+    </a>
+    <a routerLink="/budgets" routerLinkActive="active">
+      <lucide-icon name="Wallet" [size]="18"></lucide-icon>
+      <span>Budgets</span>
+    </a>
+    <a routerLink="/statistics" routerLinkActive="active">
+      <lucide-icon name="BarChart3" [size]="18"></lucide-icon>
+      <span>Stats</span>
+    </a>
+    <a routerLink="/settings" routerLinkActive="active">
+      <lucide-icon name="Settings" [size]="18"></lucide-icon>
+      <span>Settings</span>
+    </a>
+  </nav>
+</div>

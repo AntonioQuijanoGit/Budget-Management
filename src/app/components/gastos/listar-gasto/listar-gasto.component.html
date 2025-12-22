@@ -1,7 +1,7 @@
 <section class="expense-list-section" aria-labelledby="expense-list-title">
   <header class="expense-list-header">
-    <h2 id="expense-list-title" class="expense-list-title">Your Budget Status</h2>
-    <p class="expense-list-subtitle">See how much money you started with, how much you've spent, and how much you have left</p>
+    <h2 id="expense-list-title" class="expense-list-title">Budget status</h2>
+    <p class="expense-list-subtitle">See your starting budget, what you spent, and what remains.</p>
   </header>
 
   <!-- Budget Summary Cards -->
@@ -12,7 +12,7 @@
       [attr.aria-label]="'Remaining budget: ' + formatearMoneda(restante())"
     >
       <div class="budget-card-content">
-        <span class="budget-label">Available to Spend</span>
+        <span class="budget-label">Available to spend</span>
         <span class="budget-amount budget-amount--primary" aria-label="Remaining budget amount">
           {{ formatearMoneda(restante()) }}
         </span>
@@ -24,7 +24,7 @@
 
     <article class="budget-card-item" aria-label="Total budget">
       <div class="budget-card-content">
-        <span class="budget-label">Original Budget</span>
+        <span class="budget-label">Original budget</span>
         <span class="budget-amount" aria-label="Total budget amount">
           {{ formatearMoneda(presupuesto()) }}
         </span>
@@ -73,7 +73,7 @@
   <div class="expenses-container">
     <div class="expenses-header">
       <h3 class="expenses-title">
-        Your Expenses
+        Your expenses
         <span class="expenses-count" *ngIf="listGastos().length > 0">
           ({{ listGastos().length }})
         </span>
@@ -84,7 +84,7 @@
     <div class="empty-state" *ngIf="listGastos().length === 0" role="status" aria-live="polite">
       <h3 class="empty-state-title">No expenses yet</h3>
       <p class="empty-state-description">
-        Add your first expense using the form on the left. Each expense will be deducted from your remaining budget.
+        Add your first expense using the form. Each expense will be deducted from your remaining budget.
       </p>
     </div>
 

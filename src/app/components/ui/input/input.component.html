@@ -1,0 +1,72 @@
+<div class="ui-input" [ngClass]="['size-' + size, disabled ? 'is-disabled' : '', error ? 'has-error' : '']">
+  <label *ngIf="label" class="ui-input__label" [for]="controlId">
+    {{ label }}
+    <span *ngIf="required" aria-hidden="true" class="ui-input__required">*</span>
+  </label>
+
+  <div class="ui-input__control">
+    <span *ngIf="prefix" class="ui-input__affix prefix">{{ prefix }}</span>
+    <lucide-icon *ngIf="iconLeft" class="ui-input__icon left" [name]="iconLeft!" [size]="16" aria-hidden="true"></lucide-icon>
+
+    <ng-container *ngIf="options?.length; else textField">
+      <select
+        [id]="controlId"
+        [name]="name || controlId"
+        [value]="value ?? ''"
+        [disabled]="disabled"
+        [attr.aria-invalid]="!!error"
+        [attr.aria-describedby]="helper ? controlId + '-helper' : null"
+        (change)="handleInput($event)"
+        (focus)="handleFocus($event)"
+        (blur)="handleBlur($event)"
+      >
+        <option *ngFor="let opt of options" [value]="opt.value" [selected]="opt.value === value">{{ opt.label }}</option>
+      </select>
+    </ng-container>
+
+    <ng-template #textField>
+      <ng-container *ngIf="textarea; else inputField">
+        <textarea
+          [id]="controlId"
+          [name]="name || controlId"
+          [rows]="rows"
+          [placeholder]="placeholder"
+          [disabled]="disabled"
+          [attr.aria-invalid]="!!error"
+          [attr.aria-describedby]="helper ? controlId + '-helper' : null"
+          [value]="value ?? ''"
+          (input)="handleInput($event)"
+          (focus)="handleFocus($event)"
+          (blur)="handleBlur($event)"
+        ></textarea>
+      </ng-container>
+      <ng-template #inputField>
+        <input
+          [id]="controlId"
+          [name]="name || controlId"
+          [type]="type"
+          [placeholder]="placeholder"
+          [value]="value !== null && value !== undefined ? value : ''"
+          [disabled]="disabled"
+          [required]="required"
+          [attr.min]="min"
+          [attr.max]="max"
+          [attr.step]="step"
+          [attr.maxlength]="maxlength"
+          [attr.aria-invalid]="!!error"
+          [attr.aria-describedby]="helper ? controlId + '-helper' : null"
+          (input)="handleInput($event)"
+          (focus)="handleFocus($event)"
+          (blur)="handleBlur($event)"
+        />
+      </ng-template>
+    </ng-template>
+
+    <lucide-icon *ngIf="iconRight" class="ui-input__icon right" [name]="iconRight!" [size]="16" aria-hidden="true"></lucide-icon>
+    <span *ngIf="suffix" class="ui-input__affix suffix">{{ suffix }}</span>
+  </div>
+
+  <p *ngIf="error" class="ui-input__error" role="status">{{ error }}</p>
+  <p *ngIf="helper && !error" class="ui-input__helper" [id]="controlId + '-helper'">{{ helper }}</p>
+</div>
+

@@ -1,0 +1,22 @@
+<section class="page">
+  <header class="page-header">
+    <p class="eyebrow">Budgets</p>
+    <h1 class="page-title">Category Budget Control</h1>
+    <p class="page-subtitle">
+      Define monthly budgets per category and receive alerts when approaching limits.
+    </p>
+  </header>
+
+  <div class="grid">
+    <app-budget-card
+      *ngFor="let alert of alerts()"
+      [alert]="alert"
+      [category]="categoryFor(alert.categoryId)"
+    ></app-budget-card>
+  </div>
+
+  <div *ngIf="alerts().length === 0" class="empty">
+    Add categories with monthly budgets to see progress.
+  </div>
+</section>
+

@@ -1,0 +1,115 @@
+/* Using base .page styles from page-base.css */
+
+.page {
+  max-width: var(--page-max-width); /* 1280px - Estándar unificado */
+  gap: var(--space-6); /* Estandarizado con page-base */
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-group); /* 24px - Estandarizado */
+  width: 100%;
+  grid-auto-rows: 1fr;
+}
+
+.summary-grid > * {
+  min-width: 0;
+  width: 100%;
+}
+
+.summary-card {
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.summary-card .ui-card {
+  width: 100%;
+  flex: 1;
+}
+
+.summary-card:hover {
+  transform: translateY(-4px);
+}
+
+.summary-content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.summary-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.label {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.value {
+  margin: var(--space-2) 0 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+}
+
+.summary-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  transition: transform var(--transition-base);
+}
+
+.summary-card:hover .summary-icon {
+  transform: scale(1.1);
+}
+
+.widgets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-group); /* 24px - Estandarizado */
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-group); /* 24px - Estandarizado */
+}
+
+/* Responsive breakpoints using design tokens */
+@media (max-width: 1024px) {
+  .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .widgets-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: var(--space-6) var(--space-4);
+    gap: var(--space-5); /* Reducir gap en móvil */
+  }
+  .summary-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-item); /* 16px en móvil */
+  }
+  .charts-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-item); /* 16px en móvil */
+  }
+  .widgets-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-item); /* 16px en móvil */
+  }
+}
+

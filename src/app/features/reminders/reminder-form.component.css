@@ -1,0 +1,31 @@
+.reminder-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0; /* Permite que el contenido se ajuste */
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  min-width: 0; /* Evita overflow */
+}
+
+.form-row > * {
+  min-width: 0; /* Permite que los inputs se ajusten */
+}
+
+.form-actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+

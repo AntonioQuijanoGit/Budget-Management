@@ -1,0 +1,37 @@
+<section class="page">
+  <header class="page-header">
+    <p class="eyebrow">Dashboard</p>
+    <h1 class="page-title">Financial Overview</h1>
+    <p class="page-subtitle">Balance, category distribution, and temporal trends.</p>
+  </header>
+
+  <div class="summary-grid">
+    <ui-card *ngFor="let card of summaryCards()" [hoverable]="true" padding="md" class="summary-card">
+      <div class="summary-content">
+        <div class="summary-icon" [style.background]="card.accent + '15'" [style.color]="card.accent">
+          <lucide-icon [name]="card.label === 'Balance' ? 'PieChart' : card.label === 'Income' ? 'TrendingUp' : 'TrendingDown'" [size]="18"></lucide-icon>
+        </div>
+        <div class="summary-text">
+          <p class="label">{{ card.label }}</p>
+          <p class="value" [style.color]="card.accent">{{ card.value || '€0.00' }}</p>
+        </div>
+      </div>
+    </ui-card>
+  </div>
+
+  <app-quick-stats [transactions]="transactions()"></app-quick-stats>
+
+  <div class="widgets-grid">
+    <app-goals-preview [goals]="goals()"></app-goals-preview>
+    <app-upcoming-reminders [reminders]="reminders()"></app-upcoming-reminders>
+  </div>
+
+  <div class="charts-grid">
+    <app-category-chart
+      [transactions]="transactions()"
+      [categories]="categories()"
+    ></app-category-chart>
+    <app-trend-chart [transactions]="transactions()"></app-trend-chart>
+  </div>
+</section>
+

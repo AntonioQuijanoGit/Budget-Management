@@ -1,0 +1,27 @@
+<section class="card">
+  <header class="card-header">
+    <div>
+      <p class="eyebrow">Calendar</p>
+      <h3 class="title">{{ monthName }}</h3>
+    </div>
+    <div class="calendar-actions">
+      <button type="button" class="calendar-nav-btn" (click)="previousMonth()" aria-label="Previous month">
+        <lucide-icon name="ChevronLeft" [size]="18"></lucide-icon>
+      </button>
+      <button type="button" class="calendar-nav-btn" (click)="goToToday()" aria-label="Go to today">
+        Today
+      </button>
+      <button type="button" class="calendar-nav-btn" (click)="nextMonth()" aria-label="Next month">
+        <lucide-icon name="ChevronRight" [size]="18"></lucide-icon>
+      </button>
+    </div>
+  </header>
+
+  <div class="grid">
+    <div class="cell" *ngFor="let day of days">
+      <span class="date">{{ day.date | date: 'd' }}</span>
+      <span class="amount" [class.has]="day.total > 0">{{ day.total | number: '1.0-0' }} €</span>
+    </div>
+  </div>
+</section>
+

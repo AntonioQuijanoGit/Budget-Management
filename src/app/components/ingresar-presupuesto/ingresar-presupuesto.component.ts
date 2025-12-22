@@ -3,11 +3,14 @@ import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PresupuestoService } from '../../services/presupuesto.service';
 import { Router } from '@angular/router';
+import { CardComponent } from '../ui/card/card.component';
+import { InputComponent } from '../ui/input/input.component';
+import { ButtonComponent } from '../ui/button/button.component';
 
 @Component({
   selector: 'app-ingresar-presupuesto',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, CardComponent, InputComponent, ButtonComponent],
   templateUrl: './ingresar-presupuesto.component.html',
   styleUrl: './ingresar-presupuesto.component.css',
 })
@@ -39,28 +42,24 @@ export class IngresarPresupuestoComponent implements OnInit {
   }
 
   agregar(): void {
-    // Get the value directly from the input element to be sure
-    const input = document.querySelector('#presupuesto-input') as HTMLInputElement;
-    const inputValue = input ? parseFloat(input.value) : parseFloat(String(this.cantidad));
-    
+    const inputValue = typeof this.cantidad === 'number'
+      ? this.cantidad
+      : parseFloat(String(this.cantidad));
+
     if (inputValue && inputValue > 0 && !isNaN(inputValue)) {
       this.cantidad = inputValue;
       this.isSubmitting.set(true);
       this.cantidadIncorrecta.set(false);
-      
-      // Small delay for better UX feedback
+
       setTimeout(() => {
         this._presupuestoService.presupuesto = inputValue;
         this._presupuestoService.restante = inputValue;
         this.router.navigate(['/gastos']);
       }, 200);
-    } else {
-      this.cantidadIncorrecta.set(true);
-      // Focus back on input for accessibility
-      if (input) {
-        input.focus();
-      }
+      return;
     }
+
+    this.cantidadIncorrecta.set(true);
   }
 
   onKeyDown(event: KeyboardEvent): void {

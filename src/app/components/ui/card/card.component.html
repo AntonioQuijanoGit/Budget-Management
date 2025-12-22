@@ -1,0 +1,19 @@
+<article class="ui-card" [ngClass]="[hoverable ? 'is-hoverable' : '', 'pad-' + padding]">
+  <header *ngIf="title || subtitle || eyebrow" class="ui-card__header">
+    <div>
+      <p *ngIf="eyebrow" class="eyebrow">{{ eyebrow }}</p>
+      <h3 *ngIf="title" class="ui-card__title">{{ title }}</h3>
+      <p *ngIf="subtitle" class="ui-card__subtitle">{{ subtitle }}</p>
+    </div>
+    <div class="ui-card__actions">
+      <ng-content select="[card-actions]"></ng-content>
+    </div>
+  </header>
+  <div class="ui-card__body">
+    <ng-content></ng-content>
+  </div>
+  <footer class="ui-card__footer">
+    <ng-content select="[card-footer]"></ng-content>
+  </footer>
+</article>
+

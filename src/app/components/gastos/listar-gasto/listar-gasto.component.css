@@ -1,46 +1,49 @@
 /* ============================================
    EXPENSE LIST SECTION
    ============================================ */
+:host {
+  /* Using design system tokens directly - no local overrides */
+}
 .expense-list-section {
   width: 100%;
   max-width: 100%;
-  background: var(--color-bg);
+  background: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-md);
+  padding: var(--space-5);
   animation: fadeInUp 0.5s ease-out;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--shadow-md);
   transition: all var(--transition-base);
   overflow: hidden;
 }
 
 .expense-list-section:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-lg);
   transform: translateY(-2px);
 }
 
 .expense-list-header {
-  margin-bottom: var(--spacing-md);
-  padding-bottom: var(--spacing-sm);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--color-border);
 }
 
 .expense-list-title {
-  font-family: var(--font-display);
+  font-family: var(--font-family);
   font-size: clamp(1.875rem, 4vw, 2.25rem);
-  font-weight: 200;
-  color: var(--color-text);
-  margin: 0 0 var(--spacing-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-3);
   letter-spacing: -0.03em;
   line-height: 1.2;
 }
 
 .expense-list-subtitle {
-  font-size: 0.9375rem;
-  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
   margin: 0;
-  line-height: 1.65;
-  font-weight: 300;
+  line-height: var(--line-height-normal);
+  font-weight: var(--font-weight-regular);
   letter-spacing: 0.01em;
 }
 
@@ -50,16 +53,16 @@
 .budget-summary {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-md);
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
   width: 100%;
 }
 
 .budget-card-item {
-  background: var(--color-bg);
+  background: var(--color-bg-secondary);
   border: 1.5px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-md);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -67,7 +70,7 @@
   position: relative;
   overflow: hidden;
   animation: fadeInUp 0.4s ease-out backwards;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-sm);
   width: 100%;
   min-width: 0;
 }
@@ -85,15 +88,15 @@
 }
 
 .budget-card-item--highlight {
-  border: 2px solid var(--color-text);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--color-text-primary);
+  box-shadow: var(--shadow-lg);
   animation: fadeInUp 0.4s ease-out 0.1s backwards, pulse 2s ease-in-out 0.6s infinite;
 }
 
 .budget-card-item:hover {
   border-color: var(--color-text);
   transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-lg);
   transition: all var(--transition-base);
 }
 
@@ -104,51 +107,51 @@
 .budget-card-content {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xs);
+  gap: var(--space-2);
   flex: 1;
   min-width: 0;
   overflow: hidden;
 }
 
 .budget-label {
-  font-size: 0.75rem;
-  font-weight: 300;
-  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  font-family: var(--font-mono);
+  font-family: var(--font-family);
 }
 
 .budget-amount {
-  font-size: 1.75rem;
-  font-weight: 200;
-  font-family: var(--font-display);
-  color: var(--color-text);
-  line-height: 1.2;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
   letter-spacing: -0.03em;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
 
 .budget-amount--primary {
-  color: var(--color-text);
+  color: var(--color-text-primary);
 }
 
 .budget-percentage {
-  font-size: 0.6875rem;
-  color: var(--color-text-muted);
-  font-weight: 300;
-  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-regular);
+  font-family: var(--font-family);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 .budget-description {
-  font-size: 0.8125rem;
-  color: var(--color-text-muted);
-  font-weight: 300;
-  margin-top: var(--spacing-xs);
-  line-height: 1.4;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-regular);
+  margin-top: var(--space-2);
+  line-height: var(--line-height-normal);
 }
 
 
@@ -158,7 +161,7 @@
 }
 
 .budget-status--success .budget-amount {
-  color: var(--color-text);
+  color: var(--color-text-primary);
 }
 
 .budget-status--warning {
@@ -166,7 +169,7 @@
 }
 
 .budget-status--warning .budget-amount {
-  color: var(--color-text);
+  color: var(--color-text-primary);
 }
 
 .budget-status--danger {
@@ -174,7 +177,7 @@
 }
 
 .budget-status--danger .budget-amount {
-  color: var(--color-text);
+  color: var(--color-text-primary);
 }
 
 .budget-status--neutral {
@@ -185,7 +188,7 @@
    PROGRESS BAR
    ============================================ */
 .budget-progress {
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--space-5);
   animation: fadeIn var(--transition-base) ease-out;
 }
 
@@ -193,29 +196,29 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--space-3);
 }
 
 .progress-text {
-  font-size: 0.8125rem;
-  color: var(--color-text-muted);
-  font-weight: 300;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-regular);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-family: var(--font-mono);
+  font-family: var(--font-family);
 }
 
 .progress-percentage {
-  font-size: 0.9375rem;
-  color: var(--color-text);
-  font-weight: 500;
-  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+  font-family: var(--font-family);
 }
 
 .progress-bar-wrapper {
   width: 100%;
   height: 8px;
-  background: rgba(0, 0, 0, 0.08);
+  background: var(--color-bg-tertiary);
   border-radius: var(--radius-full);
   overflow: hidden;
   position: relative;
@@ -245,45 +248,45 @@
    EXPENSES CONTAINER
    ============================================ */
 .expenses-container {
-  background: var(--color-bg);
+  background: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-md);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-sm);
 }
 
 .expenses-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--spacing-sm);
-  padding-bottom: var(--spacing-sm);
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--color-border);
 }
 
 .expenses-title {
-  font-size: 1.125rem;
-  font-weight: 200;
-  color: var(--color-text);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
   margin: 0;
   letter-spacing: -0.01em;
 }
 
 .expenses-count {
-  font-weight: 200;
-  color: var(--color-text-muted);
-  font-size: 0.875rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
 }
 
 .expenses-total {
-  font-size: 0.9375rem;
-  color: var(--color-text-muted);
-  font-weight: 300;
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-regular);
 }
 
 .expenses-total strong {
-  color: var(--color-text);
-  font-weight: 400;
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
 }
 
 /* ============================================
@@ -291,29 +294,29 @@
    ============================================ */
 .empty-state {
   text-align: center;
-  padding: var(--spacing-xl) var(--spacing-md);
-  color: var(--color-text-muted);
+  padding: var(--space-8) var(--space-5);
+  color: var(--color-text-secondary);
   border: 1px dashed var(--color-border);
-  border-radius: var(--radius-md);
-  background: rgba(0, 0, 0, 0.01);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-tertiary);
 }
 
 
 .empty-state-title {
-  font-size: 1.25rem;
-  font-weight: 200;
-  color: var(--color-text);
-  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-3);
   letter-spacing: -0.01em;
 }
 
 .empty-state-description {
-  font-size: 0.9375rem;
-  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
   line-height: 1.6;
   max-width: 300px;
   margin: 0 auto;
-  font-weight: 200;
+  font-weight: var(--font-weight-bold);
 }
 
 /* ============================================
@@ -326,11 +329,11 @@
 }
 
 .expense-item {
-  background: var(--color-bg);
+  background: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-sm) var(--spacing-md);
-  margin-bottom: var(--spacing-xs);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-5);
+  margin-bottom: var(--space-2);
   transition: all var(--transition-base);
   animation: slideInRight 0.5s ease-out backwards, successBounce 0.6s ease-out 0.3s;
   position: relative;
@@ -377,48 +380,43 @@
 .expense-item:nth-child(n+6) {
   animation-delay: 0.3s;
 }
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
-}
 
 .expense-item {
-  background: var(--color-bg);
+  background: var(--color-bg-secondary);
   border: 1.5px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
   transition: all var(--transition-base);
   animation: slideIn var(--transition-base) ease-out;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--shadow-sm);
 }
 
 .expense-item:hover {
   transform: translateX(-4px) scale(1.01);
   border-color: var(--color-text);
-  background: rgba(0, 0, 0, 0.02);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: var(--color-bg-tertiary);
+  box-shadow: var(--shadow-lg);
 }
 
 .expense-item-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: var(--space-5);
 }
 
 .expense-item-info {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: var(--space-3);
   flex: 1;
   min-width: 0;
 }
 
 .expense-item-name {
-  font-weight: 300;
-  color: var(--color-text);
-  font-size: 1rem;
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -426,15 +424,15 @@
 }
 
 .expense-item-date {
-  color: var(--color-text-muted);
-  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
 }
 
 .expense-item-amount {
-  font-weight: 400;
-  color: var(--color-text);
-  font-size: 1.125rem;
-  font-family: var(--font-display);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-lg);
+  font-family: var(--font-family);
   white-space: nowrap;
   flex-shrink: 0;
   letter-spacing: -0.01em;
@@ -446,23 +444,23 @@
 @media (max-width: 1024px) {
   .budget-summary {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: var(--spacing-sm);
+    gap: var(--space-3);
   }
 
   .budget-amount {
-    font-size: 1.75rem;
+    font-size: var(--font-size-2xl);
   }
 }
 
 @media (max-width: 768px) {
   .expense-list-section {
-    padding: var(--spacing-md);
-    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    border-radius: var(--radius-lg);
   }
 
   .expense-list-header {
-    margin-bottom: var(--spacing-lg);
-    padding-bottom: var(--spacing-sm);
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-3);
   }
 
   .expense-list-title {
@@ -471,20 +469,20 @@
   }
 
   .expense-list-subtitle {
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
     word-wrap: break-word;
   }
 
   .budget-summary {
     grid-template-columns: 1fr;
-    gap: var(--spacing-sm);
+    gap: var(--space-3);
   }
 
   .budget-card-item {
-    padding: var(--spacing-md);
+    padding: var(--space-5);
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--spacing-sm);
+    gap: var(--space-3);
   }
 
   .budget-card-content {
@@ -492,101 +490,101 @@
   }
 
   .budget-amount {
-    font-size: 1.75rem;
+    font-size: var(--font-size-2xl);
     word-wrap: break-word;
   }
 
   .budget-description {
-    font-size: 0.75rem;
+    font-size: var(--font-size-sm);
     word-wrap: break-word;
   }
 
   .expenses-container {
-    padding: var(--spacing-md);
+    padding: var(--space-5);
   }
 
   .expenses-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--spacing-xs);
+    gap: var(--space-2);
   }
 
   .expense-item {
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: var(--space-3) var(--space-5);
   }
 
   .expense-item-content {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--spacing-xs);
+    gap: var(--space-2);
   }
 
   .expense-item-name {
-    font-size: 0.9375rem;
+    font-size: var(--font-size-base);
     width: 100%;
   }
 
   .expense-item-amount {
-    font-size: 1rem;
+    font-size: var(--font-size-base);
     align-self: flex-end;
   }
 
   .progress-labels {
-    font-size: 0.625rem;
+    font-size: var(--font-size-xs);
   }
 }
 
 @media (max-width: 480px) {
   .expense-list-section {
-    padding: var(--spacing-sm);
-    border-radius: var(--radius-md);
+    padding: var(--space-3);
+    border-radius: var(--radius-lg);
   }
 
   .expense-list-header {
-    padding-bottom: var(--spacing-xs);
+    padding-bottom: var(--space-2);
   }
 
   .budget-summary {
-    gap: var(--spacing-xs);
+    gap: var(--space-2);
   }
 
   .budget-card-item {
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: var(--space-3) var(--space-5);
   }
 
   .budget-label {
-    font-size: 0.6875rem;
+    font-size: var(--font-size-xs);
   }
 
   .budget-amount {
-    font-size: 1.5rem;
+    font-size: var(--font-size-xl);
   }
 
   .budget-description {
-    font-size: 0.6875rem;
+    font-size: var(--font-size-xs);
   }
 
   .expenses-container {
-    padding: var(--spacing-sm);
+    padding: var(--space-3);
   }
 
   .expense-item {
-    padding: var(--spacing-sm);
-    margin-bottom: var(--spacing-xs);
+    padding: var(--space-3);
+    margin-bottom: var(--space-2);
   }
 
   .expense-item-content {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--spacing-xs);
+    gap: var(--space-2);
   }
 
   .expense-item-name {
-    font-size: 0.875rem;
+    font-size: var(--font-size-sm);
   }
 
   .expense-item-amount {
-    font-size: 0.9375rem;
+    font-size: var(--font-size-base);
     align-self: flex-end;
   }
 
@@ -595,29 +593,8 @@
   }
 
   .progress-labels {
-    font-size: 0.5625rem;
-    margin-top: var(--spacing-xs);
-  }
-}
-  .budget-summary {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-sm);
-  }
-
-  .expenses-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--spacing-xs);
-  }
-
-  .expense-item-content {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--spacing-xs);
-  }
-
-  .expense-item-amount {
-    align-self: flex-end;
+    font-size: var(--font-size-xs);
+    margin-top: var(--space-2);
   }
 }
 

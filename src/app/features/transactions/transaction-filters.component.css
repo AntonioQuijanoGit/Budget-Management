@@ -1,0 +1,27 @@
+.filters-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.full {
+  grid-column: span 3;
+}
+
+@media (max-width: 1024px) {
+  .filters-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .full {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .filters-grid {
+    grid-template-columns: 1fr;
+  }
+  .full {
+    grid-column: span 1;
+  }
+}

@@ -1,0 +1,29 @@
+<div class="stats-grid">
+  <ui-card *ngFor="let stat of items" [hoverable]="true" padding="md" class="stat-card">
+    <p class="label">{{ stat.label }}</p>
+    <p class="value" [style.color]="stat.accent">{{ stat.value }}</p>
+  </ui-card>
+  
+  <ui-card *ngIf="transactions.length === 0" padding="lg" class="stat-empty-card">
+    <ui-empty-state
+      icon="TrendingUp"
+      title="No transactions yet"
+      description="Start by adding income and expenses to see your financial metrics."
+    >
+      <a routerLink="/transactions" class="empty-action-link">
+        <lucide-icon name="Plus" [size]="16"></lucide-icon>
+        Add first transaction
+      </a>
+    </ui-empty-state>
+  </ui-card>
+  
+  <ui-card *ngIf="transactions.length > 0" padding="sm" class="stat-extra">
+    <span>Transactions: {{ transactions.length }}</span>
+  </ui-card>
+  <ui-card *ngIf="transactions.length > 0" padding="sm" class="stat-extra">
+    <span>Average expense: {{
+      (totalExpense / (transactions.length || 1)) | number:'1.2-2'
+    }} €</span>
+  </ui-card>
+</div>
+

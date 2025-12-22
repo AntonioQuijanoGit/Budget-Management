@@ -1,0 +1,76 @@
+/* ============================================
+   PAGE BASE - Sistema unificado para todas las páginas
+   ============================================ */
+
+/* Container base para todas las páginas */
+.page {
+  width: 100%;
+  max-width: var(--page-max-width); /* 1280px - Estándar unificado */
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-group); /* 24px - Estandarizado */
+  min-height: calc(100vh - 200px);
+}
+
+/* Header de página unificado */
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.page-title {
+  margin: 0;
+  font-size: clamp(var(--font-size-xl), 3vw, var(--font-size-2xl));
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+  line-height: var(--line-height-tight);
+}
+
+.page-subtitle {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body); /* 1.5 - mejor legibilidad */
+  max-width: 65ch; /* Limitar longitud de línea para legibilidad */
+}
+
+.eyebrow {
+  margin: 0 0 var(--space-1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Grids comunes */
+.page-grid {
+  display: grid;
+  gap: var(--space-6);
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .page {
+    padding: var(--space-6) var(--space-4);
+  }
+}
+
+@media (max-width: 768px) { /* --breakpoint-md */
+  .page {
+    padding: var(--space-5) var(--space-4);
+    gap: var(--space-item); /* 16px - reducido en móvil */
+  }
+  
+  .page-title {
+    font-size: clamp(var(--font-size-lg), 4vw, var(--font-size-xl));
+  }
+}
+

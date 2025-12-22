@@ -1,0 +1,74 @@
+<section class="page">
+  <header class="page-header">
+    <p class="eyebrow">Settings</p>
+    <h1 class="page-title">Settings</h1>
+    <p class="page-subtitle">Customize your experience and manage your preferences.</p>
+  </header>
+
+  <div class="settings-grid">
+    <ui-card eyebrow="General" title="Preferences" [hoverable]="true" padding="md">
+      <div class="setting-item">
+        <label>
+          <span class="setting-label">Currency</span>
+          <select [(ngModel)]="currency" (ngModelChange)="onCurrencyChange()" class="setting-input">
+            <option value="EUR">EUR (€)</option>
+            <option value="USD">USD ($)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="JPY">JPY (¥)</option>
+          </select>
+        </label>
+      </div>
+      <div class="setting-item">
+        <label>
+          <span class="setting-label">Language / Locale</span>
+          <select [(ngModel)]="locale" (ngModelChange)="onLocaleChange()" class="setting-input">
+            <option value="es-ES">Español (España)</option>
+            <option value="en-US">English (US)</option>
+            <option value="en-GB">English (UK)</option>
+            <option value="fr-FR">Français</option>
+          </select>
+        </label>
+      </div>
+    </ui-card>
+
+    <ui-card eyebrow="Data" title="Management" [hoverable]="true" padding="md">
+      <div class="setting-item">
+        <p class="setting-description">Export your data for backup or analysis.</p>
+        <div class="setting-actions">
+          <ui-button variant="secondary" (buttonClick)="exportData()" iconLeft="Download">
+            Export CSV
+          </ui-button>
+          <ui-button variant="ghost" (buttonClick)="exportJSON()" iconLeft="FileJson">
+            Export JSON
+          </ui-button>
+        </div>
+      </div>
+      <div class="setting-item">
+        <p class="setting-description">Import data from a JSON file.</p>
+        <ui-button variant="secondary" (buttonClick)="importData()" iconLeft="Upload">
+          Import Data
+        </ui-button>
+      </div>
+    </ui-card>
+
+    <ui-card eyebrow="System" title="Information" [hoverable]="true" padding="md">
+      <div class="setting-item">
+        <p class="setting-description">
+          <strong>Persistence:</strong> LocalStorage (ready for backend)
+        </p>
+        <p class="setting-description">
+          <strong>Version:</strong> 1.0.0
+        </p>
+        <p class="setting-description">
+          <strong>Framework:</strong> Angular 18
+        </p>
+      </div>
+      <div class="setting-item">
+        <ui-button variant="danger" (buttonClick)="clearAllData()" iconLeft="Trash2">
+          Clear All Data
+        </ui-button>
+      </div>
+    </ui-card>
+  </div>
+</section>
+

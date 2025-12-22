@@ -1,0 +1,19 @@
+<article class="budget-card" [ngClass]="status">
+  <header class="budget-header">
+    <div class="info">
+      <p class="eyebrow">Budget</p>
+      <h4 class="title">{{ category?.name || alert.categoryId }}</h4>
+    </div>
+    <span class="pill">
+      <lucide-icon name="PieChart" [size]="16"></lucide-icon>
+      {{ ratioPct | number: '1.0-0' }}%
+    </span>
+  </header>
+  <div class="progress">
+    <div class="bar" [style.width.%]="ratioPct"></div>
+  </div>
+  <p class="meta">
+    {{ format(alert.spent) }} used of {{ format(alert.limit) }}
+  </p>
+</article>
+

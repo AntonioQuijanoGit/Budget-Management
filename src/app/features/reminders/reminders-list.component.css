@@ -1,0 +1,128 @@
+.reminders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-6);
+}
+
+.reminder-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  opacity: 1;
+  transition: opacity var(--transition-base);
+}
+
+.reminder-card.completed {
+  opacity: 0.6;
+}
+
+.reminder-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.reminder-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.reminder-icon.priority-low {
+  background: color-mix(in srgb, var(--color-success) var(--opacity-subtle), transparent);
+  color: var(--color-success);
+}
+
+.reminder-icon.priority-medium {
+  background: color-mix(in srgb, var(--color-warning) var(--opacity-subtle), transparent);
+  color: var(--color-warning);
+}
+
+.reminder-icon.priority-high {
+  background: color-mix(in srgb, var(--color-error) var(--opacity-subtle), transparent);
+  color: var(--color-error);
+}
+
+.reminder-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.reminder-title {
+  margin: 0 0 var(--space-1);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.reminder-description {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-normal);
+}
+
+.reminder-badges {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  align-items: flex-end;
+}
+
+.reminder-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.reminder-actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.empty-state {
+  text-align: center;
+}
+
+.empty-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-8) var(--space-4);
+}
+
+.empty-icon {
+  color: var(--color-text-tertiary);
+  opacity: 0.5;
+}
+
+.empty-content h3 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.empty-content p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  max-width: 400px;
+}
+
+

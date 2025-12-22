@@ -1,0 +1,121 @@
+.tutorial-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  display: grid;
+  place-items: center;
+  z-index: 40;
+  padding: var(--space-7);
+}
+
+.tutorial-card {
+  position: relative;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-radius: var(--radius-xl);
+  max-width: 640px;
+  width: 100%;
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-7);
+  border: 1px solid var(--color-border);
+}
+
+.tutorial-progress {
+  width: 100%;
+  height: 6px;
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.tutorial-bar {
+  height: 100%;
+  background: var(--color-blue);
+  width: 0;
+  transition: width var(--transition-med);
+}
+.tutorial-body {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--space-5);
+  align-items: center;
+}
+.tutorial-figure {
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-4);
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-semibold);
+  overflow: hidden;
+}
+.tutorial-figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.tutorial-text h2 {
+  margin: var(--space-1) 0 var(--space-2);
+  font-size: var(--font-size-lg);
+}
+.tutorial-text .desc {
+  margin: 0;
+  color: var(--color-text-muted);
+  line-height: var(--line-normal);
+}
+.tutorial-dots {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: center;
+}
+.tutorial-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-border);
+  transition: width var(--transition-fast), background var(--transition-fast);
+}
+.tutorial-dots span.active {
+  width: 18px;
+  background: var(--color-blue);
+}
+.tutorial-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.tutorial-actions .spacer {
+  flex: 1;
+  min-width: var(--space-2);
+}
+
+/* Asegurar que los botones mantengan tamaño consistente */
+.tutorial-actions ui-button {
+  flex-shrink: 0;
+}
+.close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-alt);
+  border-radius: var(--radius-full);
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+@media (max-width: 1023px) {
+  .tutorial-body {
+    grid-template-columns: 1fr;
+  }
+}
+

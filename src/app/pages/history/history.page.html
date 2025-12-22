@@ -1,0 +1,27 @@
+<section class="page">
+  <header class="page-header">
+    <p class="eyebrow">History</p>
+    <h1 class="page-title">Calendar & Transactions</h1>
+    <p class="page-subtitle">View monthly expenses and review your transactions.</p>
+  </header>
+
+  <div class="grid">
+    <app-calendar-view [transactions]="transactions()"></app-calendar-view>
+
+    <div class="card list">
+      <div class="list-head">
+        <h3>Recent Transactions</h3>
+        <lucide-icon name="History" [size]="18"></lucide-icon>
+      </div>
+      <div class="items">
+        <app-transaction-card
+          *ngFor="let tx of transactions() | slice:0:10"
+          [transaction]="tx"
+          [category]="category(tx.categoryId)"
+        ></app-transaction-card>
+      </div>
+      <p *ngIf="transactions().length === 0" class="empty">You don't have any transactions yet.</p>
+    </div>
+  </div>
+</section>
+

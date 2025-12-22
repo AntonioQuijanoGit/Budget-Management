@@ -1,0 +1,36 @@
+/* Using base .page styles from page-base.css */
+
+.page-grid {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.left {
+  position: sticky;
+  top: var(--space-8);
+}
+
+.right {
+  min-width: 0;
+}
+
+@media (max-width: 1024px) { /* --breakpoint-lg */
+  .page-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .left {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) { /* --breakpoint-md */
+  .page-grid {
+    gap: var(--space-3);
+  }
+}
+
+

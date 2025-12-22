@@ -1,0 +1,35 @@
+<div
+  class="ui-modal__backdrop"
+  *ngIf="open"
+  (click)="handleBackdrop($event)"
+  aria-hidden="true"
+>
+  <div
+    #modalElement
+    class="ui-modal"
+    [ngClass]="'size-' + size"
+    role="dialog"
+    [attr.aria-label]="title || 'Modal'"
+    aria-modal="true"
+  >
+    <header class="ui-modal__header">
+      <div>
+        <p *ngIf="description" class="ui-modal__eyebrow">{{ description }}</p>
+        <h3 *ngIf="title" class="ui-modal__title">{{ title }}</h3>
+      </div>
+      <button class="ui-modal__close" type="button" (click)="close.emit()" aria-label="Close">
+        ✕
+      </button>
+    </header>
+
+    <div class="ui-modal__body">
+      <ng-content></ng-content>
+    </div>
+
+    <footer class="ui-modal__footer">
+      <ng-content select="[modal-footer]"></ng-content>
+    </footer>
+  </div>
+</div>
+
+

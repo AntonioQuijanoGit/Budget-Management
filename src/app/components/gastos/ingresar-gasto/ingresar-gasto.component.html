@@ -1,101 +1,48 @@
-<section class="expense-form-section" aria-labelledby="expense-form-title">
-  <header class="expense-form-header">
-    <h2 id="expense-form-title" class="expense-form-title">Add an Expense</h2>
-    <p class="expense-form-subtitle">Record something you spent money on (like "Coffee: 3.50€" or "Gas: 45.00€"). This amount will be subtracted from your remaining budget.</p>
-  </header>
+<section class="expense-card" aria-labelledby="expense-form-title">
+  <ui-card eyebrow="Expense" title="Add an expense" [hoverable]="true">
+    <p class="muted">Record what you spent; it will be automatically subtracted from your budget.</p>
 
-  <form 
-    class="expense-form" 
-    (ngSubmit)="agregarGasto()"
-    [attr.aria-label]="'Expense input form'"
-    novalidate
-  >
-    <div 
-      class="error-banner"
-      role="alert"
-      aria-live="assertive"
-      [class.visible]="error().show"
-      *ngIf="error().show"
-    >
-      <span class="error-text">{{ error().message }}</span>
+    <div class="banner error" *ngIf="error().show" role="alert" aria-live="assertive">
+      {{ error().message }}
+    </div>
+    <div class="banner success" *ngIf="successMessage()" role="status" aria-live="polite">
+      {{ successMessage() }}
     </div>
 
-    <div 
-      class="success-banner"
-      role="status"
-      aria-live="polite"
-      [class.visible]="successMessage() !== ''"
-      *ngIf="successMessage() !== ''"
-    >
-      <span class="success-text">{{ successMessage() }}</span>
-    </div>
-
-    <div class="form-group">
-      <label for="nombre-gasto" class="form-label">
-        Expense Name
-        <span class="sr-only">required</span>
-      </label>
-      <input
-        id="nombre-gasto"
-        type="text"
+    <form class="stack" (ngSubmit)="agregarGasto()" aria-label="Expense input form" novalidate>
+      <ui-input
+        label="Expense name"
+        name="nombre"
         [ngModel]="nombreGasto()"
         (ngModelChange)="onNombreChange($event)"
-        (keydown)="onKeyDown($event)"
-        data-input="nombre"
-        class="form-input"
-        [class.input-error]="error().show && nombreGasto().trim() === ''"
+        [error]="errorMessage && nombreGasto().trim() === '' ? errorMessage : ''"
         placeholder="Groceries, Coffee, Gas..."
-        maxlength="50"
-        aria-describedby="nombre-help"
-        [attr.aria-invalid]="error().show && nombreGasto().trim() === ''"
-        aria-required="true"
-        autocomplete="off"
-      />
-      <p id="nombre-help" class="form-help">
-        Briefly describe the type of expense
-      </p>
-    </div>
+        [maxlength]="50"
+        [required]="true"
+      ></ui-input>
 
-    <div class="form-group">
-      <label for="cantidad-gasto" class="form-label">
-        Amount
-        <span class="sr-only">in euros, required</span>
-      </label>
-      <div class="input-wrapper">
-        <input
-          id="cantidad-gasto"
-          type="number"
-          [ngModel]="cantidad()"
-          (ngModelChange)="onCantidadChange($event)"
-          (keydown)="onKeyDown($event)"
-          data-input="cantidad"
-          class="form-input"
-          [class.input-error]="error().show"
-          placeholder="0.00"
-          min="0"
-          [max]="restanteDisponible"
-          step="0.01"
-          aria-describedby="cantidad-help restante-info"
-          [attr.aria-invalid]="error().show"
-          aria-required="true"
-        />
-        <span class="input-currency" aria-hidden="true">EUR</span>
-      </div>
-      <p id="cantidad-help" class="form-help">
-        Available: 
-        <strong id="restante-info" class="restante-amount">
-          {{ (restanteDisponible | number:'1.2-2') || '0.00' }} EUR
-        </strong>
-      </p>
-    </div>
+      <ui-input
+        label="Amount"
+        name="cantidad"
+        type="number"
+        [ngModel]="cantidad()"
+        (ngModelChange)="onCantidadChange($event)"
+        [error]="errorMessage"
+        placeholder="0.00"
+        [min]="0"
+        [max]="restanteDisponible"
+        [step]="0.01"
+        suffix="EUR"
+        [required]="true"
+      ></ui-input>
 
-    <button
-      type="submit"
-      class="btn-submit"
-      [disabled]="isSubmitting()"
-      [attr.aria-busy]="isSubmitting()"
-    >
-      Add Expense
-    </button>
-  </form>
+      <p class="helper">
+        Available: <strong>{{ (restanteDisponible | number:'1.2-2') || '0.00' }} EUR</strong>
+      </p>
+
+      <ui-button type="submit" variant="primary" [loading]="isSubmitting()">
+        Add Expense
+      </ui-button>
+    </form>
+  </ui-card>
 </section>

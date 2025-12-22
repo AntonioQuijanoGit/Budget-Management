@@ -1,0 +1,15 @@
+/* Using base .page styles from page-base.css */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-group); /* 24px - Estandarizado */
+}
+
+.empty {
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  background: var(--color-bg-tertiary);
+}
+

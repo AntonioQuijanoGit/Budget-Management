@@ -1,0 +1,29 @@
+<article class="tx-card">
+  <div class="tx-main">
+    <div class="tx-icon" [style.background]="category?.color || 'var(--color-bg-tertiary)'">
+      <lucide-icon [name]="category?.icon || 'CreditCard'" [size]="18"></lucide-icon>
+    </div>
+    <div class="tx-info">
+      <p class="tx-desc">{{ transaction.description }}</p>
+      <p class="tx-meta">
+        <span>{{ category?.name || 'Uncategorized' }}</span>
+        <span>•</span>
+        <span>{{ transaction.date | date: 'mediumDate' }}</span>
+      </p>
+    </div>
+  </div>
+  <div class="tx-actions">
+    <div class="tx-amount" [class.income]="transaction.type === 'income'">
+      {{ amountLabel }}
+    </div>
+    <div class="tx-buttons">
+      <button class="icon-btn" (click)="onEdit()" aria-label="Edit transaction">
+        <lucide-icon name="Pencil" [size]="16"></lucide-icon>
+      </button>
+      <button class="icon-btn danger" (click)="onRemove()" aria-label="Delete transaction">
+        <lucide-icon name="Trash2" [size]="16"></lucide-icon>
+      </button>
+    </div>
+  </div>
+</article>
+

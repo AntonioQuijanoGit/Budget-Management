@@ -1,0 +1,27 @@
+<section class="page">
+  <header class="page-header">
+    <p class="eyebrow">Recurring</p>
+    <h1 class="page-title">Recurring Transactions</h1>
+    <p class="page-subtitle">Manage transactions that repeat automatically.</p>
+  </header>
+
+  <div class="page-grid">
+    <div class="left">
+      <app-recurring-form
+        [editingRecurring]="editing() || undefined"
+        [categories]="categories()"
+        (save)="handleSave($event)"
+        (cancel)="cancelEdit()"
+      ></app-recurring-form>
+    </div>
+    <div class="right">
+      <app-recurring-list
+        [recurring]="recurring()"
+        (edit)="handleEdit($event)"
+        (toggle)="handleToggle($event)"
+        (remove)="handleRemove($event)"
+      ></app-recurring-list>
+    </div>
+  </div>
+</section>
+

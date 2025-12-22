@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, signal, computed, ChangeDetectorRef } fro
 import { PresupuestoService } from '../../../services/presupuesto.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { formatCurrency } from '../../../utils/currency';
 
 interface Gasto {
   nombre: string;
@@ -52,11 +53,11 @@ export class ListarGastoComponent implements OnInit, OnDestroy {
     private _presupuestoService: PresupuestoService,
     private cdr: ChangeDetectorRef
   ) {
-    // Inicializar la suscripción
-    this.subscription = this._presupuestoService.getGastos().subscribe((data) => {
-      if (data && data.nombre && data.cantidad) {
-        // Agregar el nuevo gasto al principio de la lista
-        this.listGastos.update(gastos => [data, ...gastos]);
+    // Inicializar la suscripción a gastos (ahora retorna array)
+    this.subscription = this._presupuestoService.getGastos().subscribe((gastosArray) => {
+      if (Array.isArray(gastosArray)) {
+        // Actualizar lista completa
+        this.listGastos.set(gastosArray);
         
         // Sincronizar valores del servicio
         this.restante.set(this._presupuestoService.restante);
@@ -69,8 +70,18 @@ export class ListarGastoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // Cargar valores iniciales
     this.presupuesto.set(this._presupuestoService.presupuesto);
     this.restante.set(this._presupuestoService.restante);
+    
+    // Cargar gastos iniciales - la suscripción en constructor ya maneja esto
+    // pero necesitamos el valor inicial
+    this._presupuestoService.getGastos().subscribe(gastos => {
+      if (Array.isArray(gastos)) {
+        this.listGastos.set(gastos);
+      }
+      this.cdr.detectChanges();
+    });
     
     // Forzar detección de cambios inicial
     this.cdr.detectChanges();
@@ -88,11 +99,8 @@ export class ListarGastoComponent implements OnInit, OnDestroy {
   }
 
   formatearMoneda(cantidad: number): string {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'EUR',
-      minimumFractionDigits: 2,
-    }).format(cantidad);
+    // Usa formatCurrency que lee configuración de ConfigService desde localStorage
+    return formatCurrency(cantidad);
   }
 
   trackByIndex(index: number): number {

@@ -1,0 +1,36 @@
+.help-button {
+  position: fixed;
+  right: var(--space-6); /* 24px - usando token */
+  bottom: var(--space-6); /* 24px - parte inferior derecha */
+  width: 48px;
+  height: 48px; /* Hacer cuadrado para mejor proporción */
+  border-radius: var(--radius-full); /* Circular */
+  border: none;
+  background: var(--color-primary);
+  color: var(--color-bg-primary);
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-lg); /* Sombra más prominente */
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  z-index: 30;
+}
+
+.help-button:hover {
+  transform: scale(1.08);
+  box-shadow: var(--shadow-xl);
+}
+
+.help-button:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-primary) 65%, transparent);
+  outline-offset: 2px;
+}
+
+/* En responsive, posicionar por encima del bottom-nav */
+@media (max-width: 1024px) { /* --breakpoint-lg */
+  .help-button {
+    bottom: 80px; /* Espacio suficiente para el bottom-nav (aprox 60px) + margen */
+    right: var(--space-4); /* 16px en móvil para mejor accesibilidad */
+  }
+}
+

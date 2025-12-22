@@ -1,0 +1,16 @@
+<button
+  class="ui-btn"
+  [ngClass]="[variantClass, sizeClass, block ? 'is-block' : '', loading ? 'is-loading' : '']"
+  [attr.type]="type"
+  [disabled]="disabled || loading"
+  (click)="onClick($event)"
+>
+  <span class="spinner" *ngIf="loading" aria-hidden="true"></span>
+  <lucide-icon *ngIf="iconLeft" class="icon left" [name]="iconLeft!" [size]="16" aria-hidden="true"></lucide-icon>
+  <span class="label">
+    <ng-content></ng-content>
+  </span>
+  <lucide-icon *ngIf="iconRight" class="icon right" [name]="iconRight!" [size]="16" aria-hidden="true"></lucide-icon>
+</button>
+
+

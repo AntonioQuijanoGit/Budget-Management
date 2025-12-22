@@ -1,0 +1,61 @@
+<ui-card eyebrow="Filters" title="Refine Results" [hoverable]="true">
+  <div class="filters-grid">
+    <ui-input
+      label="Type"
+      [options]="typeOptions"
+      [ngModel]="value?.type"
+      (ngModelChange)="updateField('type', $event)"
+    ></ui-input>
+
+    <ui-input
+      label="Category"
+      [options]="categoryOptions"
+      [ngModel]="value?.categoryId"
+      (ngModelChange)="updateField('categoryId', $event)"
+    ></ui-input>
+
+    <ui-input
+      label="Min"
+      type="number"
+      [step]="0.01"
+      [ngModel]="value?.min"
+      (ngModelChange)="updateField('min', $event)"
+      suffix="€"
+    ></ui-input>
+
+    <ui-input
+      label="Max"
+      type="number"
+      [step]="0.01"
+      [ngModel]="value?.max"
+      (ngModelChange)="updateField('max', $event)"
+      suffix="€"
+    ></ui-input>
+
+    <ui-input
+      label="From"
+      type="date"
+      [ngModel]="value?.from"
+      (ngModelChange)="updateField('from', $event)"
+    ></ui-input>
+
+    <ui-input
+      label="To"
+      type="date"
+      [ngModel]="value?.to"
+      (ngModelChange)="updateField('to', $event)"
+    ></ui-input>
+
+    <div class="full">
+      <ui-input
+        label="Search"
+        type="search"
+        placeholder="Description or tags"
+        [ngModel]="value?.q"
+        (ngModelChange)="updateField('q', $event)"
+        iconLeft="Search"
+      ></ui-input>
+    </div>
+  </div>
+</ui-card>
+

@@ -1,0 +1,111 @@
+<!-- Sección principal: Lista de categorías -->
+<div class="categories-section">
+  <div class="section-title-bar">
+    <h2>Your Categories</h2>
+    <span class="total-count">{{ categories.length }} total</span>
+  </div>
+
+  <!-- Lista de categorías -->
+  <div class="categories-list" *ngIf="categories.length > 0; else noCategories">
+    <div class="category-row" *ngFor="let cat of categories">
+      <div class="category-display">
+        <div class="category-icon-box" [style.background-color]="cat.color + '20'">
+          <lucide-icon [name]="cat.icon" [size]="20" [style.color]="cat.color"></lucide-icon>
+        </div>
+        <div class="category-info">
+          <span class="category-label">{{ cat.name }}</span>
+          <span class="category-tag">{{ cat.type }}</span>
+        </div>
+      </div>
+      <button 
+        type="button" 
+        class="remove-button" 
+        (click)="remove.emit(cat.id)"
+        [attr.aria-label]="'Remove category ' + cat.name"
+      >
+        Remove
+      </button>
+    </div>
+  </div>
+
+  <ng-template #noCategories>
+    <div class="empty-message">
+      <p>You don't have any categories yet.</p>
+      <p>Create one below to get started.</p>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Sección de creación: Formulario simple -->
+<div class="create-section">
+  <h2>Create New Category</h2>
+  <p class="section-description">Fill in the details to add a new category</p>
+
+  <form class="create-form" (ngSubmit)="onSubmit()">
+    <div class="form-field">
+      <ui-input 
+        label="Category Name" 
+        [(ngModel)]="name" 
+        name="name" 
+        [required]="true" 
+        placeholder="e.g. Groceries, Salary, Rent"
+      ></ui-input>
+    </div>
+
+    <div class="form-field">
+      <ui-input 
+        label="Type" 
+        name="type" 
+        [options]="typeOptions" 
+        [(ngModel)]="type"
+      ></ui-input>
+    </div>
+
+    <div class="form-row">
+      <div class="form-field">
+        <ui-input 
+          label="Icon Name" 
+          [(ngModel)]="icon" 
+          name="icon" 
+          placeholder="Tag"
+          helper="e.g. UtensilsCrossed, Car, Tag, Film, Coffee, Bus, Briefcase"
+        ></ui-input>
+      </div>
+
+      <div class="form-field">
+        <ui-input 
+          label="Color" 
+          name="color" 
+          [(ngModel)]="color" 
+          type="text" 
+          placeholder="#3b82f6"
+        ></ui-input>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <ui-input
+        label="Monthly Budget (Optional)"
+        type="number"
+        step="0.01"
+        min="0"
+        [(ngModel)]="budgetMonthly"
+        name="budget"
+        placeholder="0.00"
+        suffix="€"
+      ></ui-input>
+    </div>
+
+    <div class="form-actions">
+      <ui-button 
+        variant="primary" 
+        type="submit" 
+        [block]="true"
+        [loading]="submitting"
+        [disabled]="!name || !name.trim()"
+      >
+        Create Category
+      </ui-button>
+    </div>
+  </form>
+</div>

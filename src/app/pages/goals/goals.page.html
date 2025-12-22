@@ -1,0 +1,25 @@
+<section class="page">
+  <header class="page-header">
+    <p class="eyebrow">Goals</p>
+    <h1 class="page-title">Financial Goals</h1>
+    <p class="page-subtitle">Set and achieve your financial objectives.</p>
+  </header>
+
+  <div class="page-grid">
+    <div class="left">
+      <app-goal-form
+        [editingGoal]="editing() || undefined"
+        (save)="handleSave($event)"
+        (cancel)="cancelEdit()"
+      ></app-goal-form>
+    </div>
+    <div class="right">
+      <app-goals-list
+        [goals]="goals()"
+        (edit)="handleEdit($event)"
+        (remove)="handleRemove($event)"
+      ></app-goals-list>
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,61 @@
+/* Using base .page styles from page-base.css */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-5);
+}
+
+.card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  background: var(--color-bg-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+.card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.card li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.row-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  display: inline-block;
+}
+
+.name {
+  flex: 1;
+}
+
+.summary li span {
+  color: var(--color-text-secondary);
+}
+
+.empty {
+  color: var(--color-text-secondary);
+}
+

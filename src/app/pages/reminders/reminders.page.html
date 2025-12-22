@@ -1,0 +1,26 @@
+<section class="page">
+  <header class="page-header">
+    <p class="eyebrow">Reminders</p>
+    <h1 class="page-title">Reminders & Alerts</h1>
+    <p class="page-subtitle">Manage your reminders so you don't forget anything important.</p>
+  </header>
+
+  <div class="page-grid">
+    <div class="left">
+      <app-reminder-form
+        [editingReminder]="editing() || undefined"
+        (save)="handleSave($event)"
+        (cancel)="cancelEdit()"
+      ></app-reminder-form>
+    </div>
+    <div class="right">
+      <app-reminders-list
+        [reminders]="reminders()"
+        (edit)="handleEdit($event)"
+        (toggle)="handleToggle($event)"
+        (remove)="handleRemove($event)"
+      ></app-reminders-list>
+    </div>
+  </div>
+</section>
+
