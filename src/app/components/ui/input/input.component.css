@@ -90,6 +90,25 @@
   min-width: 140px; /* Ancho mínimo para mostrar fecha completa */
   overflow: visible; /* Permitir que se vea el contenido completo */
   width: 100%; /* Asegurar que ocupe todo el ancho disponible */
+  color: var(--color-text-primary) !important;
+  background: transparent !important;
+  font-size: var(--font-size-base) !important;
+  padding: 0 !important;
+}
+
+/* Estilos para el placeholder de fecha */
+.ui-input input[type="date"]::-webkit-calendar-picker-indicator,
+.ui-input input[type="time"]::-webkit-calendar-picker-indicator,
+.ui-input input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.ui-input input[type="date"]::-webkit-calendar-picker-indicator:hover,
+.ui-input input[type="time"]::-webkit-calendar-picker-indicator:hover,
+.ui-input input[type="datetime-local"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
 }
 
 /* Asegurar que el contenedor del input de fecha también permita el ancho necesario */
@@ -98,6 +117,7 @@
 .ui-input:has(input[type="datetime-local"]) .ui-input__control {
   min-width: 0; /* Permite que se ajuste dentro del grid */
   overflow: visible; /* Permite que el contenido se muestre completamente */
+  padding: var(--space-2) var(--space-3); /* Padding normal para que el contenido se vea */
 }
 
 .ui-input input[type="text"],

@@ -5,9 +5,9 @@
   width: 56px;
   height: 56px; /* Hacer cuadrado para mejor proporción */
   border-radius: var(--radius-full); /* Circular */
-  border: 2px solid var(--color-border);
+  border: 2px solid var(--color-primary);
   background: var(--color-bg-primary);
-  color: var(--color-primary);
+  color: var(--color-text-primary);
   display: grid;
   place-items: center;
   box-shadow: var(--shadow-lg); /* Sombra más prominente */
@@ -17,16 +17,21 @@
 }
 
 .help-button ::ng-deep lucide-icon {
-  color: var(--color-primary) !important;
+  color: var(--color-text-primary) !important;
   width: 24px !important;
   height: 24px !important;
+  stroke-width: 2 !important;
 }
 
 .help-button:hover {
-  transform: scale(1.08);
+  transform: scale(1.05);
   box-shadow: var(--shadow-xl);
   border-color: var(--color-primary);
-  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  background: color-mix(in srgb, var(--color-primary) 15%, var(--color-bg-primary));
+}
+
+.help-button:active {
+  transform: scale(1.0);
 }
 
 .help-button:focus-visible {

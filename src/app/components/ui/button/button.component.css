@@ -1,6 +1,6 @@
 .ui-btn {
   position: relative;
-  display: inline-flex;
+  display: inline-flex !important;
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
@@ -15,13 +15,14 @@
   cursor: pointer;
   min-height: 44px;
   transition:
-    transform var(--transition-fast),
     box-shadow var(--transition-fast),
     background var(--transition-fast),
     border-color var(--transition-fast),
     color var(--transition-fast),
     opacity var(--transition-fast);
-  overflow: hidden;
+  overflow: visible;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 .ui-btn.is-block {
@@ -33,28 +34,91 @@
   align-items: center;
   justify-content: center;
   color: inherit;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
 }
 
-.ui-btn .label {
+/* Forzar tamaño fijo en todos los iconos dentro de botones */
+.ui-btn ::ng-deep lucide-icon {
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
+  flex-shrink: 0 !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  transform: none !important;
+  transition: none !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+}
+
+/* Forzar tamaño fijo en el SVG interno de lucide */
+.ui-btn ::ng-deep lucide-icon svg {
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+  transform: none !important;
+  transition: none !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+  position: relative !important;
+}
+
+.ui-btn .icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  color: inherit;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.ui-btn .label {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
   gap: var(--space-1);
+  position: relative;
+  z-index: 10 !important;
+  color: inherit;
+  visibility: visible !important;
+  opacity: 1 !important;
+  white-space: nowrap;
 }
 
 .ui-btn:hover:not(:disabled) {
-  transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
 
 .ui-btn:active:not(:disabled) {
-  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
 }
 
 .ui-btn:disabled {
-  opacity: 0.55;
+  opacity: 0.4 !important;
   cursor: not-allowed;
   box-shadow: none;
+  background: var(--color-bg-tertiary) !important;
+  color: var(--color-text-tertiary) !important;
+  border-color: var(--color-border) !important;
+}
+
+.ui-btn:disabled .label {
+  color: var(--color-text-tertiary) !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 .ui-btn:focus-visible {
@@ -67,15 +131,60 @@
 }
 
 .ui-btn.variant-primary {
-  background: var(--color-primary);
-  color: var(--color-bg-primary);
-  border-color: var(--color-primary);
+  background: var(--color-primary) !important;
+  color: var(--color-bg-primary) !important;
+  border-color: var(--color-primary) !important;
   box-shadow: var(--shadow-md);
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .ui-btn.variant-primary:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--color-primary) 88%, transparent);
-  transform: translateY(-1px);
+  background: color-mix(in srgb, var(--color-primary) 88%, transparent) !important;
+  color: var(--color-bg-primary) !important;
+}
+
+.ui-btn.variant-primary {
+  position: relative;
+  z-index: 1;
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  background: var(--color-primary) !important;
+  color: #000000 !important;
+  border-color: var(--color-primary) !important;
+}
+
+.ui-btn.variant-primary .label {
+  color: #000000 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 10 !important;
+  position: relative;
+  display: inline-flex !important;
+  white-space: nowrap;
+}
+
+.ui-btn.variant-primary .label *,
+.ui-btn.variant-primary .label::before,
+.ui-btn.variant-primary .label::after {
+  color: #000000 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Forzar color negro en todo el contenido del botón primary */
+.ui-btn.variant-primary *:not(.spinner):not(.icon):not(lucide-icon) {
+  color: #000000 !important;
+}
+
+/* Asegurar que el contenido del ng-content sea visible */
+.ui-btn.variant-primary {
+  color: var(--color-bg-primary) !important;
+}
+
+.ui-btn.variant-primary * {
+  color: var(--color-bg-primary) !important;
 }
 
 .ui-btn.variant-secondary {
@@ -85,13 +194,44 @@
 }
 
 .ui-btn.variant-ghost {
-  background: transparent;
-  color: var(--color-primary);
-  border-color: color-mix(in srgb, var(--color-primary) 20%, var(--color-border));
+  background: var(--color-bg-tertiary) !important;
+  color: var(--color-text-primary) !important;
+  border: 1px solid var(--color-border) !important;
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative;
+  z-index: 1;
 }
 
 .ui-btn.variant-ghost:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+  background: color-mix(in srgb, var(--color-primary) 15%, var(--color-bg-tertiary)) !important;
+  color: var(--color-text-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.ui-btn.variant-ghost .label {
+  color: var(--color-text-primary) !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 10 !important;
+  position: relative;
+  display: inline-flex !important;
+}
+
+.ui-btn.variant-ghost .label * {
+  color: var(--color-text-primary) !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.ui-btn.variant-ghost .icon {
+  color: var(--color-text-primary) !important;
+}
+
+.ui-btn.variant-ghost:disabled {
+  opacity: 0.4 !important;
+  cursor: not-allowed;
 }
 
 .ui-btn.variant-danger {
@@ -126,6 +266,18 @@
   opacity: 0.4;
   animation: ripple var(--transition-slow);
   pointer-events: none;
+  z-index: 0;
+}
+
+/* Asegurar que iconos y texto estén por encima del ripple */
+.ui-btn .icon {
+  position: relative;
+  z-index: 2;
+}
+
+.ui-btn .label {
+  position: relative;
+  z-index: 2;
 }
 
 @keyframes ripple {

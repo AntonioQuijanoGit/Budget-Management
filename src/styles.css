@@ -37,8 +37,14 @@ a {
 }
 
 img,
-video,
-svg {
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* SVG global - pero excluir iconos de lucide */
+svg:not(lucide-icon svg) {
   max-width: 100%;
   height: auto;
   display: block;

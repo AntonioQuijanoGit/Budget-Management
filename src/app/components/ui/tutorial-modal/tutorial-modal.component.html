@@ -14,10 +14,10 @@
       <span *ngFor="let s of steps; let i = index" [class.active]="i === step"></span>
     </div>
     <div class="tutorial-actions">
-      <ui-button variant="ghost" size="sm" (buttonClick)="onSkip()">Skip</ui-button>
+      <ui-button variant="ghost" size="sm" [ripple]="false" (buttonClick)="onSkip()">Skip</ui-button>
       <div class="spacer"></div>
-      <ui-button variant="ghost" size="sm" [disabled]="step===0" (buttonClick)="onPrev()">Back</ui-button>
-      <ui-button variant="primary" size="sm" (buttonClick)="step === steps.length-1 ? onClose() : onNext()">
+      <ui-button variant="ghost" size="sm" [ripple]="false" [disabled]="step===0" (buttonClick)="onPrev()">Back</ui-button>
+      <ui-button variant="primary" size="sm" [ripple]="false" (buttonClick)="step === steps.length-1 ? onClose() : onNext()">
         {{ step === steps.length-1 ? 'Start now' : 'Next' }}
       </ui-button>
     </div>
