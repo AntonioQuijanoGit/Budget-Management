@@ -53,7 +53,7 @@
 
 .ui-input__control:focus-within {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) var(--opacity-medium), transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
 }
 
 .ui-input__icon {
@@ -117,11 +117,14 @@
 }
 
 .ui-input textarea {
-  resize: vertical;
+  resize: none; /* Desactivar el control de redimensionamiento */
   min-width: 0; /* Permite que se ajuste */
   max-width: 100%; /* No se sale del contenedor */
   overflow-wrap: break-word; /* Rompe palabras largas */
   word-wrap: break-word;
+  padding: var(--space-2) var(--space-3); /* Padding normal */
+  margin: 0; /* Sin márgenes */
+  width: 100%; /* Ocupa todo el ancho disponible */
 }
 
 .ui-input select {
@@ -130,7 +133,7 @@
 
 .ui-input.has-error .ui-input__control {
   border-color: var(--color-error);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-error) var(--opacity-medium), transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-error) 20%, transparent);
 }
 
 .ui-input.is-disabled .ui-input__control {

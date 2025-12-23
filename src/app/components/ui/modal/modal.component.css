@@ -10,6 +10,13 @@
   animation: fadeIn var(--transition-base);
 }
 
+/* Optimize padding for small mobile screens */
+@media (max-width: 480px) {
+  .ui-modal__backdrop {
+    padding: var(--space-4);
+  }
+}
+
 .ui-modal {
   width: 100%;
   max-width: 640px;
@@ -63,13 +70,13 @@
 }
 
 .ui-modal__close:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--color-primary) 65%, transparent);
+  outline: 2px solid color-mix(in srgb, var(--color-primary) 50%, transparent);
   outline-offset: 2px;
 }
 
 .ui-modal__close:hover {
-  background: color-mix(in srgb, var(--color-primary) var(--opacity-subtle), var(--color-bg-tertiary));
-  border-color: color-mix(in srgb, var(--color-primary) var(--opacity-strong), var(--color-border));
+  background: color-mix(in srgb, var(--color-primary) 10%, var(--color-bg-tertiary));
+  border-color: color-mix(in srgb, var(--color-primary) 30%, var(--color-border));
   transform: scale(1.02);
 }
 

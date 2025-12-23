@@ -25,6 +25,11 @@ export class TutorialModalComponent {
   @Output() prev = new EventEmitter<void>();
   @Output() skip = new EventEmitter<void>();
 
+  getStepIcon(stepIndex: number): string {
+    const icons = ['Home', 'PieChart', 'Plus', 'Search', 'BarChart3', 'CheckCircle'];
+    return icons[stepIndex] || 'Circle';
+  }
+
   onClose() {
     this.close.emit();
   }

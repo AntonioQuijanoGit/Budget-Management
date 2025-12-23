@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Reminder } from '../../core/models/finance.models';
 import { CardComponent } from '../../components/ui/card/card.component';
 import { InputComponent } from '../../components/ui/input/input.component';
 import { ButtonComponent } from '../../components/ui/button/button.component';
+import { ToastService } from '../../services/toast.service';
 import { todayIso } from '../../utils/date';
 
 @Component({
@@ -24,6 +25,7 @@ import { todayIso } from '../../utils/date';
           [(ngModel)]="title"
           name="title"
           [required]="true"
+          [error]="errors().title"
           placeholder="e.g. Pay electricity bill"
         ></ui-input>
 
@@ -45,6 +47,7 @@ import { todayIso } from '../../utils/date';
             name="date"
             [required]="true"
             [min]="todayIso()"
+            [error]="errors().date"
             helper="When should this reminder trigger?"
           ></ui-input>
 
@@ -64,6 +67,7 @@ import { todayIso } from '../../utils/date';
             [options]="typeOptions"
             [(ngModel)]="type"
             [required]="true"
+            helper="Select what type of reminder this is: Transaction, Bill, Goal, or Budget"
           ></ui-input>
 
           <ui-input
@@ -72,6 +76,7 @@ import { todayIso } from '../../utils/date';
             [options]="priorityOptions"
             [(ngModel)]="priority"
             [required]="true"
+            helper="Set the priority level: Low, Medium, or High"
           ></ui-input>
         </div>
 
@@ -89,6 +94,8 @@ import { todayIso } from '../../utils/date';
   styleUrl: './reminder-form.component.css',
 })
 export class ReminderFormComponent {
+  private toastService = inject(ToastService);
+  
   @Input() editingReminder?: Reminder;
   @Output() save = new EventEmitter<Reminder>();
   @Output() cancel = new EventEmitter<void>();
@@ -100,6 +107,7 @@ export class ReminderFormComponent {
   type: 'transaction' | 'bill' | 'goal' | 'budget' = 'bill';
   priority: 'low' | 'medium' | 'high' = 'medium';
   submitting = false;
+  errors = signal<{ title?: string; date?: string }>({});
 
   typeOptions = [
     { label: 'Transaction', value: 'transaction' },
@@ -130,7 +138,24 @@ export class ReminderFormComponent {
   }
 
   onSubmit() {
-    if (!this.title.trim()) return;
+    const newErrors: { title?: string; date?: string } = {};
+    
+    // Validar título
+    if (!this.title.trim()) {
+      newErrors.title = 'Reminder title is required';
+    }
+    
+    // Validar fecha
+    if (!this.date) {
+      newErrors.date = 'Date is required';
+    }
+    
+    this.errors.set(newErrors);
+    
+    if (Object.keys(newErrors).length > 0) {
+      this.toastService.error('Please fix the errors in the form', 'Validation Error');
+      return;
+    }
 
     this.submitting = true;
     const reminder: Reminder = this.editingReminder
@@ -154,9 +179,15 @@ export class ReminderFormComponent {
           isCompleted: false,
         };
 
+    this.errors.set({});
     this.save.emit(reminder);
     this.submitting = false;
-    if (!this.editingReminder) this.reset();
+    if (!this.editingReminder) {
+      this.reset();
+      this.toastService.success(`Reminder "${reminder.title}" created successfully`);
+    } else {
+      this.toastService.success(`Reminder "${reminder.title}" updated`);
+    }
   }
 
   onCancel() {
@@ -171,6 +202,7 @@ export class ReminderFormComponent {
     this.time = '';
     this.type = 'bill';
     this.priority = 'medium';
+    this.errors.set({});
   }
 }
 

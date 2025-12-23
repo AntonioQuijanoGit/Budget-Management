@@ -11,7 +11,7 @@ export type ToastType = 'success' | 'error' | 'warning' | 'info';
   template: `
     <div class="toast" [ngClass]="['type-' + type, visible ? 'visible' : '']" role="alert" [attr.aria-live]="type === 'error' ? 'assertive' : 'polite'">
       <div class="toast__icon">
-        <lucide-icon [name]="iconName" [size]="20"></lucide-icon>
+        <lucide-icon [name]="iconName" [size]="18"></lucide-icon>
       </div>
       <div class="toast__content">
         <p class="toast__title" *ngIf="title">{{ title }}</p>

@@ -14,7 +14,7 @@ import { RecurringPage } from './pages/recurring/recurring.page';
 import { RemindersPage } from './pages/reminders/reminders.page';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/ingresarPresupuesto', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardPage },
   { path: 'transactions', component: TransactionsPage },
   { path: 'categories', component: CategoriesPage },
@@ -28,7 +28,7 @@ export const routes: Routes = [
   // Legacy routes preserved
   { path: 'ingresarPresupuesto', component: IngresarPresupuestoComponent },
   { path: 'gastos', component: GastosComponent },
-  { path: '**', redirectTo: '/ingresarPresupuesto', pathMatch: 'full' },
+  { path: '**', redirectTo: '/dashboard', pathMatch: 'full' },
 ];
 
 @NgModule({

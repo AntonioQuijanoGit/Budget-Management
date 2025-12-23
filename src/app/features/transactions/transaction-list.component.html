@@ -16,10 +16,11 @@
   </div>
 
   <ng-template #empty>
-    <div class="empty">
-      <p class="empty-title">No Transactions</p>
-      <p class="empty-sub">Add your first expense or income to get started.</p>
-    </div>
+    <ui-empty-state
+      icon="Receipt"
+      title="No Transactions"
+      description="Add your first expense or income to get started."
+    ></ui-empty-state>
   </ng-template>
 </ui-card>
 

@@ -8,8 +8,8 @@
   <div class="summary-grid">
     <ui-card *ngFor="let card of summaryCards()" [hoverable]="true" padding="md" class="summary-card">
       <div class="summary-content">
-        <div class="summary-icon" [style.background]="card.accent + '15'" [style.color]="card.accent">
-          <lucide-icon [name]="card.label === 'Balance' ? 'PieChart' : card.label === 'Income' ? 'TrendingUp' : 'TrendingDown'" [size]="18"></lucide-icon>
+        <div class="summary-icon" [style.background]="card.accent + '15'" [style.color]="card.accent" [style.border-color]="card.accent + '40'">
+          <lucide-icon [name]="card.icon || 'Circle'" [size]="18"></lucide-icon>
         </div>
         <div class="summary-text">
           <p class="label">{{ card.label }}</p>
@@ -18,8 +18,6 @@
       </div>
     </ui-card>
   </div>
-
-  <app-quick-stats [transactions]="transactions()"></app-quick-stats>
 
   <div class="widgets-grid">
     <app-goals-preview [goals]="goals()"></app-goals-preview>

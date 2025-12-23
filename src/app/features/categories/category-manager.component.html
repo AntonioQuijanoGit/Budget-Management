@@ -9,8 +9,8 @@
   <div class="categories-list" *ngIf="categories.length > 0; else noCategories">
     <div class="category-row" *ngFor="let cat of categories">
       <div class="category-display">
-        <div class="category-icon-box" [style.background-color]="cat.color + '20'">
-          <lucide-icon [name]="cat.icon" [size]="20" [style.color]="cat.color"></lucide-icon>
+        <div class="category-icon-box" [style.background-color]="cat.color + '20'" [style.border-color]="cat.color + '40'">
+          <lucide-icon [name]="cat.icon" [size]="18" [style.color]="cat.color"></lucide-icon>
         </div>
         <div class="category-info">
           <span class="category-label">{{ cat.name }}</span>
@@ -93,6 +93,7 @@
         name="budget"
         placeholder="0.00"
         suffix="€"
+        helper="Set a monthly spending limit for this category. You'll receive alerts when approaching the limit."
       ></ui-input>
     </div>
 

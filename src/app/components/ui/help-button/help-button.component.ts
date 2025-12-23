@@ -8,7 +8,7 @@ import { LucideAngularModule } from 'lucide-angular';
   imports: [CommonModule, LucideAngularModule],
   template: `
     <button class="help-button" type="button" (click)="open.emit()" aria-label="Open tutorial">
-      <lucide-icon name="HelpCircle" [size]="18"></lucide-icon>
+      <lucide-icon name="HelpCircle" [size]="24"></lucide-icon>
     </button>
   `,
   styleUrl: './help-button.component.css',

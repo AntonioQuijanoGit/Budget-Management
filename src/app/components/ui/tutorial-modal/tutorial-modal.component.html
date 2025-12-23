@@ -4,18 +4,10 @@
       <div class="tutorial-bar" [style.width.%]="((step+1)/steps.length)*100"></div>
     </div>
     <div class="tutorial-body">
-      <div class="tutorial-figure" aria-hidden="true">
-        <ng-container *ngIf="steps[step]?.img; else placeholder">
-          <img [src]="steps[step].img" [alt]="steps[step].title" />
-        </ng-container>
-        <ng-template #placeholder>
-          <div class="placeholder-img">Step {{ step+1 }}</div>
-        </ng-template>
-      </div>
       <div class="tutorial-text">
-        <p class="eyebrow">Tutorial</p>
-        <h2>{{ steps[step].title }}</h2>
-        <p class="desc">{{ steps[step].desc }}</p>
+        <p class="eyebrow">Step {{ step + 1 }} of {{ steps.length }}</p>
+        <h2>{{ steps[step]?.title || 'Welcome' }}</h2>
+        <p class="desc">{{ steps[step]?.desc || '' }}</p>
       </div>
     </div>
     <div class="tutorial-dots" aria-hidden="true">

@@ -32,7 +32,7 @@
 }
 
 .summary-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-2px);
 }
 
 .summary-content {
@@ -66,6 +66,8 @@
   place-items: center;
   flex-shrink: 0;
   transition: transform var(--transition-base);
+  border: 1px solid;
+  opacity: 0.9;
 }
 
 .summary-card:hover .summary-icon {
@@ -85,11 +87,25 @@
 }
 
 /* Responsive breakpoints using design tokens */
-@media (max-width: 1024px) {
+/* Tablet: 768px - 1024px (--breakpoint-md to --breakpoint-lg) */
+@media (min-width: 768px) and (max-width: 1024px) {
   .summary-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
   .widgets-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .charts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile and below: max-width 1024px (--breakpoint-lg) */
+@media (max-width: 1024px) {
+  .widgets-grid {
+    grid-template-columns: 1fr;
+  }
+  .charts-grid {
     grid-template-columns: 1fr;
   }
 }

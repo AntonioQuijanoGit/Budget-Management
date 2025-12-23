@@ -2,7 +2,7 @@
   class="ui-modal__backdrop"
   *ngIf="open"
   (click)="handleBackdrop($event)"
-  aria-hidden="true"
+  [attr.aria-hidden]="!open"
 >
   <div
     #modalElement
@@ -17,7 +17,12 @@
         <p *ngIf="description" class="ui-modal__eyebrow">{{ description }}</p>
         <h3 *ngIf="title" class="ui-modal__title">{{ title }}</h3>
       </div>
-      <button class="ui-modal__close" type="button" (click)="close.emit()" aria-label="Close">
+      <button
+        class="ui-modal__close"
+        type="button"
+        (click)="close.emit()"
+        aria-label="Close"
+      >
         ✕
       </button>
     </header>
@@ -31,5 +36,3 @@
     </footer>
   </div>
 </div>
-
-

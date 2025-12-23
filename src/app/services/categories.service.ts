@@ -5,20 +5,20 @@ import { Category } from '../core/models/finance.models';
 const STORAGE_KEY = 'bm_categories_v1';
 
 const palette = {
-  primary: tokenColor('--color-primary', '#007aff'),
-  error: tokenColor('--color-error', '#ff3b30'),
-  success: tokenColor('--color-success', '#34c759'),
-  warning: tokenColor('--color-warning', '#ff9500'),
+  primary: tokenColor('--color-primary', '#ffffff'),
+  error: tokenColor('--color-error', '#ff4444'),
+  success: tokenColor('--color-success', '#00ff88'),
+  warning: tokenColor('--color-warning', '#ffaa00'),
 };
 
 const DEFAULT_CATEGORIES: Category[] = [
   { id: 'food', name: 'Food', color: palette.error, icon: 'UtensilsCrossed', type: 'expense', budgetMonthly: 250 },
-  { id: 'transport', name: 'Transport', color: palette.primary, icon: 'Bus', type: 'expense', budgetMonthly: 120 },
+  { id: 'transport', name: 'Transport', color: '#60a5fa', icon: 'Bus', type: 'expense', budgetMonthly: 120 }, // Blue-400 for better visibility
   { id: 'salary', name: 'Salary', color: palette.success, icon: 'Wallet', type: 'income' },
   {
     id: 'entertainment',
     name: 'Entertainment',
-    color: blendColors(palette.primary, palette.warning, 0.45),
+    color: palette.warning,
     icon: 'Film',
     type: 'expense',
     budgetMonthly: 150,

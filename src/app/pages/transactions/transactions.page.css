@@ -58,7 +58,15 @@
 }
 
 /* Responsive breakpoints using design tokens */
-@media (max-width: 1024px) { /* --breakpoint-lg */
+/* Tablet: 768px - 1024px (--breakpoint-md to --breakpoint-lg) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .page-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile and below: max-width 1024px (--breakpoint-lg) */
+@media (max-width: 1024px) {
   .page-grid {
     grid-template-columns: 1fr;
   }

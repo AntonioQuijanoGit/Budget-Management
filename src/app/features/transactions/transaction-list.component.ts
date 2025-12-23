@@ -4,11 +4,18 @@ import { Category, Transaction } from '../../core/models/finance.models';
 import { TransactionCardComponent } from './transaction-card.component';
 import { CardComponent } from '../../components/ui/card/card.component';
 import { BadgeComponent } from '../../components/ui/badge/badge.component';
+import { EmptyStateComponent } from '../../components/ui/empty-state/empty-state.component';
 
 @Component({
   selector: 'app-transaction-list',
   standalone: true,
-  imports: [CommonModule, TransactionCardComponent, CardComponent, BadgeComponent],
+  imports: [
+    CommonModule,
+    TransactionCardComponent,
+    CardComponent,
+    BadgeComponent,
+    EmptyStateComponent
+  ],
   templateUrl: './transaction-list.component.html',
   styleUrl: './transaction-list.component.css',
 })

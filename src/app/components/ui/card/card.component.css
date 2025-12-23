@@ -13,9 +13,9 @@
 }
 
 .ui-card.is-hoverable:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-xl);
-  border-color: color-mix(in srgb, var(--color-primary) var(--opacity-strong), var(--color-border));
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: color-mix(in srgb, var(--color-primary) 30%, var(--color-border));
 }
 
 .pad-sm { padding: var(--space-4); }

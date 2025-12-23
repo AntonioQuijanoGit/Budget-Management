@@ -18,9 +18,9 @@ import { formatCurrency } from '../../utils/currency';
 export class QuickStatsComponent {
   @Input() transactions: Transaction[] = [];
   private palette = {
-    success: this.getVar('--color-success', '#34c759'),
-    error: this.getVar('--color-error', '#ff3b30'),
-    primary: this.getVar('--color-primary', '#007aff'),
+    success: this.getVar('--color-success', '#00ff88'),
+    error: this.getVar('--color-error', '#ff4444'),
+    primary: this.getVar('--color-primary', '#ffffff'),
   };
 
   get totalIncome() {
@@ -34,10 +34,10 @@ export class QuickStatsComponent {
   }
 
   get items() {
+    // Removed Balance from here since it's already in summaryCards above
     return [
       { label: 'Income', value: formatCurrency(this.totalIncome), accent: this.palette.success },
       { label: 'Expenses', value: formatCurrency(this.totalExpense), accent: this.palette.error },
-      { label: 'Balance', value: formatCurrency(this.currentBalance), accent: this.palette.primary },
     ];
   }
 

@@ -4,19 +4,23 @@ import { RecurringTransaction } from '../../core/models/finance.models';
 import { CardComponent } from '../../components/ui/card/card.component';
 import { ButtonComponent } from '../../components/ui/button/button.component';
 import { BadgeComponent } from '../../components/ui/badge/badge.component';
+import { EmptyStateComponent } from '../../components/ui/empty-state/empty-state.component';
 import { LucideAngularModule } from 'lucide-angular';
 import { formatCurrency } from '../../utils/currency';
 
 @Component({
   selector: 'app-recurring-list',
   standalone: true,
-  imports: [CommonModule, CardComponent, ButtonComponent, BadgeComponent, LucideAngularModule],
+  imports: [CommonModule, CardComponent, ButtonComponent, BadgeComponent, EmptyStateComponent, LucideAngularModule],
   template: `
-    <div class="recurring-grid" *ngIf="recurring.length > 0; else empty">
-      <ui-card *ngFor="let item of recurring" [hoverable]="true" padding="md" class="recurring-card">
+    <ui-card eyebrow="Existing" title="Your Recurring Transactions" [hoverable]="false" padding="md">
+      <p class="card-description">Manage your existing recurring transactions. Edit, pause, or delete them as needed.</p>
+      
+      <div class="recurring-grid" *ngIf="recurring.length > 0; else empty">
+        <ui-card *ngFor="let item of recurring" [hoverable]="true" padding="md" class="recurring-card">
         <div class="recurring-header">
           <div class="recurring-icon" [class]="'type-' + item.type">
-            <lucide-icon [name]="item.type === 'income' ? 'TrendingUp' : 'TrendingDown'" [size]="20"></lucide-icon>
+            <lucide-icon [name]="item.type === 'income' ? 'TrendingUp' : 'TrendingDown'" [size]="18"></lucide-icon>
           </div>
           <div class="recurring-info">
             <h3 class="recurring-name">{{ item.name }}</h3>
@@ -52,17 +56,16 @@ import { formatCurrency } from '../../utils/currency';
           </ui-button>
         </div>
       </ui-card>
-    </div>
+      </div>
 
-    <ng-template #empty>
-      <ui-card padding="lg" class="empty-state">
-        <div class="empty-content">
-          <lucide-icon name="Repeat" [size]="48" class="empty-icon"></lucide-icon>
-          <h3>No Recurring Transactions</h3>
-          <p>Create transactions that repeat automatically to save time.</p>
-        </div>
-      </ui-card>
-    </ng-template>
+      <ng-template #empty>
+        <ui-empty-state
+          icon="Repeat"
+          title="No Recurring Transactions"
+          description="Create your first recurring transaction above to get started. Recurring transactions will automatically generate transactions based on your schedule."
+        ></ui-empty-state>
+      </ng-template>
+    </ui-card>
   `,
   styleUrl: './recurring-list.component.css',
 })

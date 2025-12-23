@@ -15,7 +15,7 @@ import { LucideAngularModule } from 'lucide-angular';
       <ui-card *ngFor="let reminder of reminders" [hoverable]="true" padding="md" class="reminder-card" [class.completed]="reminder.isCompleted">
         <div class="reminder-header">
           <div class="reminder-icon" [class]="'priority-' + reminder.priority">
-            <lucide-icon [name]="getIcon(reminder.type)" [size]="20"></lucide-icon>
+            <lucide-icon [name]="getIcon(reminder.type)" [size]="18"></lucide-icon>
           </div>
           <div class="reminder-info">
             <h3 class="reminder-title">{{ reminder.title }}</h3>

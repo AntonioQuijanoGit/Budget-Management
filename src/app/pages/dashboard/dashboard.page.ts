@@ -5,7 +5,6 @@ import { CategoriesService } from '../../services/categories.service';
 import { Transaction } from '../../core/models/finance.models';
 import { CategoryChartComponent } from '../../features/dashboard/category-chart.component';
 import { TrendChartComponent } from '../../features/dashboard/trend-chart.component';
-import { QuickStatsComponent } from '../../features/dashboard/quick-stats.component';
 import { GoalsPreviewComponent } from '../../features/dashboard/goals-preview.component';
 import { UpcomingRemindersComponent } from '../../features/dashboard/upcoming-reminders.component';
 import { CardComponent } from '../../components/ui/card/card.component';
@@ -26,13 +25,12 @@ import { LucideAngularModule } from 'lucide-angular';
     CommonModule,
     CategoryChartComponent,
     TrendChartComponent,
-    QuickStatsComponent,
     GoalsPreviewComponent,
     UpcomingRemindersComponent,
     CardComponent,
     LucideAngularModule,
   ],
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardPage {
   private txSvc = inject(TransactionsService);
@@ -40,9 +38,9 @@ export class DashboardPage {
   private goalsSvc = inject(GoalsService);
   private remindersSvc = inject(RemindersService);
   private palette = {
-    primary: this.getVar('--color-primary', '#007aff'),
-    success: this.getVar('--color-success', '#34c759'),
-    error: this.getVar('--color-error', '#ff3b30'),
+    primary: this.getVar('--color-primary', '#ffffff'),
+    success: this.getVar('--color-success', '#00ff88'),
+    error: this.getVar('--color-error', '#ff4444'),
   };
 
   transactions = signal<Transaction[]>([]);
@@ -68,9 +66,9 @@ export class DashboardPage {
     const income = this.totalIncome();
     const expense = this.totalExpense();
     return [
-      { label: 'Balance', value: formatCurrency(balance), accent: this.palette.primary },
-      { label: 'Income', value: formatCurrency(income), accent: this.palette.success },
-      { label: 'Expenses', value: formatCurrency(expense), accent: this.palette.error },
+      { label: 'Balance', value: formatCurrency(balance), accent: this.getVar('--color-text-secondary', '#a1a1aa'), icon: 'Wallet' },
+      { label: 'Income', value: formatCurrency(income), accent: this.palette.success, icon: 'TrendingUp' },
+      { label: 'Expenses', value: formatCurrency(expense), accent: this.palette.error, icon: 'TrendingDown' },
     ];
   });
 

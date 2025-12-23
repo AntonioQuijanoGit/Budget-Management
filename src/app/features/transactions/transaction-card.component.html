@@ -1,7 +1,7 @@
 <article class="tx-card">
   <div class="tx-main">
-    <div class="tx-icon" [style.background]="category?.color || 'var(--color-bg-tertiary)'">
-      <lucide-icon [name]="category?.icon || 'CreditCard'" [size]="18"></lucide-icon>
+    <div class="tx-icon" [style.background]="(category?.color || 'var(--color-bg-tertiary)') + '20'" [style.border-color]="(category?.color || 'var(--color-text-tertiary)') + '40'">
+      <lucide-icon [name]="category?.icon || 'CreditCard'" [size]="18" [style.color]="category?.color || 'var(--color-text-primary)'"></lucide-icon>
     </div>
     <div class="tx-info">
       <p class="tx-desc">{{ transaction.description }}</p>

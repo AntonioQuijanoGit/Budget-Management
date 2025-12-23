@@ -17,7 +17,7 @@ import { formatCurrency } from '../../utils/currency';
       <ui-card *ngFor="let goal of goals" [hoverable]="true" padding="md" class="goal-card">
         <div class="goal-header">
           <div class="goal-icon" [style.background]="goal.color + '15'" [style.color]="goal.color">
-            <lucide-icon [name]="goal.icon || 'Target'" [size]="20"></lucide-icon>
+            <lucide-icon [name]="goal.icon || 'Target'" [size]="18"></lucide-icon>
           </div>
           <div class="goal-info">
             <h3 class="goal-title">{{ goal.title }}</h3>
@@ -51,8 +51,8 @@ import { formatCurrency } from '../../utils/currency';
       <ui-card padding="lg" class="empty-state">
         <div class="empty-content">
           <lucide-icon name="Target" [size]="48" class="empty-icon"></lucide-icon>
-          <h3>No Goals</h3>
-          <p>Create your first financial goal to start achieving your objectives.</p>
+          <h3>No Goals Yet</h3>
+          <p>Create your first financial goal using the form on the left. Set a target amount, deadline, and track your progress over time.</p>
         </div>
       </ui-card>
     </ng-template>

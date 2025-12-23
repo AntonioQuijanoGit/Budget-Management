@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FinancialGoal } from '../../core/models/finance.models';
@@ -6,6 +6,7 @@ import { CardComponent } from '../../components/ui/card/card.component';
 import { InputComponent } from '../../components/ui/input/input.component';
 import { ButtonComponent } from '../../components/ui/button/button.component';
 import { BadgeComponent } from '../../components/ui/badge/badge.component';
+import { ToastService } from '../../services/toast.service';
 import { todayIso } from '../../utils/date';
 
 @Component({
@@ -25,6 +26,7 @@ import { todayIso } from '../../utils/date';
           [(ngModel)]="title"
           name="title"
           [required]="true"
+          [error]="errors().title"
           placeholder="e.g. Save for vacation"
         ></ui-input>
 
@@ -47,6 +49,7 @@ import { todayIso } from '../../utils/date';
             [required]="true"
             [min]="0"
             [step]="0.01"
+            [error]="errors().targetAmount"
             suffix="€"
             placeholder="0.00"
           ></ui-input>
@@ -76,6 +79,7 @@ import { todayIso } from '../../utils/date';
           [(ngModel)]="deadline"
           name="deadline"
           [min]="todayIso()"
+          helper="Set a target date to achieve this goal. This helps you track progress and stay motivated."
         ></ui-input>
 
         <div class="form-actions">
@@ -92,6 +96,8 @@ import { todayIso } from '../../utils/date';
   styleUrl: './goal-form.component.css',
 })
 export class GoalFormComponent {
+  private toastService = inject(ToastService);
+  
   @Input() editingGoal?: FinancialGoal;
   @Output() save = new EventEmitter<FinancialGoal>();
   @Output() cancel = new EventEmitter<void>();
@@ -103,6 +109,7 @@ export class GoalFormComponent {
   type: 'savings' | 'debt' | 'expense_limit' | 'income_target' = 'savings';
   deadline = '';
   submitting = false;
+  errors = signal<{ title?: string; targetAmount?: string }>({});
 
   typeOptions = [
     { label: 'Savings', value: 'savings' },
@@ -127,7 +134,26 @@ export class GoalFormComponent {
   }
 
   onSubmit() {
-    if (!this.title.trim() || this.targetAmount <= 0) return;
+    const newErrors: { title?: string; targetAmount?: string } = {};
+    
+    // Validar título
+    if (!this.title.trim()) {
+      newErrors.title = 'Goal title is required';
+    }
+    
+    // Validar monto objetivo
+    if (!this.targetAmount || this.targetAmount <= 0) {
+      newErrors.targetAmount = 'Target amount must be greater than zero';
+    } else if (this.targetAmount > 10000000) {
+      newErrors.targetAmount = 'Target amount is too large';
+    }
+    
+    this.errors.set(newErrors);
+    
+    if (Object.keys(newErrors).length > 0) {
+      this.toastService.error('Please fix the errors in the form', 'Validation Error');
+      return;
+    }
     
     this.submitting = true;
     const goal: FinancialGoal = this.editingGoal
@@ -149,13 +175,19 @@ export class GoalFormComponent {
           type: this.type,
           deadline: this.deadline || undefined,
           icon: 'Target',
-          color: this.getColor('--color-primary', '#007aff'),
+          color: this.getColor('--color-primary', '#ffffff'),
           createdAt: todayIso(),
         };
 
+    this.errors.set({});
     this.save.emit(goal);
     this.submitting = false;
-    if (!this.editingGoal) this.reset();
+    if (!this.editingGoal) {
+      this.reset();
+      this.toastService.success(`Goal "${goal.title}" created successfully`);
+    } else {
+      this.toastService.success(`Goal "${goal.title}" updated`);
+    }
   }
 
   onCancel() {
@@ -170,6 +202,7 @@ export class GoalFormComponent {
     this.currentAmount = 0;
     this.type = 'savings';
     this.deadline = '';
+    this.errors.set({});
   }
 
   private getColor(varName: string, fallback: string): string {
