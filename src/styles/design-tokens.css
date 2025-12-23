@@ -1,22 +1,69 @@
+/* ============================================
+   DESIGN TOKENS - Vercel/shadcn inspired
+   ============================================ */
+
+/* Base radius - Unificado (múltiplos de 4px) */
 :root {
-  /* Colors - Modern Vercel-inspired Palette */
-  --color-primary: #ffffff;
+  --radius: 0.5rem; /* 8px - base unified radius */
+  
+  /* Colors - Vercel Design System */
+  /* Dark theme (default) */
+  --background: #000000;        /* Background principal - negro puro */
+  --foreground: #fafafa;        /* Texto principal - casi blanco */
+  
+  --primary: #0070f3;           /* Primary - azul Vercel */
+  --primary-foreground: #ffffff;
+  
+  --secondary: #0a0a0a;
+  --secondary-foreground: #fafafa;
+  
+  --muted: #262626;             /* Muted - gris medio */
+  --muted-foreground: #a1a1aa;
+  
+  --accent: #171717;            /* Accent (usado para cards hover) */
+  --accent-foreground: #fafafa;
+  
+  --card: #171717;              /* Cards - gris muy oscuro */
+  --card-foreground: #fafafa;
+  
+  --destructive: #e00;          /* Destructive - rojo */
+  --destructive-foreground: #ffffff;
+  
+  --border: #333333;            /* Borders - gris oscuro */
+  --input: #333333;
+  --ring: #0070f3;              /* Focus ring - azul Vercel */
+
+  /* Semantic colors - manteniendo compatibilidad */
+  --color-primary: var(--primary);
   --color-success: #00ff88;
-  --color-error: #ff4444;
+  --color-error: var(--destructive);
   --color-warning: #ffaa00;
 
-  --color-bg-primary: #000000;
+  /* Background aliases - manteniendo compatibilidad */
+  --color-bg-primary: var(--background);
   --color-bg-secondary: #0a0a0a;
-  --color-bg-tertiary: #141414;
+  --color-bg-tertiary: var(--muted);
+  --color-bg-card: var(--card);
 
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #a1a1aa; /* zinc-400 */
+  /* Text aliases - manteniendo compatibilidad */
+  --color-text-primary: var(--foreground);
+  --color-text-secondary: var(--muted-foreground);
   --color-text-tertiary: #71717a; /* zinc-500 */
 
-  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border: var(--border);
 
-  /* Typography - Modern and clean */
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+  /* Typography - Vercel Style */
+  /* Font families */
+  --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Geist Mono es la fuente oficial de Vercel. Si está disponible, usar 'Geist Mono' */
+  /* Por ahora usamos JetBrains Mono como alternativa similar */
+  --font-geist-mono: 'JetBrains Mono', 'Geist Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+  
+  /* Font family principal (Inter) */
+  --font-family: var(--font-inter);
+  
+  /* Font family monospace (para código) */
+  --font-family-mono: var(--font-geist-mono);
 
   --font-size-xs: 11px;
   --font-size-sm: 13px;
@@ -52,11 +99,14 @@
   --space-12: 48px;
   --space-16: 64px;
 
-  /* Bordes */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
+  /* Border radius - Basado en --radius unificado (Vercel style) */
+  --radius-sm: calc(var(--radius) * 1);      /* 8px (0.5rem) */
+  --radius-md: calc(var(--radius) * 1.5);    /* 12px (0.75rem) */
+  --radius-lg: calc(var(--radius) * 2);      /* 16px (1rem) */
+  --radius-xl: calc(var(--radius) * 2.5);    /* 20px (1.25rem) */
+  --radius-2xl: calc(var(--radius) * 3);     /* 24px (1.5rem) */
+  --radius-3xl: calc(var(--radius) * 4);     /* 32px (2rem) */
+  --radius-4xl: calc(var(--radius) * 5);     /* 40px (2.5rem) */
   --radius-full: 9999px;
 
   /* Shadows - Subtle for dark theme */
@@ -114,20 +164,137 @@
   --radius-3: var(--radius-md);
   --radius-4: var(--radius-lg);
   --radius-5: var(--radius-xl);
+  --radius-6: var(--radius-2xl);
+  --radius-7: var(--radius-3xl);
+  --radius-8: var(--radius-4xl);
+  
+  /* Color aliases para shadcn/ui pattern */
+  /* --card ya definido arriba con #171717 */
+  --popover: var(--background);
+  --popover-foreground: var(--foreground);
   --shadow-soft: var(--shadow-lg);
   
-  /* Icon sizes - Sistema documentado */
-  --icon-size-xs: 12px;
-  --icon-size-sm: 16px;
-  --icon-size-md: 18px;
-  --icon-size-lg: 24px;
-  --icon-size-xl: 32px;
+  /* Alias de compatibilidad adicionales */
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  
+  /* Icon sizes - Vercel Style (Lucide icons) */
+  /* Tamaños estándar: 4x4, 5x5, 6x6 (base 4px grid) */
+  --icon-size-xs: 12px;   /* 3x3 - muy pequeño */
+  --icon-size-sm: 16px;   /* 4x4 - pequeño (acciones, inputs) */
+  --icon-size-md: 20px;   /* 5x5 - medio (listas, cards) */
+  --icon-size-lg: 24px;   /* 6x6 - grande (navegación, destacados) */
+  --icon-size-xl: 32px;   /* 8x8 - extra grande */
+  
+  /* Aliases semánticos (para uso común) */
+  --icon-navigation: var(--icon-size-lg);  /* 24px - sidebar, nav */
+  --icon-card: var(--icon-size-md);        /* 20px - cards principales */
+  --icon-list: var(--icon-size-md);        /* 20px - listas de items */
+  --icon-action: var(--icon-size-sm);      /* 16px - botones, inputs */
+  --icon-metadata: 14px;                   /* 14px - badges, textos pequeños */
+  --icon-tag: var(--icon-size-xs);         /* 12px - tags, elementos muy pequeños */
+  --icon-empty: 48px;                      /* 48px - empty states */
 }
 
-/* Dark mode is now the default, so we keep the same palette */
+/* ============================================
+   THEME VARIANTS - Clases .dark y .light
+   ============================================ */
+
+/* Dark theme is the default (ya definido arriba en :root) */
+
+/* Light theme - se activa con clase .light en <html> */
+:root.light,
+.light {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  
+  --primary: #0070f3;           /* Primary - azul Vercel (mismo que dark) */
+  --primary-foreground: #ffffff;
+  
+  --secondary: #fafafa;
+  --secondary-foreground: #0a0a0a;
+  
+  --muted: #f5f5f5;
+  --muted-foreground: #525252;
+  
+  --accent: #f5f5f5;
+  --accent-foreground: #0a0a0a;
+  
+  --destructive: #e00;          /* Destructive - rojo (mismo que dark) */
+  --destructive-foreground: #ffffff;
+  
+  --border: rgba(0, 0, 0, 0.1);
+  --input: rgba(0, 0, 0, 0.1);
+  --ring: #0070f3;              /* Focus ring - azul Vercel */
+  
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+
+  /* Semantic colors - manteniendo compatibilidad */
+  --color-bg-primary: var(--background);
+  --color-bg-secondary: var(--secondary);
+  --color-bg-tertiary: var(--muted);
+  
+  --color-text-primary: var(--foreground);
+  --color-text-secondary: var(--muted-foreground);
+  --color-text-tertiary: #737373;
+  
+  --color-border: var(--border);
+}
+
+/* Dark theme explícito - se activa con clase .dark en <html> */
+:root.dark,
+.dark {
+  --background: #000000;        /* Background principal - negro puro */
+  --foreground: #fafafa;        /* Texto principal - casi blanco */
+  
+  --primary: #0070f3;           /* Primary - azul Vercel */
+  --primary-foreground: #ffffff;
+  
+  --secondary: #0a0a0a;
+  --secondary-foreground: #fafafa;
+  
+  --muted: #262626;             /* Muted - gris medio */
+  --muted-foreground: #a1a1aa;
+  
+  --accent: #171717;
+  --accent-foreground: #fafafa;
+  
+  --card: #171717;              /* Cards - gris muy oscuro */
+  --card-foreground: #fafafa;
+  
+  --destructive: #e00;          /* Destructive - rojo */
+  --destructive-foreground: #ffffff;
+  
+  --border: #333333;            /* Borders - gris oscuro */
+  --input: #333333;
+  --ring: #0070f3;              /* Focus ring - azul Vercel */
+  
+  --popover: #000000;
+  --popover-foreground: #fafafa;
+
+  /* Semantic colors - manteniendo compatibilidad */
+  --color-bg-primary: var(--background);
+  --color-bg-secondary: #0a0a0a;
+  --color-bg-tertiary: var(--muted);
+  --color-bg-card: var(--card);
+  
+  --color-text-primary: var(--foreground);
+  --color-text-secondary: var(--muted-foreground);
+  --color-text-tertiary: #71717a;
+  
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+}
+
+/* Fallback para prefers-color-scheme (mantiene compatibilidad) */
 @media (prefers-color-scheme: light) {
-  /* Optional: Light mode override if needed in the future */
-  :root {
+  :root:not(.dark):not(.light) {
+    --background: #ffffff;
+    --foreground: #0a0a0a;
     --color-bg-primary: #ffffff;
     --color-bg-secondary: #fafafa;
     --color-bg-tertiary: #f5f5f5;
