@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CardComponent } from '../../components/ui/card/card.component';
@@ -7,6 +7,7 @@ import { ToastService } from '../../services/toast.service';
 import { TransactionsService } from '../../services/transactions.service';
 import { CategoriesService } from '../../services/categories.service';
 import { ConfigService } from '../../services/config.service';
+import { ThemeService } from '../../services/theme.service';
 import { Transaction } from '../../core/models/finance.models';
 import { firstValueFrom } from 'rxjs';
 
@@ -22,13 +23,23 @@ export class SettingsPage implements OnInit {
   private txService = inject(TransactionsService);
   private catService = inject(CategoriesService);
   private configService = inject(ConfigService);
+  themeService = inject(ThemeService);
 
   currency = 'EUR';
   locale = 'es-ES';
+  theme: 'dark' | 'light' = 'dark';
+
+  constructor() {
+    // Watch theme changes with effect
+    effect(() => {
+      this.theme = this.themeService.theme();
+    });
+  }
 
   ngOnInit() {
     this.currency = this.configService.currency;
     this.locale = this.configService.locale;
+    this.theme = this.themeService.theme();
     
     // Subscribe to config changes
     this.configService.config.subscribe(config => {
@@ -45,6 +56,11 @@ export class SettingsPage implements OnInit {
   onLocaleChange() {
     this.configService.locale = this.locale;
     this.toastService.success(`Locale changed to ${this.locale}`, 'Settings Updated');
+  }
+
+  onThemeChange() {
+    this.themeService.setTheme(this.theme);
+    this.toastService.success(`Theme changed to ${this.theme}`, 'Settings Updated');
   }
 
   async exportData() {

@@ -45,6 +45,49 @@ export class CategoryManagerComponent implements OnInit {
       this.icon = 'Tag';
     }
   }
+
+  /**
+   * Get color with opacity - handles hex, rgb, and named colors
+   * Converts any color format to rgba for consistent borders and backgrounds
+   */
+  getColorWithOpacity(color: string, opacity: number): string {
+    if (!color) return `rgba(128, 128, 128, ${opacity})`;
+    
+    // If it's a hex color (#rrggbb or #rgb)
+    if (color.startsWith('#')) {
+      const hex = color.replace('#', '');
+      let r: number, g: number, b: number;
+      
+      if (hex.length === 3) {
+        // Short hex (#rgb)
+        r = parseInt(hex[0] + hex[0], 16);
+        g = parseInt(hex[1] + hex[1], 16);
+        b = parseInt(hex[2] + hex[2], 16);
+      } else if (hex.length === 6) {
+        // Full hex (#rrggbb)
+        r = parseInt(hex.substring(0, 2), 16);
+        g = parseInt(hex.substring(2, 4), 16);
+        b = parseInt(hex.substring(4, 6), 16);
+      } else {
+        // Invalid hex, fallback to gray
+        return `rgba(128, 128, 128, ${opacity})`;
+      }
+      
+      return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+    }
+    
+    // If it's already rgba or rgb
+    if (color.startsWith('rgb')) {
+      const match = color.match(/\d+/g);
+      if (match && match.length >= 3) {
+        return `rgba(${match[0]}, ${match[1]}, ${match[2]}, ${opacity})`;
+      }
+    }
+    
+    // For CSS variables or named colors, use a canvas to get computed color
+    // Fallback: return a default gray color with opacity
+    return `rgba(128, 128, 128, ${opacity})`;
+  }
   typeOptions = [
     { label: 'Expense', value: 'expense' },
     { label: 'Income', value: 'income' },

@@ -54,6 +54,8 @@ import {
   Train,
   Bike,
   Building2,
+  Sun,
+  Moon,
 } from 'lucide-angular';
 import { routes } from './app.routes';
 
@@ -112,10 +114,12 @@ export const appConfig: ApplicationConfig = {
         Gamepad2,
         Dumbbell,
         Plane,
-        Train,
-        Bike,
-        Building2,
-      })
+    Train,
+    Bike,
+    Building2,
+    Sun,
+    Moon,
+  })
     ),
   ],
 };

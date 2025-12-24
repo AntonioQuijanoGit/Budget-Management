@@ -9,7 +9,7 @@
   <div class="categories-list" *ngIf="categories.length > 0; else noCategories">
     <div class="category-row" *ngFor="let cat of categories">
       <div class="category-display">
-        <div class="category-icon-box" [style.background-color]="cat.color + '20'" [style.border-color]="cat.color + '40'">
+        <div class="category-icon-box" [style.background-color]="getColorWithOpacity(cat.color, 0.12)" [style.border-color]="getColorWithOpacity(cat.color, 0.25)">
           <lucide-icon [name]="cat.icon" [size]="18" [style.color]="cat.color"></lucide-icon>
         </div>
         <div class="category-info">

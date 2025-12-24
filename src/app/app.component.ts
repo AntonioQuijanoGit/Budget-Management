@@ -1,10 +1,13 @@
-import { Component, signal, computed, inject } from '@angular/core';
+import { Component, signal, computed, inject, OnInit } from '@angular/core';
 import { RouterModule, RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 import { HelpButtonComponent } from './components/ui/help-button/help-button.component';
 import { TutorialModalComponent, TutorialStep } from './components/ui/tutorial-modal/tutorial-modal.component';
 import { ToastContainerComponent } from './components/ui/toast-container/toast-container.component';
+import { ThemeService } from './services/theme.service';
+import { AutoRecurringService } from './services/auto-recurring.service';
+import { ReminderCheckerService } from './services/reminder-checker.service';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -22,8 +25,11 @@ import { filter } from 'rxjs/operators';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   private router = inject(Router);
+  themeService = inject(ThemeService);
+  private autoRecurringService = inject(AutoRecurringService);
+  private reminderCheckerService = inject(ReminderCheckerService);
   title = 'presupuesto';
 
   // Detect if we're on a legacy route
@@ -46,6 +52,9 @@ export class AppComponent {
   ];
 
   constructor() {
+    // Initialize theme service (applies theme from localStorage or system preference)
+    // The service automatically applies the theme on initialization
+    
     // Update current route on navigation
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
@@ -54,6 +63,14 @@ export class AppComponent {
       });
     // Set initial route
     this.currentRoute.set(this.router.url);
+  }
+
+  ngOnInit() {
+    // Initialize auto-recurring transactions check
+    this.autoRecurringService.initialize();
+    
+    // Initialize reminder checker
+    this.reminderCheckerService.initialize();
   }
 
   openTutorial() {

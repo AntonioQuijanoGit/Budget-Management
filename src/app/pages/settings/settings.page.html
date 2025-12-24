@@ -29,6 +29,15 @@
           </select>
         </label>
       </div>
+      <div class="setting-item">
+        <label>
+          <span class="setting-label">Theme</span>
+          <select [(ngModel)]="theme" (ngModelChange)="onThemeChange()" class="setting-input">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+          </select>
+        </label>
+      </div>
     </ui-card>
 
     <ui-card eyebrow="Data" title="Management" [hoverable]="true" padding="md">
@@ -67,6 +76,30 @@
         <ui-button variant="danger" (buttonClick)="clearAllData()" iconLeft="Trash2">
           Clear All Data
         </ui-button>
+      </div>
+    </ui-card>
+
+    <ui-card eyebrow="About" title="Budget Management" [hoverable]="true" padding="md">
+      <div class="setting-item">
+        <p class="setting-description">
+          <strong>Developed by:</strong> Antonio Quijano
+        </p>
+        <p class="setting-description">
+          <strong>Technologies:</strong>
+        </p>
+        <div class="tech-list">
+          <span class="tech-badge">Angular 18</span>
+          <span class="tech-badge">TypeScript 5.4</span>
+          <span class="tech-badge">RxJS</span>
+          <span class="tech-badge">CSS Variables</span>
+          <span class="tech-badge">Tailwind CSS</span>
+          <span class="tech-badge">Lucide Icons</span>
+          <span class="tech-badge">Chart.js</span>
+        </div>
+        <p class="setting-description" style="margin-top: var(--space-4);">
+          Modern web application for budget and expense management.
+          Built with Angular and designed for simplicity and performance.
+        </p>
       </div>
     </ui-card>
   </div>
