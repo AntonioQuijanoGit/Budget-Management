@@ -51,11 +51,8 @@ export class ThemeService {
     } catch (e) {
       console.error('Error loading theme', e);
     }
-    // Default to dark or system preference
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-      return 'light';
-    }
-    return 'dark';
+    // Default to light theme
+    return 'light';
   }
 }
 
