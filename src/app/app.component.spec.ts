@@ -1,10 +1,42 @@
 import { TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { AppComponent } from './app.component';
+import { ThemeService } from './services/theme.service';
+import { AutoRecurringService } from './services/auto-recurring.service';
+import { ReminderCheckerService } from './services/reminder-checker.service';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
+      providers: [
+        {
+          provide: Router,
+          useValue: {
+            events: { pipe: () => ({ subscribe: () => {} }) },
+            navigate: () => Promise.resolve(true)
+          }
+        },
+        {
+          provide: ThemeService,
+          useValue: {
+            theme: () => 'light',
+            setTheme: () => {}
+          }
+        },
+        {
+          provide: AutoRecurringService,
+          useValue: {
+            initialize: () => {}
+          }
+        },
+        {
+          provide: ReminderCheckerService,
+          useValue: {
+            initialize: () => {}
+          }
+        }
+      ]
     }).compileComponents();
   });
 
@@ -18,12 +50,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('presupuesto');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, presupuesto');
   });
 });

@@ -56,6 +56,7 @@ import {
   Building2,
   Sun,
   Moon,
+  Github,
 } from 'lucide-angular';
 import { routes } from './app.routes';
 
@@ -119,6 +120,7 @@ export const appConfig: ApplicationConfig = {
     Building2,
     Sun,
     Moon,
+    Github,
   })
     ),
   ],

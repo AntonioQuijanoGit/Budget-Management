@@ -72,3 +72,8 @@ export class SkeletonComponent {
   @Input() label?: string;
 }
 
+
+
+
+
+

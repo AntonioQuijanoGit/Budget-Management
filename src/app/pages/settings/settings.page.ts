@@ -159,5 +159,9 @@ export class SettingsPage implements OnInit {
     a.click();
     URL.revokeObjectURL(url);
   }
+
+  openGitHub() {
+    window.open('https://github.com/AntonioQuijanoGit/Budget-Management', '_blank', 'noopener,noreferrer');
+  }
 }
 

@@ -1,46 +1,61 @@
 <div class="app-shell" [class.legacy-route]="isLegacyRoute()">
   <aside class="sidebar" *ngIf="!isLegacyRoute()" aria-label="Main navigation">
     <div class="logo">Budget Pro</div>
-    <nav>
-      <a routerLink="/dashboard" routerLinkActive="active">
-        <lucide-icon name="Home" [size]="18"></lucide-icon>
-        Dashboard
-      </a>
-      <a routerLink="/transactions" routerLinkActive="active">
-        <lucide-icon name="List" [size]="18"></lucide-icon>
-        Transactions
-      </a>
-      <a routerLink="/categories" routerLinkActive="active">
-        <lucide-icon name="Tag" [size]="18"></lucide-icon>
-        Categories
-      </a>
-      <a routerLink="/budgets" routerLinkActive="active">
-        <lucide-icon name="Wallet" [size]="18"></lucide-icon>
-        Budgets
-      </a>
-      <a routerLink="/goals" routerLinkActive="active">
-        <lucide-icon name="Target" [size]="18"></lucide-icon>
-        Goals
-      </a>
-      <a routerLink="/recurring" routerLinkActive="active">
-        <lucide-icon name="Repeat" [size]="18"></lucide-icon>
-        Recurring
-      </a>
-      <a routerLink="/reminders" routerLinkActive="active">
-        <lucide-icon name="Bell" [size]="18"></lucide-icon>
-        Reminders
-      </a>
-      <a routerLink="/statistics" routerLinkActive="active">
-        <lucide-icon name="BarChart3" [size]="18"></lucide-icon>
-        Statistics
-      </a>
-      <a routerLink="/history" routerLinkActive="active">
-        <lucide-icon name="Calendar" [size]="18"></lucide-icon>
-        Calendar
-      </a>
+    
+    <nav class="nav-main">
+      <div class="nav-group">
+        <a routerLink="/dashboard" routerLinkActive="active">
+          <lucide-icon name="Home" [size]="18"></lucide-icon>
+          <span>Dashboard</span>
+        </a>
+        <a routerLink="/transactions" routerLinkActive="active">
+          <lucide-icon name="List" [size]="18"></lucide-icon>
+          <span>Transactions</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <a routerLink="/categories" routerLinkActive="active">
+          <lucide-icon name="Tag" [size]="18"></lucide-icon>
+          <span>Categories</span>
+        </a>
+        <a routerLink="/budgets" routerLinkActive="active">
+          <lucide-icon name="Wallet" [size]="18"></lucide-icon>
+          <span>Budgets</span>
+        </a>
+        <a routerLink="/goals" routerLinkActive="active">
+          <lucide-icon name="Target" [size]="18"></lucide-icon>
+          <span>Goals</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <a routerLink="/recurring" routerLinkActive="active">
+          <lucide-icon name="Repeat" [size]="18"></lucide-icon>
+          <span>Recurring</span>
+        </a>
+        <a routerLink="/reminders" routerLinkActive="active">
+          <lucide-icon name="Bell" [size]="18"></lucide-icon>
+          <span>Reminders</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <a routerLink="/statistics" routerLinkActive="active">
+          <lucide-icon name="BarChart3" [size]="18"></lucide-icon>
+          <span>Statistics</span>
+        </a>
+        <a routerLink="/history" routerLinkActive="active">
+          <lucide-icon name="Calendar" [size]="18"></lucide-icon>
+          <span>Calendar</span>
+        </a>
+      </div>
+    </nav>
+
+    <nav class="nav-footer">
       <a routerLink="/settings" routerLinkActive="active">
         <lucide-icon name="Settings" [size]="18"></lucide-icon>
-        Settings
+        <span>Settings</span>
       </a>
     </nav>
   </aside>

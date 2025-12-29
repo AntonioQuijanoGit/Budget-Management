@@ -177,7 +177,6 @@ export class IngresarGastoComponent implements OnInit {
   }
 
   get restanteDisponible(): number {
-    this.updateRestante();
     const restanteValue = this.restante();
     // Asegurar que siempre devolvamos un número válido
     return restanteValue >= 0 ? restanteValue : 0;

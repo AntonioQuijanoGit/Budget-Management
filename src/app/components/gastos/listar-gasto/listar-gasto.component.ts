@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, signal, computed, ChangeDetectorRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal, computed } from '@angular/core';
 import { PresupuestoService } from '../../../services/presupuesto.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -50,8 +50,7 @@ export class ListarGastoComponent implements OnInit, OnDestroy {
   });
 
   constructor(
-    private _presupuestoService: PresupuestoService,
-    private cdr: ChangeDetectorRef
+    private _presupuestoService: PresupuestoService
   ) {
     // Inicializar la suscripción a gastos (ahora retorna array)
     this.subscription = this._presupuestoService.getGastos().subscribe((gastosArray) => {
@@ -62,9 +61,6 @@ export class ListarGastoComponent implements OnInit, OnDestroy {
         // Sincronizar valores del servicio
         this.restante.set(this._presupuestoService.restante);
         this.presupuesto.set(this._presupuestoService.presupuesto);
-        
-        // Forzar detección de cambios
-        this.cdr.detectChanges();
       }
     });
   }
@@ -80,11 +76,7 @@ export class ListarGastoComponent implements OnInit, OnDestroy {
       if (Array.isArray(gastos)) {
         this.listGastos.set(gastos);
       }
-      this.cdr.detectChanges();
     });
-    
-    // Forzar detección de cambios inicial
-    this.cdr.detectChanges();
   }
 
   ngOnDestroy(): void {

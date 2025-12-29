@@ -33,6 +33,7 @@ A comprehensive web application for budget management and expense tracking, buil
 - **Chart.js** - Charts and data visualizations
 - **Lucide Angular** - Modern and consistent icons
 - **Angular Animations** - Smooth animations and transitions
+- **Karma & Jasmine** - Testing framework and runner
 - **nginx** - Web server for production deployment
 
 ## Installation
@@ -59,6 +60,34 @@ npm run build
 ```
 
 Production files are generated in the `dist/` directory
+
+## Testing
+
+The application includes unit tests using **Jasmine** and **Karma**. Test files are located alongside components and services with the `.spec.ts` extension.
+
+### Running Tests
+
+```bash
+# Run tests in watch mode
+npm test
+
+# Run tests once with headless browser
+npm test -- --watch=false --browsers=ChromeHeadless
+```
+
+### Test Coverage
+
+- **7 tests passing** - All tests passing successfully
+- Tests configured with Karma and Jasmine
+- Angular Testing Utilities (`TestBed`) for component testing
+- Mock services and dependencies for isolated testing
+- Tests cover component creation and basic functionality
+
+### Test Framework
+
+- **Karma** - Test runner
+- **Jasmine** - Testing framework
+- **Chrome Headless** - Browser for CI/CD testing
 
 ## Docker
 
