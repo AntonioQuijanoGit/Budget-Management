@@ -1,129 +1,146 @@
 # Budget Management
 
-Aplicación web minimalista para la gestión de presupuestos y seguimiento de gastos, construida con Angular 18. Interfaz limpia, accesible y completamente responsive.
+A comprehensive web application for budget management and expense tracking, built with Angular 18. Modern, accessible, and fully responsive interface with support for light and dark modes.
 
-## Características
+## Features
 
-- Configuración de presupuesto inicial
-- Registro de gastos individuales con nombre y cantidad
-- Cálculo automático del presupuesto restante
-- Indicadores visuales de progreso y porcentaje de uso
-- Visualización de gastos totales y disponibles
-- Diseño responsive (desktop, tablet, móvil)
-- Accesible (WCAG guidelines, navegación por teclado, ARIA)
-- Animaciones sutiles y transiciones suaves
+### Financial Management
+- **Dashboard** - Overview with quick statistics, charts, and financial summary
+- **Transactions** - Complete record of income and expenses with search and filters
+- **Categories** - Management of custom categories with icons and colors
+- **Budgets** - Budget setup and tracking
+- **Financial Goals** - Setting and monitoring financial objectives
+- **Recurring Transactions** - Configuration of automatic periodic transactions
+- **Reminders** - Notification and alert system
 
-## Tecnologías
+### Advanced Features
+- **Statistics** - Detailed charts and analysis of expenses and income
+- **Calendar** - Monthly view of transactions
+- **Browser Notifications** - Real-time alerts and reminders
+- **Auto-generation** - Automatic creation of recurring transactions
+- **Light/Dark Mode** - Customizable theme with real-time switching
+- **Responsive Design** - Optimized for desktop, tablet, and mobile
+- **Accessibility** - Complies with WCAG guidelines, keyboard navigation, and ARIA
 
-- **Angular 18** - Framework frontend
-- **TypeScript** - Lenguaje de programación
-- **RxJS** - Programación reactiva
-- **CSS3** - Custom Properties, Animations, Grid/Flexbox
+## Technologies
 
-## Instalación
+- **Angular 18** - Frontend framework with standalone components
+- **TypeScript 5.4** - Typed programming language
+- **RxJS** - Reactive programming
+- **Angular Signals** - Reactive and efficient state management
+- **Tailwind CSS** - Utility-first CSS framework
+- **CSS Variables** - Design tokens system for themes and styles
+- **Chart.js** - Charts and data visualizations
+- **Lucide Angular** - Modern and consistent icons
+- **Angular Animations** - Smooth animations and transitions
+- **nginx** - Web server for production deployment
+
+## Installation
 
 ```bash
-# Clonar repositorio
+# Clone repository
 git clone https://github.com/AntonioQuijanoGit/Budget-Management.git
 cd Budget-Management
 
-# Instalar dependencias
+# Install dependencies
 npm install
 
-# Iniciar servidor de desarrollo
+# Start development server
 npm start
 ```
 
-La aplicación estará disponible en `http://localhost:4200`
+The application will be available at `http://localhost:4200`
 
-## Construcción
+## Build
 
 ```bash
-# Construir para producción
+# Build for production
 npm run build
 ```
 
-Los archivos de producción se generan en el directorio `dist/`
+Production files are generated in the `dist/` directory
 
 ## Docker
 
-La aplicación puede ejecutarse usando Docker para facilitar el despliegue y asegurar un entorno consistente.
+The application can be run using Docker for easy deployment and consistent environment.
 
-### Requisitos
+### Requirements
 
-- [Docker](https://www.docker.com/get-started) instalado
-- [Docker Compose](https://docs.docker.com/compose/install/) (opcional, pero recomendado)
+- [Docker](https://www.docker.com/get-started) installed
+- [Docker Compose](https://docs.docker.com/compose/install/) (optional, but recommended)
 
-### Construcción de la imagen
+### Building the image
 
 ```bash
-# Construir la imagen Docker
+# Build Docker image
 docker build -t budget-management .
 ```
 
-### Ejecutar con Docker
+### Run with Docker
 
 ```bash
-# Ejecutar el contenedor
+# Run the container
 docker run -d -p 8080:80 --name budget-management budget-management
 ```
 
-La aplicación estará disponible en `http://localhost:8080`
+The application will be available at `http://localhost:8080`
 
-### Ejecutar con Docker Compose
+### Run with Docker Compose
 
 ```bash
-# Construir y ejecutar con docker-compose
+# Build and run with docker-compose
 docker-compose up -d
 
-# Ver logs
+# View logs
 docker-compose logs -f
 
-# Detener el contenedor
+# Stop the container
 docker-compose down
 ```
 
-### Comandos útiles
+### Useful Commands
 
 ```bash
-# Ver contenedores en ejecución
+# View running containers
 docker ps
 
-# Detener el contenedor
+# Stop the container
 docker stop budget-management
 
-# Eliminar el contenedor
+# Remove the container
 docker rm budget-management
 
-# Ver logs
+# View logs
 docker logs budget-management
 
-# Acceder al shell del contenedor
+# Access container shell
 docker exec -it budget-management sh
 ```
 
-## Uso
+## Usage
 
-1. Establece tu presupuesto total disponible
-2. Añade gastos individuales con nombre y cantidad
-3. Visualiza el presupuesto restante, total gastado y porcentaje de uso
-4. Monitorea tu progreso con indicadores visuales
+1. Set your total available budget
+2. Add individual expenses with name and amount
+3. View remaining budget, total spent, and usage percentage
+4. Monitor your progress with visual indicators
 
-## Estructura del Proyecto
+## Project Structure
 
-- `src/app/components/ingresar-presupuesto/` - Componente de entrada de presupuesto
-- `src/app/components/gastos/` - Componentes de gestión de gastos
-- `src/app/services/presupuesto.service.ts` - Servicio de gestión de estado
-- `src/styles.css` - Estilos globales y sistema de diseño
+- `src/app/pages/` - Application pages (Dashboard, Transactions, Categories, Budgets, Goals, etc.)
+- `src/app/features/` - Feature modules (transactions, categories, goals, recurring, reminders)
+- `src/app/components/ui/` - Reusable UI components (Button, Card, Modal, Toast, etc.)
+- `src/app/core/` - Core modules (store, models, animations)
+- `src/app/services/` - Business logic services
+- `src/styles/` - Global styles and design tokens
 
-## Diseño
+## Design
 
-Diseño minimalista con paleta de colores en blanco, negro y gris. Tipografía Helvetica Neue e Inter. Espaciado consistente basado en grid de 8px. Animaciones sutiles que mejoran la experiencia sin distraer.
+Modern design inspired by Vercel's design system. Features a clean color palette with support for light and dark themes. Uses Inter and JetBrains Mono fonts. Consistent spacing based on an 8px grid system. Subtle animations that enhance the experience without distracting.
 
-## Autor
+## Author
 
 **Antonio Quijano**
 
 ---
 
-Desarrollado con Angular
+Built with Angular
