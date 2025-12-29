@@ -45,6 +45,63 @@ npm run build
 
 Los archivos de producción se generan en el directorio `dist/`
 
+## Docker
+
+La aplicación puede ejecutarse usando Docker para facilitar el despliegue y asegurar un entorno consistente.
+
+### Requisitos
+
+- [Docker](https://www.docker.com/get-started) instalado
+- [Docker Compose](https://docs.docker.com/compose/install/) (opcional, pero recomendado)
+
+### Construcción de la imagen
+
+```bash
+# Construir la imagen Docker
+docker build -t budget-management .
+```
+
+### Ejecutar con Docker
+
+```bash
+# Ejecutar el contenedor
+docker run -d -p 8080:80 --name budget-management budget-management
+```
+
+La aplicación estará disponible en `http://localhost:8080`
+
+### Ejecutar con Docker Compose
+
+```bash
+# Construir y ejecutar con docker-compose
+docker-compose up -d
+
+# Ver logs
+docker-compose logs -f
+
+# Detener el contenedor
+docker-compose down
+```
+
+### Comandos útiles
+
+```bash
+# Ver contenedores en ejecución
+docker ps
+
+# Detener el contenedor
+docker stop budget-management
+
+# Eliminar el contenedor
+docker rm budget-management
+
+# Ver logs
+docker logs budget-management
+
+# Acceder al shell del contenedor
+docker exec -it budget-management sh
+```
+
 ## Uso
 
 1. Establece tu presupuesto total disponible
