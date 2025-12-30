@@ -16,6 +16,13 @@
   z-index: 30;
 }
 
+/* Mobile: ajustar posición para evitar solapamiento con FAB y bottom nav */
+@media (max-width: 1024px) {
+  .help-button {
+    bottom: calc(72px + var(--space-6) + 72px + env(safe-area-inset-bottom)); /* Debajo del bottom nav + espacio para FAB */
+  }
+}
+
 .help-button ::ng-deep lucide-icon {
   color: var(--color-text-primary) !important;
   width: 24px !important;
@@ -39,11 +46,11 @@
   outline-offset: 2px;
 }
 
-/* En responsive, posicionar por encima del bottom-nav */
+/* En responsive, posicionar por encima del bottom-nav y separado del FAB */
 @media (max-width: 1024px) { /* --breakpoint-lg */
   .help-button {
-    bottom: 80px; /* Espacio suficiente para el bottom-nav (aprox 60px) + margen */
-    right: var(--space-4); /* 16px en móvil para mejor accesibilidad */
+    bottom: calc(72px + var(--space-6) + env(safe-area-inset-bottom)); /* Bottom nav height + spacing + safe area */
+    right: var(--space-6); /* 24px en móvil - mantiene posición derecha */
   }
 }
 

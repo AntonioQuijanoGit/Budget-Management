@@ -1,7 +1,10 @@
 <article class="tx-card">
   <div class="tx-main">
-    <div class="tx-icon" [style.background]="(category?.color || 'var(--color-bg-tertiary)') + '20'" [style.border-color]="(category?.color || 'var(--color-text-tertiary)') + '40'">
-      <lucide-icon [name]="category?.icon || 'CreditCard'" [size]="18" [style.color]="category?.color || 'var(--color-text-primary)'"></lucide-icon>
+    <div class="tx-icon" [class.income-icon]="transaction.type === 'income'" [class.expense-icon]="transaction.type === 'expense'">
+      <lucide-icon 
+        [name]="transaction.type === 'income' ? 'TrendingUp' : 'TrendingDown'" 
+        [size]="20"
+      ></lucide-icon>
     </div>
     <div class="tx-info">
       <p class="tx-desc">{{ transaction.description }}</p>
@@ -17,11 +20,13 @@
       {{ amountLabel }}
     </div>
     <div class="tx-buttons">
-      <button class="icon-btn" (click)="onEdit()" aria-label="Edit transaction">
+      <button class="action-btn" (click)="onEdit()" aria-label="Edit transaction">
         <lucide-icon name="Pencil" [size]="16"></lucide-icon>
+        <span>Edit</span>
       </button>
-      <button class="icon-btn danger" (click)="onRemove()" aria-label="Delete transaction">
+      <button class="action-btn danger" (click)="onRemove()" aria-label="Delete transaction">
         <lucide-icon name="Trash2" [size]="16"></lucide-icon>
+        <span>Delete</span>
       </button>
     </div>
   </div>

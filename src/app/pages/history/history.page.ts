@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { CalendarViewComponent } from '../../features/calendar/calendar-view.component';
 import { TransactionsService } from '../../services/transactions.service';
 import { Transaction } from '../../core/models/finance.models';
@@ -7,13 +8,23 @@ import { TransactionCardComponent } from '../../features/transactions/transactio
 import { CategoriesService } from '../../services/categories.service';
 import { Category } from '../../core/models/finance.models';
 import { LucideAngularModule } from 'lucide-angular';
+import { EmptyStateComponent } from '../../components/ui/empty-state/empty-state.component';
+import { ButtonComponent } from '../../components/ui/button/button.component';
 
 @Component({
   standalone: true,
   selector: 'app-history-page',
   templateUrl: './history.page.html',
   styleUrl: './history.page.css',
-  imports: [CommonModule, CalendarViewComponent, TransactionCardComponent, LucideAngularModule],
+  imports: [
+    CommonModule, 
+    RouterModule,
+    CalendarViewComponent, 
+    TransactionCardComponent, 
+    LucideAngularModule,
+    EmptyStateComponent,
+    ButtonComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HistoryPage {

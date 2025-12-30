@@ -4,6 +4,8 @@ import { TransactionFormComponent } from '../../features/transactions/transactio
 import { TransactionListComponent } from '../../features/transactions/transaction-list.component';
 import { TransactionFiltersComponent } from '../../features/transactions/transaction-filters.component';
 import { SearchComponent } from '../../components/ui/search/search.component';
+import { ButtonComponent } from '../../components/ui/button/button.component';
+import { ModalComponent } from '../../components/ui/modal/modal.component';
 import { TransactionsService } from '../../services/transactions.service';
 import { CategoriesService } from '../../services/categories.service';
 import { TransactionFiltersService, TransactionFilters } from '../../services/transaction-filters.service';
@@ -21,6 +23,8 @@ import { Category, Transaction } from '../../core/models/finance.models';
     TransactionListComponent,
     TransactionFiltersComponent,
     SearchComponent,
+    ButtonComponent,
+    ModalComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -35,6 +39,13 @@ export class TransactionsPage {
   transactions = signal<Transaction[]>([]);
   categories = signal<Category[]>([]);
   editing = signal<Transaction | null>(null);
+  deletingId = signal<string | null>(null);
+  
+  deletingTransaction = computed(() => {
+    const id = this.deletingId();
+    if (!id) return null;
+    return this.transactions().find(t => t.id === id) || null;
+  });
 
   filtered = computed(() => {
     let result = this.filtersSvc.apply(this.transactions());
@@ -71,13 +82,26 @@ export class TransactionsPage {
   }
 
   handleRemove(id: string) {
-    const tx = this.transactions().find(t => t.id === id);
-    if (!tx) return;
+    this.deletingId.set(id);
+  }
+
+  confirmDelete() {
+    const id = this.deletingId();
+    if (!id) return;
     
-    if (confirm(`Are you sure you want to delete the transaction "${tx.description}"?`)) {
-      this.txSvc.remove(id);
-      this.toastService.success(`Transaction "${tx.description}" deleted`, 'Deleted');
+    const tx = this.transactions().find(t => t.id === id);
+    if (!tx) {
+      this.deletingId.set(null);
+      return;
     }
+    
+    this.txSvc.remove(id);
+    this.toastService.success(`Transaction "${tx.description}" deleted`, 'Deleted');
+    this.deletingId.set(null);
+  }
+
+  cancelDelete() {
+    this.deletingId.set(null);
   }
   
   onSearchChange(query: string) {
@@ -86,6 +110,15 @@ export class TransactionsPage {
 
   cancelEdit() {
     this.editing.set(null);
+  }
+
+  scrollToForm() {
+    setTimeout(() => {
+      const form = document.querySelector('app-transaction-form');
+      if (form) {
+        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
   }
 }
 

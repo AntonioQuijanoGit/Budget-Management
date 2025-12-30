@@ -6,6 +6,7 @@
 >
   <div class="badge-group">
     <ui-badge [variant]="type === 'income' ? 'success' : 'primary'" size="sm">
+      <lucide-icon [name]="type === 'income' ? 'TrendingUp' : 'TrendingDown'" [size]="14"></lucide-icon>
       {{ type === 'income' ? 'Income' : 'Expense' }}
     </ui-badge>
     <ui-badge variant="warning" size="sm" *ngIf="editingTx">
@@ -15,13 +16,14 @@
 
   <form (ngSubmit)="onSubmit()" class="form-grid" aria-label="Transaction form">
     <ui-input
-      label="Type"
+      label="Transaction Type"
       name="type"
       [options]="[
         { label: 'Expense', value: 'expense' },
         { label: 'Income', value: 'income' }
       ]"
       [(ngModel)]="type"
+      helper="Select whether this is an income or expense"
     ></ui-input>
 
     <ui-input
@@ -30,6 +32,8 @@
       [options]="categoryOptions"
       [(ngModel)]="categoryId"
       [error]="errors().categoryId"
+      helper="Category this transaction belongs to"
+      placeholder="Select a category"
     ></ui-input>
 
     <ui-input
@@ -42,6 +46,8 @@
       [required]="true"
       [error]="errors().amount"
       suffix="€"
+      placeholder="0.00"
+      helper="Amount in euros"
     ></ui-input>
 
     <ui-input
@@ -49,16 +55,18 @@
       name="date"
       type="date"
       [(ngModel)]="date"
+      helper="Date when the transaction occurred"
     ></ui-input>
 
     <div class="full">
       <ui-input
         label="Description"
         name="description"
-        placeholder="e.g. Groceries, Salary, Rent..."
+        placeholder="e.g. Grocery shopping, Monthly salary, Rent..."
         [(ngModel)]="description"
         [required]="true"
         [error]="errors().description"
+        helper="Brief description of the transaction"
       ></ui-input>
     </div>
 
@@ -67,30 +75,48 @@
         label="Notes (optional)"
         name="notes"
         [textarea]="true"
-        [rows]="2"
-        placeholder="Add additional details..."
+        [rows]="3"
+        placeholder="Add additional details, location, payment method..."
         [(ngModel)]="notes"
+        helper="Additional information about the transaction"
       ></ui-input>
     </div>
 
     <div class="full">
       <ui-tags-input
         label="Tags (optional)"
-        helper="Press Enter or type a comma to add tags"
+        helper="Press Enter or type a comma to add tags. e.g. work, important, recurring"
         [(ngModel)]="tags"
         name="tags"
+        placeholder="Type and press Enter to add tags"
       ></ui-tags-input>
     </div>
 
     <div class="actions">
-      <ui-button type="submit" variant="primary" [loading]="submitting()">
-        {{ editingTx ? 'Save Changes' : 'Add' }}
+      <ui-button 
+        type="submit" 
+        variant="primary" 
+        [loading]="submitting()"
+        iconLeft="Plus"
+        *ngIf="!editingTx"
+      >
+        Add Transaction
+      </ui-button>
+      <ui-button 
+        type="submit" 
+        variant="primary" 
+        [loading]="submitting()"
+        iconLeft="Save"
+        *ngIf="editingTx"
+      >
+        Save Changes
       </ui-button>
       <ui-button
         type="button"
         variant="ghost"
         *ngIf="editingTx"
         (buttonClick)="onCancelEdit()"
+        iconLeft="X"
       >
         Cancel
       </ui-button>

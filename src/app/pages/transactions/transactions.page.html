@@ -7,12 +7,22 @@
         Add, edit, or delete transactions. Filter by category, date, and search quickly.
       </p>
     </div>
-    <div class="header-search">
-      <ui-search 
-        placeholder="Search transactions..." 
-        [value]="searchQuery()"
-        (valueChange)="onSearchChange($event)"
-      ></ui-search>
+    <div class="header-actions">
+      <div class="header-search">
+        <ui-search 
+          placeholder="Search transactions..." 
+          [value]="searchQuery()"
+          (valueChange)="onSearchChange($event)"
+        ></ui-search>
+      </div>
+      <ui-button 
+        variant="primary" 
+        iconLeft="Plus"
+        (buttonClick)="scrollToForm()"
+        class="header-add-button"
+      >
+        Add Transaction
+      </ui-button>
     </div>
   </header>
 
@@ -36,8 +46,32 @@
         [categories]="categories()"
         (edit)="handleEdit($event)"
         (remove)="handleRemove($event)"
+        (addTransaction)="scrollToForm()"
       ></app-transaction-list>
     </div>
   </div>
+
+  <!-- Delete confirmation modal -->
+  <ui-modal
+    [open]="deletingId() !== null"
+    title="Delete Transaction?"
+    description="This action cannot be undone"
+    size="sm"
+    (close)="cancelDelete()"
+  >
+    <p *ngIf="deletingTransaction()">
+      Are you sure you want to delete the transaction 
+      <strong>"{{ deletingTransaction()?.description }}"</strong>?
+    </p>
+    
+    <div modal-footer style="display: flex; gap: var(--space-3); justify-content: flex-end;">
+      <ui-button variant="ghost" (buttonClick)="cancelDelete()">
+        Cancel
+      </ui-button>
+      <ui-button variant="danger" iconLeft="Trash2" (buttonClick)="confirmDelete()">
+        Delete
+      </ui-button>
+    </div>
+  </ui-modal>
 </section>
 

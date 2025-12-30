@@ -5,6 +5,7 @@ import { TransactionCardComponent } from './transaction-card.component';
 import { CardComponent } from '../../components/ui/card/card.component';
 import { BadgeComponent } from '../../components/ui/badge/badge.component';
 import { EmptyStateComponent } from '../../components/ui/empty-state/empty-state.component';
+import { ButtonComponent } from '../../components/ui/button/button.component';
 
 @Component({
   selector: 'app-transaction-list',
@@ -14,7 +15,8 @@ import { EmptyStateComponent } from '../../components/ui/empty-state/empty-state
     TransactionCardComponent,
     CardComponent,
     BadgeComponent,
-    EmptyStateComponent
+    EmptyStateComponent,
+    ButtonComponent
   ],
   templateUrl: './transaction-list.component.html',
   styleUrl: './transaction-list.component.css',
@@ -24,6 +26,7 @@ export class TransactionListComponent {
   @Input() categories: Category[] = [];
   @Output() edit = new EventEmitter<Transaction>();
   @Output() remove = new EventEmitter<string>();
+  @Output() addTransaction = new EventEmitter<void>();
 
   findCategory(id: string) {
     return this.categories.find(c => c.id === id);
@@ -31,6 +34,17 @@ export class TransactionListComponent {
 
   get hasItems() {
     return this.transactions && this.transactions.length > 0;
+  }
+
+  scrollToForm() {
+    this.addTransaction.emit();
+    // Scroll suave al formulario
+    setTimeout(() => {
+      const form = document.querySelector('app-transaction-form');
+      if (form) {
+        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
   }
 }
 

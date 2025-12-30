@@ -1,6 +1,6 @@
 # Budget Management
 
-A comprehensive web application for budget management and expense tracking, built with Angular 18. Modern, accessible, and fully responsive interface with support for light and dark modes.
+Web application for budget management and expense tracking built with Angular 18. Features a modern, responsive interface with light and dark mode support.
 
 ## Features
 
@@ -13,28 +13,24 @@ A comprehensive web application for budget management and expense tracking, buil
 - **Recurring Transactions** - Configuration of automatic periodic transactions
 - **Reminders** - Notification and alert system
 
-### Advanced Features
-- **Statistics** - Detailed charts and analysis of expenses and income
+### Additional Features
+- **Statistics** - Charts and analysis of expenses and income
 - **Calendar** - Monthly view of transactions
-- **Browser Notifications** - Real-time alerts and reminders
+- **Browser Notifications** - Alerts and reminders
 - **Auto-generation** - Automatic creation of recurring transactions
-- **Light/Dark Mode** - Customizable theme with real-time switching
-- **Responsive Design** - Optimized for desktop, tablet, and mobile
-- **Accessibility** - Complies with WCAG guidelines, keyboard navigation, and ARIA
+- **Light/Dark Mode** - Theme switching
+- **Responsive Design** - Works on desktop, tablet, and mobile
 
 ## Technologies
 
-- **Angular 18** - Frontend framework with standalone components
-- **TypeScript 5.4** - Typed programming language
-- **RxJS** - Reactive programming
-- **Angular Signals** - Reactive and efficient state management
-- **Tailwind CSS** - Utility-first CSS framework
-- **CSS Variables** - Design tokens system for themes and styles
-- **Chart.js** - Charts and data visualizations
-- **Lucide Angular** - Modern and consistent icons
-- **Angular Animations** - Smooth animations and transitions
-- **Karma & Jasmine** - Testing framework and runner
-- **nginx** - Web server for production deployment
+- Angular 18
+- TypeScript 5.4
+- RxJS
+- Angular Signals
+- Tailwind CSS
+- Chart.js
+- Lucide Angular
+- nginx
 
 ## Installation
 
@@ -63,31 +59,7 @@ Production files are generated in the `dist/` directory
 
 ## Testing
 
-The application includes unit tests using **Jasmine** and **Karma**. Test files are located alongside components and services with the `.spec.ts` extension.
 
-### Running Tests
-
-```bash
-# Run tests in watch mode
-npm test
-
-# Run tests once with headless browser
-npm test -- --watch=false --browsers=ChromeHeadless
-```
-
-### Test Coverage
-
-- **7 tests passing** - All tests passing successfully
-- Tests configured with Karma and Jasmine
-- Angular Testing Utilities (`TestBed`) for component testing
-- Mock services and dependencies for isolated testing
-- Tests cover component creation and basic functionality
-
-### Test Framework
-
-- **Karma** - Test runner
-- **Jasmine** - Testing framework
-- **Chrome Headless** - Browser for CI/CD testing
 
 ## Docker
 
@@ -162,9 +134,6 @@ docker exec -it budget-management sh
 - `src/app/services/` - Business logic services
 - `src/styles/` - Global styles and design tokens
 
-## Design
-
-Modern design inspired by Vercel's design system. Features a clean color palette with support for light and dark themes. Uses Inter and JetBrains Mono fonts. Consistent spacing based on an 8px grid system. Subtle animations that enhance the experience without distracting.
 
 ## Author
 

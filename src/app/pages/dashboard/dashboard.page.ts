@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { TransactionsService } from '../../services/transactions.service';
 import { CategoriesService } from '../../services/categories.service';
 import { Transaction } from '../../core/models/finance.models';
@@ -8,6 +9,7 @@ import { TrendChartComponent } from '../../features/dashboard/trend-chart.compon
 import { GoalsPreviewComponent } from '../../features/dashboard/goals-preview.component';
 import { UpcomingRemindersComponent } from '../../features/dashboard/upcoming-reminders.component';
 import { CardComponent } from '../../components/ui/card/card.component';
+import { ButtonComponent } from '../../components/ui/button/button.component';
 import { GoalsService } from '../../services/goals.service';
 import { RemindersService } from '../../services/reminders.service';
 import { FinancialGoal } from '../../core/models/finance.models';
@@ -23,11 +25,13 @@ import { LucideAngularModule } from 'lucide-angular';
   styleUrl: './dashboard.page.css',
   imports: [
     CommonModule,
+    RouterModule,
     CategoryChartComponent,
     TrendChartComponent,
     GoalsPreviewComponent,
     UpcomingRemindersComponent,
     CardComponent,
+    ButtonComponent,
     LucideAngularModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

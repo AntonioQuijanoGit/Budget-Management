@@ -11,7 +11,7 @@
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-group); /* 24px - Estandarizado */
+  gap: var(--space-4); /* 16px - Espaciado generoso estilo Vercel */
   min-width: 0; /* Permite que los elementos hijos se ajusten */
 }
 

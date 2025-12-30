@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { LucideAngularModule } from 'lucide-angular';
 import { Category, Transaction, TransactionType } from '../../core/models/finance.models';
 import { todayIso } from '../../utils/date';
 import { CardComponent } from '../../components/ui/card/card.component';
@@ -16,6 +17,7 @@ import { ToastService } from '../../services/toast.service';
   imports: [
     CommonModule,
     FormsModule,
+    LucideAngularModule,
     CardComponent,
     InputComponent,
     ButtonComponent,
@@ -64,17 +66,17 @@ export class TransactionFormComponent {
   onSubmit() {
     const newErrors: { description?: string; amount?: string; categoryId?: string } = {};
     
-    // Validar descripción
+    // Validate description
     if (!this.description.trim()) {
       newErrors.description = 'Description is required';
     }
     
-    // Validar categoría
+    // Validate category
     if (!this.categoryId) {
       newErrors.categoryId = 'Category is required';
     }
     
-    // Validar monto
+    // Validate amount
     if (!this.amount || this.amount <= 0) {
       newErrors.amount = 'Amount must be greater than zero';
     } else if (this.amount > 1000000) {
@@ -102,14 +104,18 @@ export class TransactionFormComponent {
           tags: this.tags,
         };
     this.errors.set({});
-    this.save.emit(tx);
-    this.submitting.set(false);
-    if (!this.editingTx) {
-      this.reset();
-      this.toastService.success(`Transaction "${tx.description}" added successfully`);
-    } else {
-      this.toastService.success(`Transaction "${tx.description}" updated`);
-    }
+    
+    // Simulate a small delay to show loading state
+    setTimeout(() => {
+      this.save.emit(tx);
+      this.submitting.set(false);
+      if (!this.editingTx) {
+        this.reset();
+        this.toastService.success(`Transaction "${tx.description}" added successfully`, 'Success');
+      } else {
+        this.toastService.success(`Transaction "${tx.description}" updated`, 'Updated');
+      }
+    }, 300);
   }
 
   onCancelEdit() {

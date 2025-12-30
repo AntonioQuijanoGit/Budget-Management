@@ -17,10 +17,20 @@
 
   <ng-template #empty>
     <ui-empty-state
-      icon="FileText"
-      title="No Transactions"
-      description="Add your first expense or income to get started."
-    ></ui-empty-state>
+      icon="TrendingUp"
+      title="Add Your First Transaction"
+      description="Start managing your finances by adding your first income or expenses."
+    >
+      <ui-button 
+        variant="primary" 
+        size="lg"
+        iconLeft="Plus"
+        (buttonClick)="scrollToForm()"
+        class="empty-cta-button"
+      >
+        Add Transaction
+      </ui-button>
+    </ui-empty-state>
   </ng-template>
 </ui-card>
 

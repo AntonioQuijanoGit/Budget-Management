@@ -20,7 +20,22 @@
           [category]="category(tx.categoryId)"
         ></app-transaction-card>
       </div>
-      <p *ngIf="transactions().length === 0" class="empty">You don't have any transactions yet.</p>
+      <div *ngIf="transactions().length === 0" class="empty-state-wrapper">
+        <ui-empty-state
+          icon="Calendar"
+          title="No Transactions"
+          description="You haven't added any transactions yet. Start by adding your first income or expenses."
+        >
+          <ui-button 
+            variant="primary" 
+            size="lg"
+            iconLeft="Plus"
+            routerLink="/transactions"
+          >
+            Add Transaction
+          </ui-button>
+        </ui-empty-state>
+      </div>
     </div>
   </div>
 </section>
