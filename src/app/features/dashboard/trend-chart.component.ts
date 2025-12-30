@@ -19,11 +19,11 @@ import { trendByMonth } from '../../utils/calculations';
   template: `<div class="card">
     <header class="card-header">
       <div>
-        <p class="eyebrow">Tendencia</p>
-        <h3 class="title">Evolución mensual</h3>
+        <p class="eyebrow">Trend</p>
+        <h3 class="title">Monthly Evolution</h3>
       </div>
     </header>
-    <canvas #canvas aria-label="Gráfico de evolución mensual"></canvas>
+    <canvas #canvas aria-label="Monthly evolution chart"></canvas>
   </div>`,
   styleUrl: './charts.css',
 })
@@ -64,7 +64,7 @@ export class TrendChartComponent implements AfterViewInit, OnChanges, OnDestroy 
         labels: trend.map(t => t.month),
         datasets: [
           {
-            label: 'Ingresos',
+            label: 'Income',
             data: trend.map(t => t.income),
             borderColor: this.palette.success,
             backgroundColor: withAlpha(this.palette.success, 0.16),
