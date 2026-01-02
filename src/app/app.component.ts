@@ -5,6 +5,7 @@ import { LucideAngularModule } from 'lucide-angular';
 import { HelpButtonComponent } from './components/ui/help-button/help-button.component';
 import { TutorialModalComponent, TutorialStep } from './components/ui/tutorial-modal/tutorial-modal.component';
 import { ToastContainerComponent } from './components/ui/toast-container/toast-container.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 import { ThemeService } from './services/theme.service';
 import { AutoRecurringService } from './services/auto-recurring.service';
 import { ReminderCheckerService } from './services/reminder-checker.service';
@@ -21,6 +22,7 @@ import { filter } from 'rxjs/operators';
     HelpButtonComponent,
     TutorialModalComponent,
     ToastContainerComponent,
+    WelcomeComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
