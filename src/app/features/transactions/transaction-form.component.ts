@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
 import { Category, Transaction, TransactionType } from '../../core/models/finance.models';
-import { todayIso } from '../../utils/date';
+import { todayIso, todayIsoDate, isFutureDate, isValidDate } from '../../utils/date';
 import { CardComponent } from '../../components/ui/card/card.component';
 import { InputComponent } from '../../components/ui/input/input.component';
 import { ButtonComponent } from '../../components/ui/button/button.component';
@@ -52,35 +52,72 @@ export class TransactionFormComponent {
   categoryId: string = 'food';
   amount = 0;
   description = '';
-  date = todayIso();
+  date = todayIsoDate();
   notes = '';
   tags: string[] = [];
   editingTx: Transaction | null = null;
   submitting = signal(false);
-  errors = signal<{ description?: string; amount?: string; categoryId?: string }>({});
+  errors = signal<{ description?: string; amount?: string; categoryId?: string; date?: string }>({});
 
   get categoryOptions() {
-    return this.categories.map(cat => ({ label: cat.name, value: cat.id }));
+    // Filtrar categorías que coincidan con el tipo de transacción
+    return this.categories
+      .filter(cat => !cat.type || cat.type === this.type)
+      .map(cat => ({ label: cat.name, value: cat.id }));
+  }
+
+  get todayIsoDate() {
+    return todayIsoDate;
+  }
+
+  onTypeChange() {
+    // Cuando cambia el tipo, validar que la categoría seleccionada sea compatible
+    const selectedCategory = this.categories.find(c => c.id === this.categoryId);
+    if (selectedCategory && selectedCategory.type && selectedCategory.type !== this.type) {
+      // Si la categoría no coincide, seleccionar la primera categoría compatible
+      const compatibleCategory = this.categories.find(c => !c.type || c.type === this.type);
+      this.categoryId = compatibleCategory?.id || '';
+    }
   }
 
   onSubmit() {
-    const newErrors: { description?: string; amount?: string; categoryId?: string } = {};
+    const newErrors: { description?: string; amount?: string; categoryId?: string; date?: string } = {};
     
     // Validate description
     if (!this.description.trim()) {
       newErrors.description = 'Description is required';
+    } else if (this.description.trim().length > 200) {
+      newErrors.description = 'Description must be less than 200 characters';
     }
     
     // Validate category
     if (!this.categoryId) {
       newErrors.categoryId = 'Category is required';
+    } else {
+      const selectedCategory = this.categories.find(c => c.id === this.categoryId);
+      if (!selectedCategory) {
+        newErrors.categoryId = 'Selected category does not exist';
+      } else if (selectedCategory.type && selectedCategory.type !== this.type) {
+        newErrors.categoryId = `Category "${selectedCategory.name}" is for ${selectedCategory.type} transactions, not ${this.type}`;
+      }
     }
     
     // Validate amount
     if (!this.amount || this.amount <= 0) {
       newErrors.amount = 'Amount must be greater than zero';
     } else if (this.amount > 1000000) {
-      newErrors.amount = 'Amount is too large';
+      newErrors.amount = 'Amount is too large (maximum: 1,000,000)';
+    } else if (this.amount < 0.01) {
+      newErrors.amount = 'Amount must be at least 0.01';
+    }
+    
+    // Validate date
+    if (!this.date) {
+      newErrors.date = 'Date is required';
+    } else if (!isValidDate(this.date)) {
+      newErrors.date = 'Invalid date format';
+    } else if (isFutureDate(this.date)) {
+      newErrors.date = 'Date cannot be in the future';
     }
     
     this.errors.set(newErrors);
@@ -125,10 +162,10 @@ export class TransactionFormComponent {
 
   private reset() {
     this.type = 'expense';
-    this.categoryId = this.categories.find(c => c.type === 'expense')?.id || 'food';
+    this.categoryId = this.categories.find(c => !c.type || c.type === 'expense')?.id || 'food';
     this.amount = 0;
     this.description = '';
-    this.date = todayIso();
+    this.date = todayIsoDate();
     this.notes = '';
     this.tags = [];
     this.editingTx = null;

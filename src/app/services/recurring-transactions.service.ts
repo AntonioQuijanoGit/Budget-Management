@@ -30,7 +30,16 @@ export class RecurringTransactionsService {
   }
 
   private persist() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.recurring$.value));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.recurring$.value));
+    } catch (e: any) {
+      console.error('Error saving recurring transactions', e);
+      if (e.name === 'QuotaExceededError' || e.code === 22) {
+        console.warn('localStorage quota exceeded for recurring transactions');
+        throw new Error('Storage quota exceeded. Please clear some old data.');
+      }
+      throw e;
+    }
   }
 
   private load(): RecurringTransaction[] {

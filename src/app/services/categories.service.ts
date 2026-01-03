@@ -13,7 +13,7 @@ const palette = {
 
 const DEFAULT_CATEGORIES: Category[] = [
   { id: 'food', name: 'Food', color: palette.error, icon: 'UtensilsCrossed', type: 'expense', budgetMonthly: 250 },
-  { id: 'transport', name: 'Transport', color: '#60a5fa', icon: 'Bus', type: 'expense', budgetMonthly: 120 }, // Blue-400 for better visibility
+  { id: 'transport', name: 'Transport', color: palette.primary, icon: 'Bus', type: 'expense', budgetMonthly: 120 },
   { id: 'salary', name: 'Salary', color: palette.success, icon: 'Wallet', type: 'income' },
   {
     id: 'entertainment',
@@ -94,7 +94,16 @@ export class CategoriesService {
   }
 
   private persistData(categories: Category[]) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(categories));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(categories));
+    } catch (e: any) {
+      console.error('Error saving categories', e);
+      if (e.name === 'QuotaExceededError' || e.code === 22) {
+        console.warn('localStorage quota exceeded for categories');
+        throw new Error('Storage quota exceeded. Please clear some old data.');
+      }
+      throw e;
+    }
   }
 }
 

@@ -26,6 +26,24 @@ export const monthKey = (iso: string): string => {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
 };
 
+export const todayIsoDate = (): string => {
+  const today = new Date();
+  return today.toISOString().split('T')[0]; // YYYY-MM-DD format
+};
+
+export const isFutureDate = (dateIso: string): boolean => {
+  const date = new Date(dateIso);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  date.setHours(0, 0, 0, 0);
+  return date > today;
+};
+
+export const isValidDate = (dateIso: string): boolean => {
+  const date = new Date(dateIso);
+  return !isNaN(date.getTime());
+};
+
 
 
 

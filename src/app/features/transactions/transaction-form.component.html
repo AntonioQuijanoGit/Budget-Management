@@ -23,6 +23,7 @@
         { label: 'Income', value: 'income' }
       ]"
       [(ngModel)]="type"
+      (ngModelChange)="onTypeChange()"
       helper="Select whether this is an income or expense"
     ></ui-input>
 
@@ -55,7 +56,9 @@
       name="date"
       type="date"
       [(ngModel)]="date"
-      helper="Date when the transaction occurred"
+      [max]="todayIsoDate()"
+      [error]="errors().date"
+      helper="Date when the transaction occurred (cannot be in the future)"
     ></ui-input>
 
     <div class="full">

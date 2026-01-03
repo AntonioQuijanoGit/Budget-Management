@@ -39,7 +39,16 @@ export class RemindersService {
   }
 
   private persist() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.reminders$.value));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.reminders$.value));
+    } catch (e: any) {
+      console.error('Error saving reminders', e);
+      if (e.name === 'QuotaExceededError' || e.code === 22) {
+        console.warn('localStorage quota exceeded for reminders');
+        throw new Error('Storage quota exceeded. Please clear some old data.');
+      }
+      throw e;
+    }
   }
 
   private load(): Reminder[] {

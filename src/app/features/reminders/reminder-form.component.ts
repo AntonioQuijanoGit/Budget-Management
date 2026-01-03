@@ -143,11 +143,21 @@ export class ReminderFormComponent {
     // Validar título
     if (!this.title.trim()) {
       newErrors.title = 'Reminder title is required';
+    } else if (this.title.trim().length > 100) {
+      newErrors.title = 'Title must be less than 100 characters';
     }
     
     // Validar fecha
     if (!this.date) {
       newErrors.date = 'Date is required';
+    } else {
+      const reminderDate = new Date(this.date);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      reminderDate.setHours(0, 0, 0, 0);
+      if (reminderDate < today) {
+        newErrors.date = 'Reminder date cannot be in the past';
+      }
     }
     
     this.errors.set(newErrors);

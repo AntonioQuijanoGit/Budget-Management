@@ -27,32 +27,42 @@ import { LucideAngularModule } from 'lucide-angular';
       justify-content: center;
       gap: var(--space-2);
       padding: var(--space-4);
-      min-width: 56px;
+      min-width: 56px; /* Apple System Design: mínimo 56px para FAB */
       min-height: 56px;
       border-radius: var(--radius-full);
-      background: #2563eb; /* blue-600 */
-      color: #ffffff;
+      background: var(--primary);
+      color: var(--primary-foreground);
       border: none;
-      box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3), 0 4px 6px -2px rgba(37, 99, 235, 0.2);
+      box-shadow: 
+        0 10px 15px -3px color-mix(in srgb, var(--primary) 30%, transparent),
+        0 4px 6px -2px color-mix(in srgb, var(--primary) 20%, transparent);
       cursor: pointer;
-      transition: all var(--transition-fast);
+      transition: background var(--transition-base), 
+                  box-shadow var(--transition-base), 
+                  transform var(--transition-active);
       font-weight: var(--font-weight-semibold);
       font-size: var(--font-size-base);
+      -webkit-tap-highlight-color: transparent;
     }
 
     .fab:hover {
-      background: #1d4ed8; /* blue-700 */
-      transform: translateY(-2px);
-      box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.4), 0 10px 10px -5px rgba(37, 99, 235, 0.3);
+      background: color-mix(in srgb, var(--primary) 90%, black);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 
+        0 20px 25px -5px color-mix(in srgb, var(--primary) 40%, transparent),
+        0 10px 10px -5px color-mix(in srgb, var(--primary) 30%, transparent);
     }
 
     .fab:active {
-      transform: translateY(0);
-      box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3), 0 4px 6px -2px rgba(37, 99, 235, 0.2);
+      transform: translateY(0) scale(0.98);
+      box-shadow: 
+        0 10px 15px -3px color-mix(in srgb, var(--primary) 30%, transparent),
+        0 4px 6px -2px color-mix(in srgb, var(--primary) 20%, transparent);
+      transition: all var(--transition-fast);
     }
 
     .fab:focus-visible {
-      outline: 2px solid #60a5fa; /* blue-400 */
+      outline: 2px solid var(--ring);
       outline-offset: 2px;
     }
 

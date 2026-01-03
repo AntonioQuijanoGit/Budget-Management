@@ -25,13 +25,17 @@ export class RemindersPage {
   }
 
   handleSave(reminder: Reminder) {
-    if (this.editing()) {
-      this.remindersSvc.update(reminder.id, reminder);
-      this.editing.set(null);
-      this.toastSvc.success('Reminder updated');
-    } else {
-      this.remindersSvc.add(reminder);
-      this.toastSvc.success('Reminder created');
+    try {
+      if (this.editing()) {
+        this.remindersSvc.update(reminder.id, reminder);
+        this.editing.set(null);
+        this.toastSvc.success('Reminder updated');
+      } else {
+        this.remindersSvc.add(reminder);
+        this.toastSvc.success('Reminder created');
+      }
+    } catch (e: any) {
+      this.toastSvc.error(e.message || 'Failed to save reminder', 'Error');
     }
   }
 

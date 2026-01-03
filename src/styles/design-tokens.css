@@ -6,12 +6,12 @@
 :root {
   --radius: 0.5rem; /* 8px - base unified radius */
   
-  /* Colors - Vercel Design System */
+  /* Colors - Apple System Design */
   /* Dark theme (default) */
   --background: #000000;        /* Background principal - negro puro */
   --foreground: #fafafa;        /* Texto principal - casi blanco */
   
-  --primary: #2563eb;           /* Primary - blue-600 Vercel */
+  --primary: #007AFF;           /* Apple Blue - profesional y elegante */
   --primary-foreground: #ffffff;
   
   --secondary: #0a0a0a;
@@ -23,15 +23,15 @@
   --accent: #171717;            /* Accent (usado para cards hover) */
   --accent-foreground: #fafafa;
   
-  --card: #171717;              /* Cards - gris muy oscuro */
-  --card-foreground: #fafafa;
+  --card: #1c1c1e;              /* Cards - Apple dark gray (más sutil) */
+  --card-foreground: #ffffff;
   
-  --destructive: #dc2626;       /* Destructive - red-600 */
+  --destructive: #FF3B30;       /* Apple Red - más suave que red-600 */
   --destructive-foreground: #ffffff;
   
-  --border: #333333;            /* Borders - gris oscuro */
-  --input: #333333;
-  --ring: #2563eb;              /* Focus ring - blue-600 Vercel */
+  --border: #38383a;            /* Borders - Apple border gray (más sutil) */
+  --input: #2c2c2e;            /* Apple input background */
+  --ring: #007AFF;              /* Focus ring - Apple Blue */
 
   /* Semantic colors - Apple System Colors */
   --color-primary: var(--primary);

@@ -4,6 +4,7 @@ import { CategoryManagerComponent } from '../../features/categories/category-man
 import { CategoriesService } from '../../services/categories.service';
 import { Category } from '../../core/models/finance.models';
 import { LucideAngularModule } from 'lucide-angular';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   standalone: true,
@@ -15,6 +16,7 @@ import { LucideAngularModule } from 'lucide-angular';
 })
 export class CategoriesPage {
   private catSvc = inject(CategoriesService);
+  private toastSvc = inject(ToastService);
   categories = signal<Category[]>([]);
 
   constructor() {
@@ -22,15 +24,27 @@ export class CategoriesPage {
   }
 
   add(cat: Category) {
-    this.catSvc.add(cat);
+    try {
+      this.catSvc.add(cat);
+    } catch (e: any) {
+      this.toastSvc.error(e.message || 'Failed to add category', 'Error');
+    }
   }
 
   update(ev: { id: string; patch: Partial<Category> }) {
-    this.catSvc.update(ev.id, ev.patch);
+    try {
+      this.catSvc.update(ev.id, ev.patch);
+    } catch (e: any) {
+      this.toastSvc.error(e.message || 'Failed to update category', 'Error');
+    }
   }
 
   remove(id: string) {
-    this.catSvc.remove(id);
+    try {
+      this.catSvc.remove(id);
+    } catch (e: any) {
+      this.toastSvc.error(e.message || 'Failed to remove category', 'Error');
+    }
   }
 }
 

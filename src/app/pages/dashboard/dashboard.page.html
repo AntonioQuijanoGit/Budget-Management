@@ -6,6 +6,16 @@
       <h1 class="page-title">Financial Overview</h1>
       <p class="page-subtitle">Balance, category distribution, and temporal trends.</p>
     </div>
+    <div class="header-actions">
+      <ui-button 
+        variant="primary" 
+        iconLeft="Plus"
+        (buttonClick)="navigateToTransactions()"
+        class="header-add-button"
+      >
+        Add Transaction
+      </ui-button>
+    </div>
   </header>
 
   <!-- Summary Cards -->
@@ -36,4 +46,12 @@
     <app-trend-chart [transactions]="transactions()"></app-trend-chart>
   </div>
 </section>
+
+<!-- Floating Action Button (Mobile only) -->
+<ui-fab
+  icon="Plus"
+  position="bottom-right"
+  ariaLabel="Add new transaction"
+  (click)="navigateToTransactions()"
+></ui-fab>
 

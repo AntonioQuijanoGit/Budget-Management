@@ -69,11 +69,15 @@ export class TransactionsPage {
   }
 
   handleSave(tx: Transaction) {
-    if (this.editing()) {
-      this.txSvc.update(tx.id, tx);
-      this.editing.set(null);
-    } else {
-      this.txSvc.add(tx);
+    try {
+      if (this.editing()) {
+        this.txSvc.update(tx.id, tx);
+        this.editing.set(null);
+      } else {
+        this.txSvc.add(tx);
+      }
+    } catch (e: any) {
+      this.toastService.error(e.message || 'Failed to save transaction', 'Error');
     }
   }
 

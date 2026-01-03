@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { TransactionsService } from '../../services/transactions.service';
 import { CategoriesService } from '../../services/categories.service';
 import { Transaction } from '../../core/models/finance.models';
@@ -10,6 +10,7 @@ import { GoalsPreviewComponent } from '../../features/dashboard/goals-preview.co
 import { UpcomingRemindersComponent } from '../../features/dashboard/upcoming-reminders.component';
 import { CardComponent } from '../../components/ui/card/card.component';
 import { ButtonComponent } from '../../components/ui/button/button.component';
+import { FabComponent } from '../../components/ui/fab/fab.component';
 import { GoalsService } from '../../services/goals.service';
 import { RemindersService } from '../../services/reminders.service';
 import { FinancialGoal } from '../../core/models/finance.models';
@@ -32,6 +33,7 @@ import { LucideAngularModule } from 'lucide-angular';
     UpcomingRemindersComponent,
     CardComponent,
     ButtonComponent,
+    FabComponent,
     LucideAngularModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,6 +43,7 @@ export class DashboardPage {
   private catSvc = inject(CategoriesService);
   private goalsSvc = inject(GoalsService);
   private remindersSvc = inject(RemindersService);
+  private router = inject(Router);
   private palette = {
     primary: this.getVar('--color-primary', '#ffffff'),
     success: this.getVar('--color-success', '#00ff88'),
@@ -83,6 +86,10 @@ export class DashboardPage {
 
   formatBalance(value: number): string {
     return Math.abs(value).toFixed(2);
+  }
+
+  navigateToTransactions() {
+    this.router.navigate(['/transactions']);
   }
 }
 

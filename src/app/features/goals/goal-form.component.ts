@@ -134,18 +134,40 @@ export class GoalFormComponent {
   }
 
   onSubmit() {
-    const newErrors: { title?: string; targetAmount?: string } = {};
+    const newErrors: { title?: string; targetAmount?: string; currentAmount?: string; deadline?: string } = {};
     
     // Validar título
     if (!this.title.trim()) {
       newErrors.title = 'Goal title is required';
+    } else if (this.title.trim().length > 100) {
+      newErrors.title = 'Title must be less than 100 characters';
     }
     
     // Validar monto objetivo
     if (!this.targetAmount || this.targetAmount <= 0) {
       newErrors.targetAmount = 'Target amount must be greater than zero';
     } else if (this.targetAmount > 10000000) {
-      newErrors.targetAmount = 'Target amount is too large';
+      newErrors.targetAmount = 'Target amount is too large (maximum: 10,000,000)';
+    } else if (this.targetAmount < 0.01) {
+      newErrors.targetAmount = 'Target amount must be at least 0.01';
+    }
+    
+    // Validar monto actual
+    if (this.currentAmount < 0) {
+      newErrors.currentAmount = 'Current amount cannot be negative';
+    } else if (this.currentAmount > this.targetAmount) {
+      newErrors.currentAmount = 'Current amount cannot exceed target amount';
+    }
+    
+    // Validar deadline si existe
+    if (this.deadline) {
+      const deadlineDate = new Date(this.deadline);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      deadlineDate.setHours(0, 0, 0, 0);
+      if (deadlineDate < today) {
+        newErrors.deadline = 'Deadline cannot be in the past';
+      }
     }
     
     this.errors.set(newErrors);

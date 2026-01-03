@@ -113,7 +113,16 @@ export class GoalsService {
   }
 
   private persist() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.goals$.value));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.goals$.value));
+    } catch (e: any) {
+      console.error('Error saving goals', e);
+      if (e.name === 'QuotaExceededError' || e.code === 22) {
+        console.warn('localStorage quota exceeded for goals');
+        throw new Error('Storage quota exceeded. Please clear some old data.');
+      }
+      throw e;
+    }
   }
 
   private load(): FinancialGoal[] {

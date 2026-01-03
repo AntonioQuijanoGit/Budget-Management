@@ -29,8 +29,21 @@ export class TransactionsService {
   }
 
   private save(data: Transaction[]) {
-    this.tx$.next(data);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    try {
+      this.tx$.next(data);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (e: any) {
+      console.error('Error saving transactions', e);
+      // Handle quota exceeded error
+      if (e.name === 'QuotaExceededError' || e.code === 22) {
+        // Try to clear old data or notify user
+        console.warn('localStorage quota exceeded. Consider clearing old data.');
+        // Still update the in-memory state even if localStorage fails
+        this.tx$.next(data);
+        throw new Error('Storage quota exceeded. Please clear some old transactions or export your data.');
+      }
+      throw e;
+    }
   }
 
   private load(): Transaction[] {

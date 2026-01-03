@@ -26,13 +26,17 @@ export class GoalsPage {
   }
 
   handleSave(goal: FinancialGoal) {
-    if (this.editing()) {
-      this.goalsService.update(goal.id, goal);
-      this.editing.set(null);
-      this.toastSvc.success('Goal updated');
-    } else {
-      this.goalsService.add(goal);
-      this.toastSvc.success('Goal created');
+    try {
+      if (this.editing()) {
+        this.goalsService.update(goal.id, goal);
+        this.editing.set(null);
+        this.toastSvc.success('Goal updated');
+      } else {
+        this.goalsService.add(goal);
+        this.toastSvc.success('Goal created');
+      }
+    } catch (e: any) {
+      this.toastSvc.error(e.message || 'Failed to save goal', 'Error');
     }
   }
 
