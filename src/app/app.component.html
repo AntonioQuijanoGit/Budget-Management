@@ -2,61 +2,61 @@
 
 <div class="app-shell" [class.legacy-route]="isLegacyRoute()">
   <aside class="sidebar" *ngIf="!isLegacyRoute()" aria-label="Main navigation">
-    <div class="logo">Budget Pro</div>
+    <div class="logo" role="banner" aria-label="Budget Pro application">Budget Pro</div>
     
-    <nav class="nav-main">
-      <div class="nav-group">
-        <a routerLink="/dashboard" routerLinkActive="active">
-          <lucide-icon name="Home" [size]="18"></lucide-icon>
+    <nav class="nav-main" aria-label="Primary navigation">
+      <div class="nav-group" role="group" aria-label="Overview">
+        <a routerLink="/dashboard" routerLinkActive="active" aria-label="Go to Dashboard" aria-current="page">
+          <lucide-icon name="Home" [size]="20" aria-hidden="true"></lucide-icon>
           <span>Dashboard</span>
         </a>
-        <a routerLink="/transactions" routerLinkActive="active">
-          <lucide-icon name="List" [size]="18"></lucide-icon>
+        <a routerLink="/transactions" routerLinkActive="active" aria-label="Go to Transactions">
+          <lucide-icon name="List" [size]="20" aria-hidden="true"></lucide-icon>
           <span>Transactions</span>
         </a>
       </div>
 
-      <div class="nav-group">
-        <a routerLink="/categories" routerLinkActive="active">
-          <lucide-icon name="Tag" [size]="18"></lucide-icon>
+      <div class="nav-group" role="group" aria-label="Management">
+        <a routerLink="/categories" routerLinkActive="active" aria-label="Go to Categories">
+          <lucide-icon name="Tag" [size]="20" aria-hidden="true"></lucide-icon>
           <span>Categories</span>
         </a>
-        <a routerLink="/budgets" routerLinkActive="active">
-          <lucide-icon name="Wallet" [size]="18"></lucide-icon>
+        <a routerLink="/budgets" routerLinkActive="active" aria-label="Go to Budgets">
+          <lucide-icon name="Wallet" [size]="20" aria-hidden="true"></lucide-icon>
           <span>Budgets</span>
         </a>
-        <a routerLink="/goals" routerLinkActive="active">
-          <lucide-icon name="Target" [size]="18"></lucide-icon>
+        <a routerLink="/goals" routerLinkActive="active" aria-label="Go to Goals">
+          <lucide-icon name="Target" [size]="20" aria-hidden="true"></lucide-icon>
           <span>Goals</span>
         </a>
       </div>
 
-      <div class="nav-group">
-        <a routerLink="/recurring" routerLinkActive="active">
-          <lucide-icon name="Repeat" [size]="18"></lucide-icon>
+      <div class="nav-group" role="group" aria-label="Automation">
+        <a routerLink="/recurring" routerLinkActive="active" aria-label="Go to Recurring Transactions">
+          <lucide-icon name="Repeat" [size]="20" aria-hidden="true"></lucide-icon>
           <span>Recurring</span>
         </a>
-        <a routerLink="/reminders" routerLinkActive="active">
-          <lucide-icon name="Bell" [size]="18"></lucide-icon>
+        <a routerLink="/reminders" routerLinkActive="active" aria-label="Go to Reminders">
+          <lucide-icon name="Bell" [size]="20" aria-hidden="true"></lucide-icon>
           <span>Reminders</span>
         </a>
       </div>
 
-      <div class="nav-group">
-        <a routerLink="/statistics" routerLinkActive="active">
-          <lucide-icon name="BarChart3" [size]="18"></lucide-icon>
+      <div class="nav-group" role="group" aria-label="Analytics">
+        <a routerLink="/statistics" routerLinkActive="active" aria-label="Go to Statistics">
+          <lucide-icon name="BarChart3" [size]="20" aria-hidden="true"></lucide-icon>
           <span>Statistics</span>
         </a>
-        <a routerLink="/history" routerLinkActive="active">
-          <lucide-icon name="Calendar" [size]="18"></lucide-icon>
+        <a routerLink="/history" routerLinkActive="active" aria-label="Go to Calendar View">
+          <lucide-icon name="Calendar" [size]="20" aria-hidden="true"></lucide-icon>
           <span>Calendar</span>
         </a>
       </div>
     </nav>
 
-    <nav class="nav-footer">
-      <a routerLink="/settings" routerLinkActive="active">
-        <lucide-icon name="Settings" [size]="18"></lucide-icon>
+    <nav class="nav-footer" aria-label="Settings navigation">
+      <a routerLink="/settings" routerLinkActive="active" aria-label="Go to Settings">
+        <lucide-icon name="Settings" [size]="20" aria-hidden="true"></lucide-icon>
         <span>Settings</span>
       </a>
     </nav>
@@ -79,25 +79,25 @@
   <ui-toast-container></ui-toast-container>
   
 
-  <nav class="bottom-nav" *ngIf="!isLegacyRoute()" aria-label="Bottom navigation">
-    <a routerLink="/dashboard" routerLinkActive="active">
-      <lucide-icon name="Home" [size]="18"></lucide-icon>
+  <nav class="bottom-nav" *ngIf="!isLegacyRoute()" aria-label="Bottom navigation" role="navigation">
+    <a routerLink="/dashboard" routerLinkActive="active" aria-label="Go to Dashboard">
+      <lucide-icon name="Home" [size]="20" aria-hidden="true"></lucide-icon>
       <span>Dashboard</span>
     </a>
-    <a routerLink="/transactions" routerLinkActive="active">
-      <lucide-icon name="List" [size]="18"></lucide-icon>
+    <a routerLink="/transactions" routerLinkActive="active" aria-label="Go to Transactions">
+      <lucide-icon name="List" [size]="20" aria-hidden="true"></lucide-icon>
       <span>Transactions</span>
     </a>
-    <a routerLink="/budgets" routerLinkActive="active">
-      <lucide-icon name="Wallet" [size]="18"></lucide-icon>
+    <a routerLink="/budgets" routerLinkActive="active" aria-label="Go to Budgets">
+      <lucide-icon name="Wallet" [size]="20" aria-hidden="true"></lucide-icon>
       <span>Budgets</span>
     </a>
-    <a routerLink="/statistics" routerLinkActive="active">
-      <lucide-icon name="BarChart3" [size]="18"></lucide-icon>
+    <a routerLink="/statistics" routerLinkActive="active" aria-label="Go to Statistics">
+      <lucide-icon name="BarChart3" [size]="20" aria-hidden="true"></lucide-icon>
       <span>Stats</span>
     </a>
-    <a routerLink="/settings" routerLinkActive="active">
-      <lucide-icon name="Settings" [size]="18"></lucide-icon>
+    <a routerLink="/settings" routerLinkActive="active" aria-label="Go to Settings">
+      <lucide-icon name="Settings" [size]="20" aria-hidden="true"></lucide-icon>
       <span>Settings</span>
     </a>
   </nav>

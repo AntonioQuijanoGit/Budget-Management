@@ -1,21 +1,27 @@
 .ui-card {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
   width: 100%;
   min-width: 0;
-  overflow: hidden; /* Previene overflow del contenido */
-  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  overflow: hidden;
+  transition: box-shadow var(--transition-base), border-color var(--transition-base);
+  border-color: color-mix(in srgb, var(--border) 100%, transparent);
 }
 
 .ui-card.is-hoverable:hover {
-  transform: translateY(-2px);
+  /* Sin transformaciones - solo cambios visuales sutiles */
   box-shadow: var(--shadow-lg);
   border-color: color-mix(in srgb, var(--primary) 30%, var(--border));
+}
+
+.ui-card.is-hoverable:active {
+  /* Sin transformaciones */
+  box-shadow: var(--shadow-md);
 }
 
 .pad-sm { padding: var(--space-4); }

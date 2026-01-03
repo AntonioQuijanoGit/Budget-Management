@@ -15,10 +15,11 @@
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-tight);
   
-  /* Layout */
+  /* Layout - WCAG AAA: mínimo 44x44px touch target */
   padding: var(--space-3) var(--space-5);
-  min-height: 40px;
-  border-radius: var(--radius);
+  min-height: var(--touch-target-min); /* 44px - WCAG AAA */
+  min-width: var(--touch-target-min); /* 44px - WCAG AAA (para botones pequeños) */
+  border-radius: var(--radius-lg); /* Más redondeado estilo Apple */
   border: 1px solid transparent;
   
   /* Interactions */
@@ -26,11 +27,11 @@
   user-select: none;
   white-space: nowrap;
   
-  /* Transitions */
-  transition: all var(--transition-fast);
+  /* Transitions - Apple System Style */
+  transition: all var(--transition-base), transform var(--transition-active);
   
   /* Reset button styles */
-  background: none;
+  background: transparent;
   color: inherit;
   text-decoration: none;
   outline: none;
@@ -94,23 +95,29 @@
    VARIANTS
    ============================================ */
 
-/* Primary - Blue Vercel style */
+/* Primary - Apple Blue style */
 .ui-btn.variant-primary {
-  background: var(--primary);
-  color: var(--primary-foreground);
-  border-color: var(--primary);
+  background: var(--primary) !important;
+  color: var(--primary-foreground) !important;
+  border-color: var(--primary) !important;
+  border-radius: var(--radius-lg);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.01em;
+  /* Asegurar que no haya fondo blanco */
+  background-color: var(--primary) !important;
 }
 
 .ui-btn.variant-primary:hover:not(:disabled) {
   background: color-mix(in srgb, var(--primary) 90%, black);
   border-color: color-mix(in srgb, var(--primary) 90%, black);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px color-mix(in srgb, var(--primary) 25%, transparent);
+  transform: translateY(-1px) scale(1.02); /* Sutil, estilo Apple */
+  box-shadow: 0 8px 16px color-mix(in srgb, var(--primary) 30%, transparent);
 }
 
 .ui-btn.variant-primary:active:not(:disabled) {
-  transform: translateY(0);
+  transform: translateY(0); /* Sin scale para evitar temblor */
   box-shadow: 0 2px 4px color-mix(in srgb, var(--primary) 20%, transparent);
+  transition: all var(--transition-fast); /* Transición más rápida */
 }
 
 /* Secondary - Subtle background */
@@ -149,13 +156,14 @@
 .ui-btn.variant-danger:hover:not(:disabled) {
   background: color-mix(in srgb, var(--destructive) 90%, black);
   border-color: color-mix(in srgb, var(--destructive) 90%, black);
-  transform: translateY(-1px);
+  transform: translateY(-1px) scale(1.02); /* Sutil, estilo Apple */
   box-shadow: 0 4px 12px color-mix(in srgb, var(--destructive) 25%, transparent);
 }
 
 .ui-btn.variant-danger:active:not(:disabled) {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.98); /* Feedback táctil */
   box-shadow: 0 2px 4px color-mix(in srgb, var(--destructive) 20%, transparent);
+  transition: all var(--transition-active);
 }
 
 /* ============================================
@@ -163,9 +171,10 @@
    ============================================ */
 
 .ui-btn.size-sm {
-  padding: var(--space-2) var(--space-4);
+  padding: var(--space-3) var(--space-4); /* Más padding para alcanzar 44px */
   font-size: var(--font-size-sm);
-  min-height: 32px;
+  min-height: var(--touch-target-min); /* 44px - WCAG AAA */
+  min-width: var(--touch-target-min); /* 44px - WCAG AAA */
   gap: var(--space-1);
 }
 
@@ -178,20 +187,22 @@
 .ui-btn.size-md {
   padding: var(--space-3) var(--space-5);
   font-size: var(--font-size-base);
-  min-height: 40px;
+  min-height: var(--touch-target-min); /* 44px - WCAG AAA */
+  min-width: var(--touch-target-min); /* 44px - WCAG AAA */
 }
 
 .ui-btn.size-lg {
   padding: var(--space-4) var(--space-6);
   font-size: var(--font-size-lg);
-  min-height: 48px;
+  min-height: var(--touch-target-comfort); /* 48px - Tamaño cómodo */
+  min-width: var(--touch-target-comfort); /* 48px - Tamaño cómodo */
   gap: var(--space-2);
 }
 
 .ui-btn.size-lg .icon,
 .ui-btn.size-lg ::ng-deep lucide-icon {
-  width: 18px !important;
-  height: 18px !important;
+  width: 20px !important;
+  height: 20px !important;
 }
 
 /* ============================================

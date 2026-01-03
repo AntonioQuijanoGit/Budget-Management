@@ -30,12 +30,14 @@
   background: var(--color-bg-primary);
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-8); /* Más espacio entre secciones */
   /* Sombra suave extendida para transición más natural */
-  box-shadow: 2px 0 20px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  box-shadow: 2px 0 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px);
   overflow-y: auto;
   overflow-x: hidden;
+  /* Animación de entrada */
+  animation: slideIn var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Scrollbar personalizado para el sidebar */
@@ -59,9 +61,12 @@
 .logo {
   font-weight: var(--font-weight-bold);
   letter-spacing: -0.02em;
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-xl); /* Más grande para mejor jerarquía */
   color: var(--color-text-primary);
-  padding: 0 var(--space-3);
+  padding: var(--space-2) var(--space-3); /* Más padding para mejor touch target */
+  margin-bottom: var(--space-2);
+  /* Mejorar legibilidad */
+  line-height: var(--line-height-tight);
 }
 
 .nav-main {
@@ -90,21 +95,31 @@
 .nav-footer a {
   text-decoration: none;
   color: var(--color-text-secondary);
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4); /* Más padding para mejor touch target */
+  border-radius: var(--radius-lg); /* Más redondeado estilo Apple */
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-sm);
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  transition: all var(--transition-fast);
+  transition: all var(--transition-base); /* Transición más suave */
   position: relative;
+  min-height: var(--touch-target-min); /* 44px - WCAG AAA */
+  /* Mejorar accesibilidad */
+  -webkit-tap-highlight-color: transparent; /* Remover highlight nativo */
 }
 
 .nav-main a:hover,
 .nav-footer a:hover {
   background: var(--color-bg-tertiary);
   color: var(--color-text-primary);
+  transform: translateX(2px); /* Sutil movimiento estilo Apple */
+}
+
+.nav-main a:active,
+.nav-footer a:active {
+  transform: translateX(1px) scale(0.98); /* Feedback táctil */
+  transition: all var(--transition-active);
 }
 
 .nav-main a.active,
@@ -112,6 +127,8 @@
   background: color-mix(in srgb, var(--color-primary) 15%, transparent);
   color: var(--color-text-primary);
   font-weight: var(--font-weight-semibold);
+  /* Mejorar contraste para accesibilidad */
+  background: color-mix(in srgb, var(--color-primary) 20%, transparent);
 }
 
 .nav-main a.active::before,
@@ -136,8 +153,14 @@
 .nav-main a lucide-icon,
 .nav-footer a lucide-icon {
   flex-shrink: 0;
-  width: 18px;
-  height: 18px;
+  width: var(--icon-size-md); /* 20px - Apple estándar */
+  height: var(--icon-size-md); /* 20px - Apple estándar */
+  transition: transform var(--transition-base);
+}
+
+.nav-main a:hover lucide-icon,
+.nav-footer a:hover lucide-icon {
+  transform: scale(1.1); /* Sutil aumento en hover */
 }
 
 .nav-main a span,
@@ -147,8 +170,10 @@
 
 .content {
   flex: 1;
-  padding: var(--space-8);
+  padding: var(--space-8) var(--space-10); /* Más espacio horizontal estilo Apple */
   min-width: 0;
+  /* Mejorar legibilidad con más espacio */
+  max-width: 100%;
 }
 
 .bottom-nav {
@@ -172,18 +197,26 @@
   gap: var(--space-1);
   color: var(--color-text-tertiary);
   font-size: var(--font-size-xs);
-  padding: var(--space-2);
-  transition: color var(--transition-fast), transform var(--transition-fast), background var(--transition-fast);
+  padding: var(--space-3) var(--space-2); /* Más padding vertical */
+  transition: all var(--transition-base);
   text-decoration: none;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-lg); /* Más redondeado */
   position: relative;
+  min-height: var(--touch-target-min); /* 44px - WCAG AAA */
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent; /* Remover highlight nativo */
 }
 
 .bottom-nav a.active {
   color: var(--color-text-primary);
-  transform: translateY(-1px);
+  transform: translateY(-2px); /* Más movimiento para feedback visual */
   background: color-mix(in srgb, var(--color-primary) 20%, transparent);
   font-weight: var(--font-weight-semibold);
+}
+
+.bottom-nav a:active {
+  transform: translateY(0) scale(0.95); /* Feedback táctil */
+  transition: all var(--transition-active);
 }
 
 .bottom-nav a.active::before {
@@ -201,6 +234,16 @@
 .bottom-nav a:hover {
   color: var(--color-text-primary);
   background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  transform: translateY(-1px); /* Sutil elevación */
+}
+
+.bottom-nav a lucide-icon {
+  transition: transform var(--transition-base);
+}
+
+.bottom-nav a:hover lucide-icon,
+.bottom-nav a.active lucide-icon {
+  transform: scale(1.15); /* Iconos más grandes en hover/active */
 }
 
 .bottom-nav a:focus-visible {
@@ -231,14 +274,24 @@
     display: none; /* Se oculta completamente en móvil */
   }
   .content {
-    padding: var(--space-6) var(--space-4) calc(var(--space-12) + var(--space-3));
+    padding: var(--space-6) var(--space-4) calc(var(--space-12) + var(--space-4));
     width: 100%;
     max-width: 100%;
-    padding-bottom: calc(var(--space-12) + var(--space-3));
+    padding-bottom: calc(var(--space-12) + var(--space-4));
+    /* Añadir safe area para iOS notch */
+    padding-bottom: calc(var(--space-12) + var(--safe-area-bottom) + var(--space-4));
   }
   /* El posicionamiento del help-button se maneja en su propio componente CSS */
   .tutorial-body {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Mejorar bottom nav en móvil con safe areas */
+@media (max-width: 1024px) {
+  .bottom-nav {
+    padding-bottom: calc(var(--space-2) + var(--safe-area-bottom));
+    padding-top: var(--space-2);
   }
 }
 

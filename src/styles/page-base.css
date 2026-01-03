@@ -2,15 +2,15 @@
    PAGE BASE - Sistema unificado para todas las páginas
    ============================================ */
 
-/* Container base para todas las páginas */
+/* Container base para todas las páginas - Apple System Spacing */
 .page {
   width: 100%;
   max-width: var(--page-max-width); /* 1280px - Estándar unificado */
   margin: 0 auto;
-  padding: var(--space-8) var(--space-6);
+  padding: var(--space-8) var(--space-10); /* Más espacio horizontal estilo Apple */
   display: flex;
   flex-direction: column;
-  gap: var(--space-group); /* 24px - Estandarizado */
+  gap: var(--space-section); /* 32px - Más espacio entre secciones */
   min-height: calc(100vh - 200px);
 }
 
@@ -36,8 +36,9 @@
   color: var(--color-text-secondary);
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-body); /* 1.5 - mejor legibilidad */
+  line-height: var(--line-height-body); /* 1.4 - Apple standard */
   max-width: 65ch; /* Limitar longitud de línea para legibilidad */
+  letter-spacing: -0.01em; /* Sutil ajuste estilo Apple */
 }
 
 .eyebrow {
@@ -56,21 +57,31 @@
   width: 100%;
 }
 
-/* Responsive */
+/* Responsive - Apple System Breakpoints */
 @media (max-width: 1024px) {
   .page {
-    padding: var(--space-6) var(--space-4);
+    padding: var(--space-6) var(--space-6); /* Mantener buen espacio en tablet */
+    gap: var(--space-group); /* 24px */
   }
 }
 
 @media (max-width: 768px) { /* --breakpoint-md */
   .page {
-    padding: var(--space-5) var(--space-4);
-    gap: var(--space-item); /* 16px - reducido en móvil */
+    padding: var(--space-6) var(--space-4);
+    gap: var(--space-group); /* 24px - mantener espacio suficiente */
   }
   
   .page-title {
     font-size: clamp(var(--font-size-lg), 4vw, var(--font-size-xl));
+    line-height: var(--line-height-heading);
+  }
+}
+
+/* Mobile pequeño */
+@media (max-width: 640px) {
+  .page {
+    padding: var(--space-5) var(--space-4);
+    gap: var(--space-6); /* 24px - mantener respiración visual */
   }
 }
 

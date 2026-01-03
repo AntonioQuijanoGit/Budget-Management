@@ -1,76 +1,65 @@
 @if (showWelcome()) {
 <div class="welcome-overlay" (click)="closeWelcome()">
-  <div class="welcome-container budget-welcome" (click)="$event.stopPropagation()">
-    <!-- Background decorative elements -->
-    <div class="welcome-bg budget-bg">
-      <div class="expense-chart-mini">
-        <div class="mini-bar" style="height: 40%"></div>
-        <div class="mini-bar" style="height: 70%"></div>
-        <div class="mini-bar" style="height: 50%"></div>
-        <div class="mini-bar" style="height: 85%"></div>
-      </div>
-    </div>
-
+  <div class="welcome-container" (click)="$event.stopPropagation()">
     <!-- Close button -->
-    <button class="welcome-close" (click)="closeWelcome()" aria-label="Close welcome screen">
+    <button 
+      class="welcome-close" 
+      (click)="closeWelcome()" 
+      aria-label="Close welcome screen"
+      type="button"
+    >
       <lucide-icon [name]="X" [size]="20" strokeWidth="2"></lucide-icon>
     </button>
 
-    <!-- Content -->
+    <!-- Content Grid -->
     <div class="welcome-content">
-      <div class="welcome-icon-wrapper budget-icon-wrapper">
-        <div class="budget-icon-large">💰</div>
-        <div class="budget-rings">
-          <div class="ring ring-1"></div>
-          <div class="ring ring-2"></div>
+      <!-- Left: Hero -->
+      <div class="welcome-hero">
+        <div class="welcome-icon">
+          <lucide-icon [name]="Wallet" [size]="40" strokeWidth="1.5"></lucide-icon>
+        </div>
+        
+        <h1 class="welcome-title">Welcome to Budget Pro</h1>
+        
+        <p class="welcome-subtitle">
+          Everything you need to manage your money, all in one beautiful app. 
+          Let's get you started.
+        </p>
+
+        <div class="welcome-actions">
+          <ui-button 
+            variant="primary" 
+            size="lg" 
+            (buttonClick)="getStarted($event)"
+            [iconRight]="'ArrowRight'"
+            class="welcome-button"
+          >
+            Get Started
+          </ui-button>
+          <button 
+            class="welcome-skip" 
+            (click)="closeWelcome()"
+            type="button"
+            aria-label="Skip welcome"
+          >
+            Skip for now
+          </button>
         </div>
       </div>
 
-      <h1 class="welcome-title">Budget Tracker</h1>
-      
-      <p class="welcome-description">
-        Track your expenses and manage your budget effectively. Visualize spending patterns 
-        with interactive charts and categorize transactions for better financial control.
-      </p>
-
+      <!-- Right: Features -->
       <div class="welcome-features">
-        <div class="welcome-feature budget-feature">
-          <div class="feature-icon-wrapper budget-icon">
-            <lucide-icon [name]="PieChart" [size]="20" strokeWidth="2"></lucide-icon>
+        <div class="welcome-feature" *ngFor="let feature of features">
+          <div class="feature-icon">
+            <lucide-icon [name]="feature.icon" [size]="22" strokeWidth="2"></lucide-icon>
           </div>
           <div class="feature-content">
-            <h3 class="feature-title">Visual Analytics</h3>
-            <p class="feature-desc">Interactive charts showing spending patterns and trends</p>
-          </div>
-        </div>
-
-        <div class="welcome-feature budget-feature">
-          <div class="feature-icon-wrapper budget-icon">
-            <lucide-icon [name]="DollarSign" [size]="20" strokeWidth="2"></lucide-icon>
-          </div>
-          <div class="feature-content">
-            <h3 class="feature-title">Category Tracking</h3>
-            <p class="feature-desc">Organize expenses by categories for better insights</p>
-          </div>
-        </div>
-
-        <div class="welcome-feature budget-feature">
-          <div class="feature-icon-wrapper budget-icon">
-            <lucide-icon [name]="TrendingUp" [size]="20" strokeWidth="2"></lucide-icon>
-          </div>
-          <div class="feature-content">
-            <h3 class="feature-title">Monthly Reports</h3>
-            <p class="feature-desc">Comprehensive reports with category breakdowns</p>
+            <h3 class="feature-title">{{ feature.title }}</h3>
+            <p class="feature-description">{{ feature.description }}</p>
           </div>
         </div>
       </div>
-
-      <button class="welcome-button budget-button" (click)="getStarted()">
-        Start Tracking
-        <lucide-icon [name]="ArrowRight" [size]="18" strokeWidth="2"></lucide-icon>
-      </button>
     </div>
   </div>
 </div>
 }
-

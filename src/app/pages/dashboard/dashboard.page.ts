@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TransactionsService } from '../../services/transactions.service';
 import { CategoriesService } from '../../services/categories.service';
@@ -79,6 +79,10 @@ export class DashboardPage {
   private getVar(name: string, fallback: string) {
     const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
     return value || fallback;
+  }
+
+  formatBalance(value: number): string {
+    return Math.abs(value).toFixed(2);
   }
 }
 

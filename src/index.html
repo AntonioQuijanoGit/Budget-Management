@@ -10,26 +10,13 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     
-    <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    
-    <!-- Google Fonts - Inter (Principal) -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    
-    <!-- Google Fonts - JetBrains Mono (Monospace, alternativa a Geist Mono) -->
-    <!-- Nota: Geist Mono es la fuente oficial de Vercel. Si está disponible, reemplazar con Geist Mono -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Apple System Fonts (SF Pro) - No external fonts needed -->
+    <!-- Uses native -apple-system which provides SF Pro on Apple devices -->
+    <!-- Falls back to system fonts on other platforms for optimal performance -->
   </head>
   <body>
     <app-root>
-      <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: 'Inter', sans-serif;">
+      <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;">
         <p>Loading application...</p>
       </div>
     </app-root>

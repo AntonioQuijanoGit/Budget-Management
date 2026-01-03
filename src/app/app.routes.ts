@@ -3,6 +3,7 @@ import { IngresarPresupuestoComponent } from './components/ingresar-presupuesto/
 import { GastosComponent } from './components/gastos/gastos.component';
 import { NgModule } from '@angular/core';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
+import { WelcomePage } from './pages/welcome/welcome.page';
 import { TransactionsPage } from './pages/transactions/transactions.page';
 import { CategoriesPage } from './pages/categories/categories.page';
 import { BudgetsPage } from './pages/budgets/budgets.page';
@@ -15,6 +16,7 @@ import { RemindersPage } from './pages/reminders/reminders.page';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'welcome', component: WelcomePage },
   { path: 'dashboard', component: DashboardPage },
   { path: 'transactions', component: TransactionsPage },
   { path: 'categories', component: CategoriesPage },

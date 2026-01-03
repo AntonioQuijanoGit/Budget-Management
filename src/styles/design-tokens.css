@@ -33,11 +33,11 @@
   --input: #333333;
   --ring: #2563eb;              /* Focus ring - blue-600 Vercel */
 
-  /* Semantic colors - manteniendo compatibilidad */
+  /* Semantic colors - Apple System Colors */
   --color-primary: var(--primary);
-  --color-success: #16a34a;     /* green-600 */
+  --color-success: #34C759;     /* Apple Green */
   --color-error: var(--destructive);
-  --color-warning: #ffaa00;
+  --color-warning: #FF9500;     /* Apple Orange */
 
   /* Background aliases - manteniendo compatibilidad */
   --color-bg-primary: var(--background);
@@ -52,52 +52,57 @@
 
   --color-border: var(--border);
 
-  /* Typography - Vercel Style */
-  /* Font families */
-  --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  /* Geist Mono es la fuente oficial de Vercel. Si está disponible, usar 'Geist Mono' */
-  /* Por ahora usamos JetBrains Mono como alternativa similar */
-  --font-geist-mono: 'JetBrains Mono', 'Geist Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+  /* Typography - Apple System Style */
+  /* Font families - SF Pro (Apple's system font) */
+  --font-sf-pro: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-sf-mono: 'SF Mono', 'Monaco', 'Menlo', 'Consolas', 'Courier New', monospace;
   
-  /* Font family principal (Inter) */
-  --font-family: var(--font-inter);
+  /* Font family principal (SF Pro) - Apple System Font */
+  --font-family: var(--font-sf-pro);
   
   /* Font family monospace (para código) */
-  --font-family-mono: var(--font-geist-mono);
+  --font-family-mono: var(--font-sf-mono);
 
-  --font-size-xs: 11px;
-  --font-size-sm: 13px;
-  --font-size-base: 15px;
-  --font-size-lg: 17px;
-  --font-size-xl: 22px;
-  --font-size-2xl: 28px;
-  --font-size-3xl: 34px;
+  /* Font sizes - Apple System Typography Scale */
+  --font-size-xs: 11px;      /* Captions, labels pequeños */
+  --font-size-sm: 13px;      /* Body pequeño, metadata */
+  --font-size-base: 15px;    /* Body text estándar */
+  --font-size-lg: 17px;      /* Body text grande */
+  --font-size-xl: 20px;      /* Headings pequeños */
+  --font-size-2xl: 28px;     /* Headings medianos */
+  --font-size-3xl: 34px;     /* Headings grandes (Apple Large Title) */
+  --font-size-4xl: 48px;     /* Display text */
+  --font-size-5xl: 64px;     /* Hero text */
 
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
 
-  --line-height-tight: 1.2;
-  --line-height-normal: 1.5;
-  --line-height-relaxed: 1.7;
+  /* Line heights - Apple System Typography */
+  --line-height-tight: 1.2;      /* Headings, títulos compactos */
+  --line-height-normal: 1.4;      /* Body text estándar (Apple usa 1.4) */
+  --line-height-relaxed: 1.6;    /* Texto largo, párrafos */
+  --line-height-loose: 1.8;      /* Texto muy largo, lectura */
   
   /* Line heights by element type */
   --line-height-heading: var(--line-height-tight);    /* 1.2 - títulos */
-  --line-height-body: var(--line-height-normal);      /* 1.5 - texto cuerpo */
-  --line-height-loose: var(--line-height-relaxed);    /* 1.7 - texto largo */
+  --line-height-body: var(--line-height-normal);      /* 1.4 - texto cuerpo (Apple standard) */
+  --line-height-loose: var(--line-height-relaxed);    /* 1.6 - texto largo */
   --line-height-button: var(--line-height-tight);     /* 1.2 - botones */
 
-  /* Espaciado - SISTEMA CONSISTENTE */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --space-8: 32px;
-  --space-12: 48px;
-  --space-16: 64px;
+  /* Espaciado - SISTEMA CONSISTENTE (Apple 8pt grid system) */
+  --space-1: 4px;    /* 0.5x - Espaciado mínimo */
+  --space-2: 8px;    /* 1x - Espaciado base (Apple 8pt) */
+  --space-3: 12px;   /* 1.5x - Espaciado pequeño */
+  --space-4: 16px;   /* 2x - Espaciado estándar */
+  --space-5: 20px;   /* 2.5x - Espaciado medio */
+  --space-6: 24px;   /* 3x - Espaciado grande */
+  --space-8: 32px;   /* 4x - Espaciado extra grande */
+  --space-10: 40px;  /* 5x - Espaciado sección */
+  --space-12: 48px;  /* 6x - Espaciado sección grande */
+  --space-16: 64px;  /* 8x - Espaciado hero */
+  --space-20: 80px;  /* 10x - Espaciado hero grande */
 
   /* Border radius - Basado en --radius unificado (Vercel style) */
   --radius-sm: calc(var(--radius) * 1);      /* 8px (0.5rem) */
@@ -115,10 +120,17 @@
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
 
-  /* Transiciones */
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* Transiciones - Apple System Easing */
+  /* Apple usa easing curves suaves y naturales */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);      /* Quick interactions */
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);     /* Standard (Apple usa ~250ms) */
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);     /* Smooth transitions */
+  --transition-spring: 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Spring-like (Apple style) */
+  
+  /* Transiciones específicas */
+  --transition-hover: var(--transition-fast);
+  --transition-focus: var(--transition-fast);
+  --transition-active: 100ms cubic-bezier(0.4, 0, 0.2, 1);   /* Instant feedback */
   
   /* Opacidades - Sistema documentado */
   --opacity-subtle: 12%;    /* Fondos sutiles */
@@ -134,9 +146,19 @@
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
   
-  /* Layout */
+  /* Layout - Apple System Spacing */
   --sidebar-width: 260px;
   --page-max-width: 1280px; /* Estándar unificado para todas las páginas */
+  
+  /* Touch targets - WCAG AAA (mínimo 44x44px) */
+  --touch-target-min: 44px;  /* Mínimo tamaño táctil (Apple y WCAG AAA) */
+  --touch-target-comfort: 48px; /* Tamaño cómodo para touch */
+  
+  /* Safe areas - iOS notch support */
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
   
   /* Espaciado vertical - Sistema de secciones */
   --space-section: var(--space-8); /* 32px - entre secciones */
@@ -178,22 +200,23 @@
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   
-  /* Icon sizes - Vercel Style (Lucide icons) */
-  /* Tamaños estándar: 4x4, 5x5, 6x6 (base 4px grid) */
-  --icon-size-xs: 12px;   /* 3x3 - muy pequeño */
+  /* Icon sizes - Apple System Style (SF Symbols compatible) */
+  /* Tamaños estándar basados en grid de 4px, compatible con SF Symbols */
+  --icon-size-xs: 12px;   /* 3x3 - muy pequeño (badges, metadata) */
   --icon-size-sm: 16px;   /* 4x4 - pequeño (acciones, inputs) */
-  --icon-size-md: 20px;   /* 5x5 - medio (listas, cards) */
-  --icon-size-lg: 24px;   /* 6x6 - grande (navegación, destacados) */
-  --icon-size-xl: 32px;   /* 8x8 - extra grande */
+  --icon-size-md: 20px;   /* 5x5 - medio (listas, cards) - Apple estándar */
+  --icon-size-lg: 24px;   /* 6x6 - grande (navegación, destacados) - Apple estándar */
+  --icon-size-xl: 32px;   /* 8x8 - extra grande (hero, empty states) */
+  --icon-size-2xl: 48px;  /* 12x12 - display (empty states grandes) */
   
-  /* Aliases semánticos (para uso común) */
-  --icon-navigation: var(--icon-size-lg);  /* 24px - sidebar, nav */
+  /* Aliases semánticos (para uso común) - Apple System */
+  --icon-navigation: var(--icon-size-lg);  /* 24px - sidebar, nav (Apple estándar) */
   --icon-card: var(--icon-size-md);        /* 20px - cards principales */
   --icon-list: var(--icon-size-md);        /* 20px - listas de items */
   --icon-action: var(--icon-size-sm);      /* 16px - botones, inputs */
   --icon-metadata: 14px;                   /* 14px - badges, textos pequeños */
   --icon-tag: var(--icon-size-xs);         /* 12px - tags, elementos muy pequeños */
-  --icon-empty: 48px;                      /* 48px - empty states */
+  --icon-empty: var(--icon-size-2xl);      /* 48px - empty states */
 }
 
 /* ============================================
@@ -208,7 +231,7 @@
   --background: #ffffff;
   --foreground: #0a0a0a;
   
-  --primary: #2563eb;           /* Primary - blue-600 Vercel */
+  --primary: #007AFF;           /* Apple Blue */
   --primary-foreground: #ffffff;
   
   --secondary: #fafafa;
@@ -220,15 +243,15 @@
   --accent: #f5f5f5;
   --accent-foreground: #0a0a0a;
   
-  --destructive: #e00;          /* Destructive - rojo (mismo que dark) */
+  --destructive: #FF3B30;       /* Apple Red */
   --destructive-foreground: #ffffff;
   
   --border: rgba(0, 0, 0, 0.1);
-  --input: rgba(0, 0, 0, 0.1);
-  --ring: #2563eb;              /* Focus ring - blue-600 Vercel */
+  --input: rgba(0, 0, 0, 0.08);
+  --ring: #007AFF;              /* Apple Blue focus ring */
   
   /* Semantic colors para light theme */
-  --color-success: #16a34a;     /* green-600 */
+  --color-success: #34C759;     /* Apple Green */
   
   --card: #ffffff;
   --card-foreground: #0a0a0a;
@@ -253,7 +276,7 @@
   --background: #000000;        /* Background principal - negro puro */
   --foreground: #fafafa;        /* Texto principal - casi blanco */
   
-  --primary: #2563eb;           /* Primary - blue-600 Vercel */
+  --primary: #007AFF;           /* Apple Blue */
   --primary-foreground: #ffffff;
   
   --secondary: #0a0a0a;
@@ -265,15 +288,15 @@
   --accent: #171717;
   --accent-foreground: #fafafa;
   
-  --card: #171717;              /* Cards - gris muy oscuro */
-  --card-foreground: #fafafa;
+  --card: #1c1c1e;              /* Cards - Apple dark gray */
+  --card-foreground: #ffffff;
   
-  --destructive: #dc2626;       /* Destructive - red-600 */
+  --destructive: #FF3B30;       /* Apple Red */
   --destructive-foreground: #ffffff;
   
-  --border: #333333;            /* Borders - gris oscuro */
-  --input: #333333;
-  --ring: #2563eb;              /* Focus ring - blue-600 Vercel */
+  --border: #38383a;            /* Borders - Apple border gray */
+  --input: #2c2c2e;            /* Apple input background */
+  --ring: #007AFF;              /* Apple Blue focus ring */
   
   --popover: #000000;
   --popover-foreground: #fafafa;

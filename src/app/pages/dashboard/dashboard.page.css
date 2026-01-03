@@ -1,8 +1,35 @@
 /* Using base .page styles from page-base.css */
+section.page {
+  max-width: 100%;
+  gap: var(--space-8);
+  padding: 0;
+}
 
-.page {
-  max-width: var(--page-max-width); /* 1280px - Estándar unificado */
-  gap: var(--space-6); /* Estandarizado con page-base */
+/* Dashboard Header */
+.dashboard-header {
+  padding: var(--space-8) var(--space-6) var(--space-4);
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: var(--space-16) var(--space-6) var(--space-12);
+  }
+  
+  .hero-content {
+    gap: var(--space-5);
+  }
+  
+  .hero-button {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .hero-stats {
+    margin-top: var(--space-12);
+    padding-top: var(--space-8);
+  }
 }
 
 .page-header {
@@ -44,9 +71,11 @@
 .summary-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-group); /* 24px - Estandarizado */
+  gap: var(--space-6); /* Más espacio entre cards */
   width: 100%;
   grid-auto-rows: 1fr;
+  padding: 0 var(--space-8); /* Más padding horizontal */
+  margin-bottom: var(--space-6); /* Más espacio inferior */
 }
 
 .summary-grid > * {
@@ -55,20 +84,31 @@
 }
 
 .summary-card {
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  transition: none; /* Sin transiciones para evitar problemas */
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
   display: flex;
+  cursor: pointer;
 }
 
 .summary-card .ui-card {
   width: 100%;
   flex: 1;
+  /* Eliminado backdrop-filter que puede causar problemas visuales */
+  background: var(--card);
+  border: 1px solid var(--border);
+  overflow: hidden; /* Prevenir que elementos se salgan del border-radius */
 }
 
-.summary-card:hover {
-  transform: translateY(-2px);
+.summary-card:hover .ui-card {
+  border-color: color-mix(in srgb, var(--primary) 30%, var(--border));
+  box-shadow: var(--shadow-lg);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.summary-card:active .ui-card {
+  box-shadow: var(--shadow-md);
 }
 
 .summary-content {
@@ -95,31 +135,37 @@
 }
 
 .summary-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-md);
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-xl);
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  transition: transform var(--transition-base);
+  transition: background var(--transition-base), border-color var(--transition-base);
   border: 1px solid;
-  opacity: 0.9;
+  opacity: 0.95;
+  border-width: 1.5px;
+  /* Eliminado backdrop-filter y todas las transformaciones */
 }
 
 .summary-card:hover .summary-icon {
-  transform: scale(1.1);
+  /* Sin transformaciones - solo cambios de color si es necesario */
+  opacity: 1;
 }
 
 .widgets-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: var(--space-group); /* 24px - Estandarizado */
+  gap: var(--space-6); /* Más espacio entre widgets */
+  padding: 0 var(--space-8); /* Más padding horizontal */
+  margin-bottom: var(--space-6); /* Más espacio inferior */
 }
 
 .charts-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: var(--space-group); /* 24px - Estandarizado */
+  gap: var(--space-6); /* Más espacio entre charts */
+  padding: 0 var(--space-8); /* Más padding horizontal */
 }
 
 /* Responsive breakpoints using design tokens */
@@ -148,20 +194,37 @@
 
 @media (max-width: 768px) {
   .page {
-    padding: var(--space-6) var(--space-4);
-    gap: var(--space-5); /* Reducir gap en móvil */
+    gap: var(--space-6);
   }
-  .summary-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-item); /* 16px en móvil */
+  
+  .welcome-hero {
+    padding: 80px 24px 60px;
+    min-height: 60vh;
   }
-  .charts-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-item); /* 16px en móvil */
+  
+  .welcome-title {
+    font-size: clamp(40px, 10vw, 56px);
   }
+  
+  .welcome-subtitle {
+    font-size: clamp(18px, 4vw, 24px);
+  }
+  
+  .welcome-button {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .summary-grid,
+  .charts-grid,
   .widgets-grid {
     grid-template-columns: 1fr;
-    gap: var(--space-item); /* 16px en móvil */
+    gap: var(--space-5); /* Mantener buen espacio en móvil */
+    padding: 0 var(--space-4);
+  }
+  
+  .dashboard-header {
+    padding: var(--space-6) var(--space-4) var(--space-4);
   }
 }
 
