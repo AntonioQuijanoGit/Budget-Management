@@ -11,7 +11,7 @@
   --background: #000000;        /* Background principal - negro puro */
   --foreground: #fafafa;        /* Texto principal - casi blanco */
   
-  --primary: #007AFF;           /* Apple Blue - profesional y elegante */
+  --primary: #6366f1;           /* Indigo - profesional y elegante */
   --primary-foreground: #ffffff;
   
   --secondary: #0a0a0a;
@@ -31,7 +31,7 @@
   
   --border: #38383a;            /* Borders - Apple border gray (más sutil) */
   --input: #2c2c2e;            /* Apple input background */
-  --ring: #007AFF;              /* Focus ring - Apple Blue */
+  --ring: #6366f1;              /* Focus ring - Indigo */
 
   /* Semantic colors - Apple System Colors */
   --color-primary: var(--primary);
@@ -231,7 +231,7 @@
   --background: #ffffff;
   --foreground: #0a0a0a;
   
-  --primary: #007AFF;           /* Apple Blue */
+  --primary: #6366f1;           /* Indigo - profesional */
   --primary-foreground: #ffffff;
   
   --secondary: #fafafa;
@@ -248,7 +248,7 @@
   
   --border: rgba(0, 0, 0, 0.1);
   --input: rgba(0, 0, 0, 0.08);
-  --ring: #007AFF;              /* Apple Blue focus ring */
+  --ring: #6366f1;              /* Indigo focus ring */
   
   /* Semantic colors para light theme */
   --color-success: #34C759;     /* Apple Green */
@@ -276,7 +276,7 @@
   --background: #000000;        /* Background principal - negro puro */
   --foreground: #fafafa;        /* Texto principal - casi blanco */
   
-  --primary: #007AFF;           /* Apple Blue */
+  --primary: #6366f1;           /* Indigo - profesional */
   --primary-foreground: #ffffff;
   
   --secondary: #0a0a0a;
@@ -296,7 +296,7 @@
   
   --border: #38383a;            /* Borders - Apple border gray */
   --input: #2c2c2e;            /* Apple input background */
-  --ring: #007AFF;              /* Apple Blue focus ring */
+  --ring: #6366f1;              /* Indigo focus ring */
   
   --popover: #000000;
   --popover-foreground: #fafafa;

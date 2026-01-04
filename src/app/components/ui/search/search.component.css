@@ -33,6 +33,8 @@
 
 .search-input::placeholder {
   color: var(--color-text-tertiary);
+  opacity: 0.6; /* Más sutil estilo Apple */
+  font-weight: var(--font-weight-normal);
 }
 
 .search-clear {

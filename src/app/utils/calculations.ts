@@ -1,7 +1,7 @@
 import { Transaction, Category } from '../core/models/finance.models';
 import { monthKey } from './date';
 
-const primaryColor = tokenColor('--color-primary', '#007aff');
+const primaryColor = tokenColor('--color-primary', '#6366f1');
 
 export const totalByType = (
   tx: Transaction[],

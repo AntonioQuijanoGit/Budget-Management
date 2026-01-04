@@ -25,7 +25,7 @@ import { todayIso } from '../../utils/date';
           [(ngModel)]="name"
           name="name"
           [required]="true"
-          placeholder="e.g. Monthly Salary, Rent..."
+          placeholder="Monthly Salary, Rent..."
         ></ui-input>
 
         <ui-input

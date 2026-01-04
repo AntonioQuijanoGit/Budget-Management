@@ -27,7 +27,7 @@ import { todayIso } from '../../utils/date';
           name="title"
           [required]="true"
           [error]="errors().title"
-          placeholder="e.g. Save for vacation"
+          placeholder="Save for vacation"
         ></ui-input>
 
         <ui-input
@@ -36,7 +36,7 @@ import { todayIso } from '../../utils/date';
           name="description"
           [textarea]="true"
           [rows]="2"
-          placeholder="Describe your goal..."
+          placeholder="Add goal details..."
           helper="Optional - add more details about this goal"
         ></ui-input>
 
@@ -197,7 +197,7 @@ export class GoalFormComponent {
           type: this.type,
           deadline: this.deadline || undefined,
           icon: 'Target',
-          color: this.getColor('--color-primary', '#ffffff'),
+          color: this.getColor('--color-primary', '#6366f1'),
           createdAt: todayIso(),
         };
 

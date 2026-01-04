@@ -31,9 +31,10 @@ section.page {
 
 .dashboard-header .header-actions {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: var(--space-4);
   flex-shrink: 0;
+  padding-bottom: var(--space-1);
 }
 
 .dashboard-header .header-add-button {
@@ -226,7 +227,7 @@ section.page {
   }
   
   .welcome-hero {
-    padding: 80px 24px 60px;
+    padding: var(--space-20) var(--space-6) var(--space-12);
     min-height: 60vh;
   }
   

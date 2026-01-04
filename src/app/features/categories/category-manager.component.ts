@@ -30,7 +30,7 @@ export class CategoryManagerComponent implements OnInit {
   @Output() remove = new EventEmitter<string>();
 
   name = '';
-  color = this.getColor('--color-primary', '#3b82f6');
+  color = this.getColor('--color-primary', '#6366f1');
   icon = 'Tag';
   type: 'expense' | 'income' = 'expense';
   budgetMonthly?: number;
@@ -39,7 +39,7 @@ export class CategoryManagerComponent implements OnInit {
   ngOnInit() {
     // Asegurar que los valores por defecto estén inicializados
     if (!this.color) {
-      this.color = this.getColor('--color-primary', '#3b82f6');
+      this.color = this.getColor('--color-primary', '#6366f1');
     }
     if (!this.icon) {
       this.icon = 'Tag';

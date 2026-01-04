@@ -5,10 +5,10 @@ import { Category } from '../core/models/finance.models';
 const STORAGE_KEY = 'bm_categories_v1';
 
 const palette = {
-  primary: tokenColor('--color-primary', '#ffffff'),
-  error: tokenColor('--color-error', '#ff4444'),
-  success: tokenColor('--color-success', '#00ff88'),
-  warning: tokenColor('--color-warning', '#ffaa00'),
+  primary: tokenColor('--color-primary', '#6366f1'),
+  error: tokenColor('--color-error', '#FF3B30'),
+  success: tokenColor('--color-success', '#34C759'),
+  warning: tokenColor('--color-warning', '#FF9500'),
 };
 
 const DEFAULT_CATEGORIES: Category[] = [

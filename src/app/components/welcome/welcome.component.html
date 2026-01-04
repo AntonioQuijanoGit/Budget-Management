@@ -1,63 +1,65 @@
 @if (showWelcome()) {
 <div class="welcome-overlay" (click)="closeWelcome()">
   <div class="welcome-container" (click)="$event.stopPropagation()">
-    <!-- Close button -->
+    <!-- Close Button -->
     <button 
       class="welcome-close" 
       (click)="closeWelcome()" 
       aria-label="Close welcome screen"
       type="button"
     >
-      <lucide-icon [name]="X" [size]="20" strokeWidth="2"></lucide-icon>
+      <lucide-icon [name]="X" [size]="18" strokeWidth="2"></lucide-icon>
     </button>
 
-    <!-- Content Grid -->
-    <div class="welcome-content">
-      <!-- Left: Hero -->
+    <!-- Main Content -->
+    <div class="welcome-main">
+      <!-- Hero Section -->
       <div class="welcome-hero">
-        <div class="welcome-icon">
-          <lucide-icon [name]="Wallet" [size]="40" strokeWidth="1.5"></lucide-icon>
+        <div class="welcome-icon-wrapper">
+          <div class="welcome-icon">
+            <lucide-icon [name]="Wallet" [size]="32" strokeWidth="1.5"></lucide-icon>
+          </div>
         </div>
         
         <h1 class="welcome-title">Welcome to Budget Pro</h1>
         
         <p class="welcome-subtitle">
-          Everything you need to manage your money, all in one beautiful app. 
-          Let's get you started.
+          Take control of your finances with powerful tools and beautiful insights.
         </p>
-
-        <div class="welcome-actions">
-          <ui-button 
-            variant="primary" 
-            size="lg" 
-            (buttonClick)="getStarted($event)"
-            [iconRight]="'ArrowRight'"
-            class="welcome-button"
-          >
-            Get Started
-          </ui-button>
-          <button 
-            class="welcome-skip" 
-            (click)="closeWelcome()"
-            type="button"
-            aria-label="Skip welcome"
-          >
-            Skip for now
-          </button>
-        </div>
       </div>
 
-      <!-- Right: Features -->
+      <!-- Features -->
       <div class="welcome-features">
         <div class="welcome-feature" *ngFor="let feature of features">
           <div class="feature-icon">
-            <lucide-icon [name]="feature.icon" [size]="22" strokeWidth="2"></lucide-icon>
+            <lucide-icon [name]="feature.icon" [size]="20" strokeWidth="2"></lucide-icon>
           </div>
-          <div class="feature-content">
+          <div class="feature-text">
             <h3 class="feature-title">{{ feature.title }}</h3>
             <p class="feature-description">{{ feature.description }}</p>
           </div>
         </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="welcome-actions">
+        <button 
+          class="welcome-button-primary" 
+          (click)="getStarted($event)"
+          type="button"
+          aria-label="Get started"
+        >
+          <span class="button-text">Get Started</span>
+          <lucide-icon [name]="ArrowRight" [size]="18" strokeWidth="2"></lucide-icon>
+        </button>
+        <button 
+          class="welcome-button-skip" 
+          (click)="closeWelcome()"
+          type="button"
+          aria-label="Skip welcome"
+        >
+          Skip for now
+        </button>
       </div>
     </div>
   </div>

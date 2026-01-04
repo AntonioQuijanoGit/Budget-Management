@@ -44,24 +44,25 @@ export class ButtonComponent {
 
     this.buttonClick.emit(event);
 
-    if (!this.ripple) return;
-    const button = event.currentTarget as HTMLButtonElement;
-    if (!button) return;
+    // Ripple effect disabled to prevent button deformation
+    // if (!this.ripple) return;
+    // const button = event.currentTarget as HTMLButtonElement;
+    // if (!button) return;
 
-    const diameter = Math.max(button.clientWidth, button.clientHeight);
-    const radius = diameter / 2;
-    const circle = document.createElement('span');
-    circle.classList.add('ripple');
-    circle.style.width = `${diameter}px`;
-    circle.style.height = `${diameter}px`;
-    const rect = button.getBoundingClientRect();
-    circle.style.left = `${event.clientX - rect.left - radius}px`;
-    circle.style.top = `${event.clientY - rect.top - radius}px`;
+    // const diameter = Math.max(button.clientWidth, button.clientHeight);
+    // const radius = diameter / 2;
+    // const circle = document.createElement('span');
+    // circle.classList.add('ripple');
+    // circle.style.width = `${diameter}px`;
+    // circle.style.height = `${diameter}px`;
+    // const rect = button.getBoundingClientRect();
+    // circle.style.left = `${event.clientX - rect.left - radius}px`;
+    // circle.style.top = `${event.clientY - rect.top - radius}px`;
 
-    const existing = button.querySelector('.ripple');
-    if (existing) existing.remove();
-    button.appendChild(circle);
-    setTimeout(() => circle.remove(), 600);
+    // const existing = button.querySelector('.ripple');
+    // if (existing) existing.remove();
+    // button.appendChild(circle);
+    // setTimeout(() => circle.remove(), 600);
   }
 
   get variantClass() {

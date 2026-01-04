@@ -34,7 +34,7 @@
       [(ngModel)]="categoryId"
       [error]="errors().categoryId"
       helper="Category this transaction belongs to"
-      placeholder="Select a category"
+      placeholder="Choose category"
     ></ui-input>
 
     <ui-input
@@ -65,7 +65,7 @@
       <ui-input
         label="Description"
         name="description"
-        placeholder="e.g. Grocery shopping, Monthly salary, Rent..."
+        placeholder="Grocery shopping, Salary, Rent..."
         [(ngModel)]="description"
         [required]="true"
         [error]="errors().description"
@@ -79,7 +79,7 @@
         name="notes"
         [textarea]="true"
         [rows]="3"
-        placeholder="Add additional details, location, payment method..."
+        placeholder="Additional details, location, payment method..."
         [(ngModel)]="notes"
         helper="Additional information about the transaction"
       ></ui-input>
@@ -91,7 +91,7 @@
         helper="Press Enter or type a comma to add tags. e.g. work, important, recurring"
         [(ngModel)]="tags"
         name="tags"
-        placeholder="Type and press Enter to add tags"
+        placeholder="Add tags (press Enter)"
       ></ui-tags-input>
     </div>
 

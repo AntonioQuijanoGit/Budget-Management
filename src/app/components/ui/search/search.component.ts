@@ -34,7 +34,7 @@ import { LucideAngularModule } from 'lucide-angular';
   styleUrl: './search.component.css',
 })
 export class SearchComponent {
-  @Input() placeholder = 'Buscar...';
+  @Input() placeholder = 'Search...';
   @Input() value = '';
   @Output() valueChange = new EventEmitter<string>();
   @Output() onFocus = new EventEmitter<void>();

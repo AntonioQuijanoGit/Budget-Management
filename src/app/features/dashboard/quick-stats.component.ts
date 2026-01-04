@@ -18,9 +18,9 @@ import { formatCurrency } from '../../utils/currency';
 export class QuickStatsComponent {
   @Input() transactions: Transaction[] = [];
   private palette = {
-    success: this.getVar('--color-success', '#00ff88'),
-    error: this.getVar('--color-error', '#ff4444'),
-    primary: this.getVar('--color-primary', '#ffffff'),
+    success: this.getVar('--color-success', '#34C759'),
+    error: this.getVar('--color-error', '#FF3B30'),
+    primary: this.getVar('--color-primary', '#6366f1'),
   };
 
   get totalIncome() {

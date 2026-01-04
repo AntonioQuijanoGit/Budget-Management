@@ -2,10 +2,27 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-5);
+  width: 100%;
+  min-width: 0;
+}
+
+.filters-grid > * {
+  min-width: 0;
+  width: 100%;
 }
 
 .full {
   grid-column: span 3;
+}
+
+/* Asegurar que los campos de fecha tengan suficiente espacio */
+:host ::ng-deep .filters-grid ui-input:has(input[type="date"]) {
+  min-width: 0; /* Permite que se ajuste */
+}
+
+:host ::ng-deep .filters-grid ui-input:has(input[type="date"]) .ui-input__control {
+  min-width: 0;
+  overflow: visible; /* Permitir que el contenido se muestre completamente */
 }
 
 @media (max-width: 1024px) {
@@ -20,6 +37,7 @@
 @media (max-width: 640px) {
   .filters-grid {
     grid-template-columns: 1fr;
+    gap: var(--space-4); /* Menos gap en mobile */
   }
   .full {
     grid-column: span 1;

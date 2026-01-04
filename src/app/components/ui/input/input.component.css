@@ -37,6 +37,12 @@
   overflow: hidden; /* Previene que el contenido se salga */
 }
 
+/* Cuando hay suffix (como €), reducir aún más el gap */
+.ui-input__control:has(.suffix) {
+  gap: var(--space-1);
+  grid-template-columns: auto 1fr min-content;
+}
+
 /* Para inputs de fecha, permitir overflow visible para mostrar el año completo */
 .ui-input__control:has(input[type="date"]),
 .ui-input__control:has(input[type="time"]),
@@ -79,6 +85,13 @@
   color: var(--color-text-tertiary);
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-sm);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ui-input__affix.suffix {
+  padding-left: 0;
+  margin-left: var(--space-1);
 }
 
 .ui-input input,
@@ -94,17 +107,21 @@
   font-family: var(--font-family);
 }
 
-/* Inputs de fecha necesitan ancho mínimo para mostrar el año completo */
+/* Inputs de fecha necesitan suficiente espacio para mostrar el formato completo */
 .ui-input input[type="date"],
 .ui-input input[type="time"],
 .ui-input input[type="datetime-local"] {
-  min-width: 140px; /* Ancho mínimo para mostrar fecha completa */
-  overflow: visible; /* Permitir que se vea el contenido completo */
+  min-width: 0; /* Permitir que se ajuste al contenedor */
+  max-width: 100%; /* No exceder el ancho del contenedor */
+  overflow: visible; /* Permitir que el texto se muestre completamente */
   width: 100%; /* Asegurar que ocupe todo el ancho disponible */
   color: var(--color-text-primary) !important;
   background: transparent !important;
   font-size: var(--font-size-base) !important;
   padding: 0 !important;
+  box-sizing: border-box;
+  text-overflow: clip; /* No cortar el texto */
+  white-space: nowrap; /* Mantener en una línea */
 }
 
 /* Estilos para el placeholder de fecha */
@@ -122,13 +139,23 @@
   opacity: 1;
 }
 
-/* Asegurar que el contenedor del input de fecha también permita el ancho necesario */
+/* Asegurar que el contenedor del input de fecha se ajuste correctamente */
 .ui-input:has(input[type="date"]) .ui-input__control,
 .ui-input:has(input[type="time"]) .ui-input__control,
 .ui-input:has(input[type="datetime-local"]) .ui-input__control {
   min-width: 0; /* Permite que se ajuste dentro del grid */
-  overflow: visible; /* Permite que el contenido se muestre completamente */
-  padding: var(--space-2) var(--space-3); /* Padding normal para que el contenido se vea */
+  overflow: visible; /* Permitir que el contenido se muestre completamente */
+  padding: var(--space-3) var(--space-5); /* Más padding horizontal para fecha */
+  grid-template-columns: 1fr auto; /* Input ocupa todo el espacio, icono a la derecha */
+}
+
+/* En mobile, reducir padding para campos de fecha */
+@media (max-width: 640px) {
+  .ui-input:has(input[type="date"]) .ui-input__control,
+  .ui-input:has(input[type="time"]) .ui-input__control,
+  .ui-input:has(input[type="datetime-local"]) .ui-input__control {
+    padding: var(--space-3) var(--space-4); /* Padding normal en mobile */
+  }
 }
 
 .ui-input input[type="text"],
@@ -142,9 +169,12 @@
 
 .ui-input input::placeholder,
 .ui-input textarea::placeholder {
+  color: var(--color-text-tertiary);
+  opacity: 0.6; /* Más sutil estilo Apple */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap; /* Placeholder en una línea */
+  font-weight: var(--font-weight-normal); /* Peso normal para placeholders */
 }
 
 .ui-input textarea {

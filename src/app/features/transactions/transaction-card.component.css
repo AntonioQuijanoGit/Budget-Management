@@ -118,7 +118,7 @@
 }
 
 .action-btn.danger {
-  color: #dc2626; /* red-600 */
+  color: var(--color-error);
 }
 
 .action-btn.danger:hover {

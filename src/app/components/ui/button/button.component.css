@@ -1,5 +1,5 @@
 /* ============================================
-   BUTTON COMPONENT - Modern Vercel Style
+   BUTTON COMPONENT - Simple, Stable Design
    ============================================ */
 
 .ui-btn {
@@ -8,6 +8,7 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
+  text-align: center;
   
   /* Typography */
   font-family: var(--font-family);
@@ -15,11 +16,14 @@
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-tight);
   
-  /* Layout - WCAG AAA: mínimo 44x44px touch target */
+  /* Layout - Fixed size, no expansion */
   padding: var(--space-3) var(--space-5);
-  min-height: var(--touch-target-min); /* 44px - WCAG AAA */
-  min-width: var(--touch-target-min); /* 44px - WCAG AAA (para botones pequeños) */
-  border-radius: var(--radius-lg); /* Más redondeado estilo Apple */
+  min-height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
+  max-width: none;
+  width: auto;
+  box-sizing: border-box;
+  border-radius: var(--radius-lg);
   border: 1px solid transparent;
   
   /* Interactions */
@@ -27,19 +31,30 @@
   user-select: none;
   white-space: nowrap;
   
-  /* Transitions - Apple System Style */
-  transition: all var(--transition-base), transform var(--transition-active);
+  /* Transitions - ONLY colors and shadows, NO transforms */
+  transition: background-color 0.15s ease,
+              border-color 0.15s ease,
+              box-shadow 0.15s ease,
+              color 0.15s ease;
   
   /* Reset button styles */
   background: transparent;
   color: inherit;
   text-decoration: none;
   outline: none;
+  
+  /* CRITICAL: No transforms at all */
+  transform: none !important;
+  scale: 1 !important;
 }
 
 /* Block variant */
 .ui-btn.is-block {
   width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Icon styles */
@@ -71,7 +86,10 @@
 .ui-btn .label {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   color: inherit;
+  text-align: center;
+  flex-shrink: 0;
 }
 
 /* Spinner (loading state) */
@@ -95,7 +113,7 @@
    VARIANTS
    ============================================ */
 
-/* Primary - Apple Blue style */
+/* Primary - Professional Indigo style */
 .ui-btn.variant-primary {
   background: var(--primary) !important;
   color: var(--primary-foreground) !important;
@@ -103,21 +121,26 @@
   border-radius: var(--radius-lg);
   font-weight: var(--font-weight-semibold);
   letter-spacing: -0.01em;
-  /* Asegurar que no haya fondo blanco */
-  background-color: var(--primary) !important;
 }
 
 .ui-btn.variant-primary:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--primary) 90%, black);
-  border-color: color-mix(in srgb, var(--primary) 90%, black);
-  transform: translateY(-1px) scale(1.02); /* Sutil, estilo Apple */
-  box-shadow: 0 8px 16px color-mix(in srgb, var(--primary) 30%, transparent);
+  background: color-mix(in srgb, var(--primary) 90%, black) !important;
+  border-color: color-mix(in srgb, var(--primary) 90%, black) !important;
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--primary) 25%, transparent);
+  transform: none !important;
+  scale: 1 !important;
 }
 
-.ui-btn.variant-primary:active:not(:disabled) {
-  transform: translateY(0); /* Sin scale para evitar temblor */
-  box-shadow: 0 2px 4px color-mix(in srgb, var(--primary) 20%, transparent);
-  transition: all var(--transition-fast); /* Transición más rápida */
+.ui-btn.variant-primary:active:not(:disabled),
+.ui-btn.variant-primary:focus:not(:disabled),
+.ui-btn.variant-primary:focus-visible:not(:disabled) {
+  background: color-mix(in srgb, var(--primary) 95%, black) !important;
+  border-color: color-mix(in srgb, var(--primary) 95%, black) !important;
+  box-shadow: 0 2px 6px color-mix(in srgb, var(--primary) 20%, transparent);
+  transform: none !important;
+  scale: 1 !important;
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 
 /* Secondary - Subtle background */
@@ -131,6 +154,13 @@
   background: var(--accent);
   color: var(--accent-foreground);
   border-color: var(--border);
+  transform: none !important;
+}
+
+.ui-btn.variant-secondary:active:not(:disabled),
+.ui-btn.variant-secondary:focus:not(:disabled) {
+  transform: none !important;
+  scale: 1 !important;
 }
 
 /* Ghost - Transparent, border on hover */
@@ -144,6 +174,13 @@
   background: var(--accent);
   color: var(--accent-foreground);
   border-color: var(--border);
+  transform: none !important;
+}
+
+.ui-btn.variant-ghost:active:not(:disabled),
+.ui-btn.variant-ghost:focus:not(:disabled) {
+  transform: none !important;
+  scale: 1 !important;
 }
 
 /* Danger - Red/destructive */
@@ -156,14 +193,18 @@
 .ui-btn.variant-danger:hover:not(:disabled) {
   background: color-mix(in srgb, var(--destructive) 90%, black);
   border-color: color-mix(in srgb, var(--destructive) 90%, black);
-  transform: translateY(-1px) scale(1.02); /* Sutil, estilo Apple */
   box-shadow: 0 4px 12px color-mix(in srgb, var(--destructive) 25%, transparent);
+  transform: none !important;
+  scale: 1 !important;
 }
 
-.ui-btn.variant-danger:active:not(:disabled) {
-  transform: translateY(0) scale(0.98); /* Feedback táctil */
-  box-shadow: 0 2px 4px color-mix(in srgb, var(--destructive) 20%, transparent);
-  transition: all var(--transition-active);
+.ui-btn.variant-danger:active:not(:disabled),
+.ui-btn.variant-danger:focus:not(:disabled) {
+  box-shadow: 0 2px 6px color-mix(in srgb, var(--destructive) 20%, transparent);
+  background: color-mix(in srgb, var(--destructive) 95%, black) !important;
+  border-color: color-mix(in srgb, var(--destructive) 95%, black) !important;
+  transform: none !important;
+  scale: 1 !important;
 }
 
 /* ============================================
@@ -171,10 +212,10 @@
    ============================================ */
 
 .ui-btn.size-sm {
-  padding: var(--space-3) var(--space-4); /* Más padding para alcanzar 44px */
+  padding: var(--space-3) var(--space-4);
   font-size: var(--font-size-sm);
-  min-height: var(--touch-target-min); /* 44px - WCAG AAA */
-  min-width: var(--touch-target-min); /* 44px - WCAG AAA */
+  min-height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
   gap: var(--space-1);
 }
 
@@ -187,15 +228,15 @@
 .ui-btn.size-md {
   padding: var(--space-3) var(--space-5);
   font-size: var(--font-size-base);
-  min-height: var(--touch-target-min); /* 44px - WCAG AAA */
-  min-width: var(--touch-target-min); /* 44px - WCAG AAA */
+  min-height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
 }
 
 .ui-btn.size-lg {
   padding: var(--space-4) var(--space-6);
   font-size: var(--font-size-lg);
-  min-height: var(--touch-target-comfort); /* 48px - Tamaño cómodo */
-  min-width: var(--touch-target-comfort); /* 48px - Tamaño cómodo */
+  min-height: var(--touch-target-comfort);
+  min-width: var(--touch-target-comfort);
   gap: var(--space-2);
 }
 
@@ -214,44 +255,30 @@
   opacity: 0.5;
   cursor: not-allowed;
   pointer-events: none;
+  transform: none !important;
 }
 
 /* Focus */
 .ui-btn:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
+  transform: none !important;
 }
 
 /* Loading */
 .ui-btn.is-loading {
   cursor: wait;
   pointer-events: none;
+  transform: none !important;
 }
 
 /* ============================================
-   RIPPLE EFFECT (Optional, modern touch)
+   RIPPLE EFFECT - DISABLED to prevent issues
    ============================================ */
 
 .ripple {
-  position: absolute;
-  border-radius: 50%;
-  background: currentColor;
-  opacity: 0.2;
-  transform: scale(0);
-  animation: ripple-animation 0.6s ease-out;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@keyframes ripple-animation {
-  to {
-    transform: scale(4);
-    opacity: 0;
-  }
-}
-
-/* Ensure content is above ripple */
-.ui-btn > *:not(.ripple) {
-  position: relative;
-  z-index: 1;
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }

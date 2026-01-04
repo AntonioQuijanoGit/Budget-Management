@@ -19,16 +19,7 @@
   grid-column: span 2;
 }
 
-/* Asegurar que los campos de fecha tengan suficiente ancho para mostrar el año completo */
-:host ::ng-deep .form-grid ui-input input[type="date"] {
-  min-width: 140px !important; /* Ancho mínimo para mostrar el año completo */
-  width: 100%;
-}
-
-:host ::ng-deep .form-grid ui-input:has(input[type="date"]) .ui-input__control {
-  min-width: 0; /* Permite que el contenedor se ajuste */
-  overflow: visible; /* Permite que el contenido se muestre completamente */
-}
+/* Los campos de fecha se manejan en el componente base ui-input */
 
 .actions {
   grid-column: span 2;

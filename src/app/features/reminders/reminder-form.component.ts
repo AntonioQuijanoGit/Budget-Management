@@ -26,7 +26,7 @@ import { todayIso } from '../../utils/date';
           name="title"
           [required]="true"
           [error]="errors().title"
-          placeholder="e.g. Pay electricity bill"
+          placeholder="Pay electricity bill"
         ></ui-input>
 
         <ui-input
@@ -35,7 +35,7 @@ import { todayIso } from '../../utils/date';
           name="description"
           [textarea]="true"
           [rows]="2"
-          placeholder="Add additional details..."
+          placeholder="Additional details..."
           helper="Optional - add more context about this reminder"
         ></ui-input>
 

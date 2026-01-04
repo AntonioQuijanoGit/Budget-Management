@@ -40,7 +40,7 @@ export class CategoryChartComponent implements AfterViewInit, OnChanges, OnDestr
     textMuted: this.getVar('--color-text-secondary', '#6e6e73'),
     border: this.getVar('--color-border', 'rgba(0,0,0,0.1)'),
     surface: this.getVar('--color-bg-tertiary', '#e8e8ed'),
-    primary: this.getVar('--color-primary', '#007aff'),
+    primary: this.getVar('--color-primary', '#6366f1'),
   };
 
   ngAfterViewInit() {

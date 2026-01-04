@@ -49,9 +49,9 @@
 .welcome-button {
   font-size: 17px;
   font-weight: 500;
-  padding: 14px 28px;
-  min-height: 50px;
-  border-radius: 980px;
+  padding: var(--space-3) var(--space-6);
+  min-height: var(--touch-target-comfort);
+  border-radius: var(--radius-full);
   letter-spacing: -0.01em;
 }
 
