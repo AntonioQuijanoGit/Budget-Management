@@ -63,6 +63,7 @@ import { todayIso } from '../../utils/date';
             [step]="0.01"
             suffix="€"
             placeholder="0.00"
+            helper="Leave empty to auto-calculate from transactions, or set manually"
           ></ui-input>
         </div>
 
@@ -71,6 +72,7 @@ import { todayIso } from '../../utils/date';
           name="type"
           [options]="typeOptions"
           [(ngModel)]="type"
+          [helper]="getTypeDescription()"
         ></ui-input>
 
         <ui-input
@@ -225,6 +227,16 @@ export class GoalFormComponent {
     this.type = 'savings';
     this.deadline = '';
     this.errors.set({});
+  }
+
+  getTypeDescription(): string {
+    const descriptions: Record<string, string> = {
+      savings: 'Auto-calculated: Total income minus expenses. Tracks your net savings.',
+      debt: 'Auto-calculated: Sum of all expenses. Tracks total debt/spending.',
+      expense_limit: 'Auto-calculated: Sum of expenses in selected category (or all if none). Tracks spending limit.',
+      income_target: 'Auto-calculated: Sum of all income transactions. Tracks income goal.',
+    };
+    return descriptions[this.type] || 'Select a goal type';
   }
 
   private getColor(varName: string, fallback: string): string {

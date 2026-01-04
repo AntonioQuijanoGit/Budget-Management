@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { TransactionFiltersService } from '../../services/transaction-filters.service';
 import { TransactionsService } from '../../services/transactions.service';
 import { CategoriesService } from '../../services/categories.service';
+import { TransactionFiltersService } from '../../services/transaction-filters.service';
 import { Transaction } from '../../core/models/finance.models';
 import { CategoryChartComponent } from '../../features/dashboard/category-chart.component';
 import { TrendChartComponent } from '../../features/dashboard/trend-chart.component';
@@ -43,7 +45,14 @@ export class DashboardPage {
   private catSvc = inject(CategoriesService);
   private goalsSvc = inject(GoalsService);
   private remindersSvc = inject(RemindersService);
+  private filtersSvc = inject(TransactionFiltersService);
   private router = inject(Router);
+  
+  onCategoryClick(categoryId: string) {
+    // Set filter to this category and navigate to transactions
+    this.filtersSvc.filters.update(f => ({ ...f, categoryId, type: 'expense' }));
+    this.router.navigate(['/transactions']);
+  }
   private palette = {
     primary: this.getVar('--color-primary', '#6366f1'),
     success: this.getVar('--color-success', '#34C759'),
@@ -55,9 +64,14 @@ export class DashboardPage {
   goals = signal<FinancialGoal[]>([]);
   reminders = signal<Reminder[]>([]);
 
-  totalIncome = computed(() => totalByType(this.transactions(), 'income'));
-  totalExpense = computed(() => totalByType(this.transactions(), 'expense'));
-  totalBalance = computed(() => balance(this.transactions()));
+  // Apply filters to transactions
+  filteredTransactions = computed(() => 
+    this.filtersSvc.apply(this.transactions())
+  );
+
+  totalIncome = computed(() => totalByType(this.filteredTransactions(), 'income'));
+  totalExpense = computed(() => totalByType(this.filteredTransactions(), 'expense'));
+  totalBalance = computed(() => balance(this.filteredTransactions()));
 
   constructor() {
     this.txSvc.transactions$.subscribe(t => this.transactions.set(t));

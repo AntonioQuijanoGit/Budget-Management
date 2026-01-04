@@ -1,23 +1,34 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { TransactionsService } from '../../services/transactions.service';
 import { CategoriesService } from '../../services/categories.service';
+import { TransactionFiltersService } from '../../services/transaction-filters.service';
 import { Transaction } from '../../core/models/finance.models';
 import { groupExpensesByCategory, totalByType } from '../../utils/calculations';
 import { formatCurrency } from '../../utils/currency';
 import { LucideAngularModule } from 'lucide-angular';
+import { EmptyStateComponent } from '../../components/ui/empty-state/empty-state.component';
+import { ButtonComponent } from '../../components/ui/button/button.component';
 
 @Component({
   standalone: true,
   selector: 'app-statistics-page',
   templateUrl: './statistics.page.html',
   styleUrl: './statistics.page.css',
-  imports: [CommonModule, LucideAngularModule],
+  imports: [
+    CommonModule, 
+    RouterModule,
+    LucideAngularModule,
+    EmptyStateComponent,
+    ButtonComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatisticsPage {
   private txSvc = inject(TransactionsService);
   private catSvc = inject(CategoriesService);
+  private filtersSvc = inject(TransactionFiltersService);
   transactions = signal<Transaction[]>([]);
   categories = signal([] as any);
 
@@ -26,13 +37,18 @@ export class StatisticsPage {
     this.catSvc.categories$.subscribe(c => this.categories.set(c));
   }
 
+  // Apply filters to transactions
+  filteredTransactions = computed(() => 
+    this.filtersSvc.apply(this.transactions())
+  );
+
   topCategories = computed(() =>
-    groupExpensesByCategory(this.transactions(), this.categories()).sort((a, b) => b.value - a.value).slice(0, 5)
+    groupExpensesByCategory(this.filteredTransactions(), this.categories()).sort((a, b) => b.value - a.value).slice(0, 5)
   );
 
   dailyAvg = computed(() => {
-    const expense = totalByType(this.transactions(), 'expense');
-    const transactions = this.transactions();
+    const expense = totalByType(this.filteredTransactions(), 'expense');
+    const transactions = this.filteredTransactions();
     
     if (transactions.length === 0) return 0;
     
@@ -56,8 +72,8 @@ export class StatisticsPage {
 
   summary = computed(() => [
     { label: 'Daily average expense', value: formatCurrency(this.dailyAvg()) },
-    { label: 'Total income', value: formatCurrency(totalByType(this.transactions(), 'income')) },
-    { label: 'Total expenses', value: formatCurrency(totalByType(this.transactions(), 'expense')) },
+    { label: 'Total income', value: formatCurrency(totalByType(this.filteredTransactions(), 'income')) },
+    { label: 'Total expenses', value: formatCurrency(totalByType(this.filteredTransactions(), 'expense')) },
   ]);
 }
 

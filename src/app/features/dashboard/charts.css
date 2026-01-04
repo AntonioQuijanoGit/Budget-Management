@@ -37,10 +37,46 @@
 }
 
 .card canvas {
+  max-width: 400px;
   max-height: 400px;
-  width: 100% !important;
+  width: auto !important;
   height: auto !important;
   display: block;
+  aspect-ratio: 1;
+}
+
+/* En desktop, limitar el tamaño del gráfico circular */
+@media (min-width: 1024px) {
+  .card canvas {
+    max-width: 350px;
+    max-height: 350px;
+  }
+}
+
+/* En mobile, reducir el tamaño del gráfico para que quepa en la card */
+@media (max-width: 768px) {
+  .chart-container {
+    min-height: 250px;
+    padding: var(--space-2);
+  }
+  
+  .card canvas {
+    max-width: 280px;
+    max-height: 280px;
+  }
+}
+
+/* En mobile pequeño, reducir aún más */
+@media (max-width: 480px) {
+  .chart-container {
+    min-height: 200px;
+    padding: var(--space-1);
+  }
+  
+  .card canvas {
+    max-width: 240px;
+    max-height: 240px;
+  }
 }
 
 .empty-message {
@@ -55,5 +91,33 @@
   margin: 0;
   z-index: 1;
   pointer-events: none;
+}
+
+/* Estilos para el gráfico de líneas (trend chart) */
+.trend-card .chart-container {
+  position: relative;
+  height: 320px;
+  width: 100%;
+  margin-top: var(--space-2);
+}
+
+.trend-card canvas[aria-label="Monthly evolution chart"] {
+  width: 100% !important;
+  height: 100% !important;
+  max-height: none !important;
+  max-width: none !important;
+}
+
+/* En mobile, ajustar altura del gráfico de líneas */
+@media (max-width: 768px) {
+  .trend-card .chart-container {
+    height: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .trend-card .chart-container {
+    height: 240px;
+  }
 }
 

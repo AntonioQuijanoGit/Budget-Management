@@ -15,8 +15,24 @@
     ></app-budget-card>
   </div>
 
-  <div *ngIf="alerts().length === 0" class="empty">
-    Add categories with monthly budgets to see progress.
-  </div>
+  <ui-card *ngIf="alerts().length === 0" padding="lg" style="text-align: center;">
+    <ui-empty-state
+      icon="PieChart"
+      title="No Budgets Set Yet"
+      description="Set monthly budgets for your categories to track spending and receive alerts when you're approaching limits."
+    >
+      <ui-button 
+        variant="primary" 
+        size="lg"
+        iconLeft="Plus"
+        routerLink="/categories"
+      >
+        Set Up Budgets
+      </ui-button>
+      <p style="margin-top: var(--space-4); font-size: var(--font-size-sm); color: var(--color-text-secondary);">
+        💡 Tip: Go to Categories to set monthly budgets for each category
+      </p>
+    </ui-empty-state>
+  </ui-card>
 </section>
 

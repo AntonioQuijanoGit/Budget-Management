@@ -37,19 +37,49 @@ import { LucideAngularModule } from 'lucide-angular';
     }
 
     .empty-icon-wrapper {
-      width: 96px;
-      height: 96px;
+      width: 120px;
+      height: 120px;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: var(--radius-2xl);
-      background: var(--color-bg-tertiary);
+      background: linear-gradient(135deg, 
+        color-mix(in srgb, var(--color-primary) 12%, transparent), 
+        color-mix(in srgb, var(--color-primary) 6%, transparent));
+      border: 1.5px solid color-mix(in srgb, var(--color-primary) 18%, transparent);
       margin-bottom: var(--space-2);
+      transition: all var(--transition-base);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .empty-icon-wrapper::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, 
+        color-mix(in srgb, var(--color-primary) 15%, transparent) 0%, 
+        transparent 70%);
+      opacity: 0.6;
+      transition: opacity var(--transition-base);
+    }
+
+    .empty-icon-wrapper:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 24px color-mix(in srgb, var(--color-primary) 25%, transparent);
+      border-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
+    }
+
+    .empty-icon-wrapper:hover::before {
+      opacity: 0.8;
     }
 
     .empty-icon {
-      color: var(--color-text-tertiary);
-      opacity: 0.6;
+      color: var(--color-primary);
+      opacity: 0.9;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 2px 4px color-mix(in srgb, var(--color-primary) 20%, transparent));
     }
 
     .empty-title {

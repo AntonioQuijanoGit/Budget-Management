@@ -18,6 +18,8 @@
           *ngFor="let tx of transactions() | slice:0:10"
           [transaction]="tx"
           [category]="category(tx.categoryId)"
+          (edit)="handleEdit($event)"
+          (remove)="handleRemove($event)"
         ></app-transaction-card>
       </div>
       <div *ngIf="transactions().length === 0" class="empty-state-wrapper">
@@ -38,5 +40,52 @@
       </div>
     </div>
   </div>
+
+  <!-- Delete confirmation modal -->
+  <ui-modal
+    [open]="deletingId() !== null"
+    title="Delete Transaction?"
+    description="This action cannot be undone"
+    size="md"
+    (close)="cancelDelete()"
+  >
+    <div *ngIf="deletingTransaction()" class="delete-modal-content">
+      <p class="delete-warning">
+        Are you sure you want to delete this transaction?
+      </p>
+      
+      <div class="transaction-preview">
+        <div class="preview-header">
+          <strong class="preview-description">{{ deletingTransaction()?.description }}</strong>
+          <span class="preview-amount" [class.expense]="deletingTransaction()?.type === 'expense'" [class.income]="deletingTransaction()?.type === 'income'">
+            {{ deletingTransaction()?.type === 'expense' ? '-' : '+' }}{{ deletingTransaction()?.amount | number:'1.2-2' }}€
+          </span>
+        </div>
+        <div class="preview-details">
+          <span class="preview-detail">
+            <lucide-icon name="Tag" [size]="14"></lucide-icon>
+            {{ category(deletingTransaction()?.categoryId || '')?.name || 'Uncategorized' }}
+          </span>
+          <span class="preview-detail">
+            <lucide-icon name="Calendar" [size]="14"></lucide-icon>
+            {{ deletingTransaction()?.date | date:'mediumDate' }}
+          </span>
+        </div>
+      </div>
+      
+      <p class="delete-note">
+        This will permanently remove the transaction from your records.
+      </p>
+    </div>
+    
+    <div modal-footer class="modal-footer">
+      <ui-button variant="ghost" (buttonClick)="cancelDelete()">
+        Cancel
+      </ui-button>
+      <ui-button variant="danger" iconLeft="Trash2" (buttonClick)="confirmDelete()">
+        Delete Transaction
+      </ui-button>
+    </div>
+  </ui-modal>
 </section>
 

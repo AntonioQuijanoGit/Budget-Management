@@ -1,17 +1,28 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { BudgetsService } from '../../services/budgets.service';
 import { CategoriesService } from '../../services/categories.service';
 import { TransactionsService } from '../../services/transactions.service';
 import { BudgetCardComponent } from '../../features/budgets/budget-card.component';
 import { Category, BudgetAlert, Transaction } from '../../core/models/finance.models';
+import { CardComponent } from '../../components/ui/card/card.component';
+import { EmptyStateComponent } from '../../components/ui/empty-state/empty-state.component';
+import { ButtonComponent } from '../../components/ui/button/button.component';
 
 @Component({
   standalone: true,
   selector: 'app-budgets-page',
   templateUrl: './budgets.page.html',
   styleUrl: './budgets.page.css',
-  imports: [CommonModule, BudgetCardComponent],
+  imports: [
+    CommonModule, 
+    RouterModule,
+    BudgetCardComponent,
+    CardComponent,
+    EmptyStateComponent,
+    ButtonComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BudgetsPage {

@@ -1,10 +1,14 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
   OnChanges,
   OnDestroy,
+  Output,
+  EventEmitter,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -29,10 +33,12 @@ import { groupExpensesByCategory } from '../../utils/calculations';
     </div>
   </div>`,
   styleUrl: './charts.css',
+  // Usar Default para asegurar detección de cambios
 })
 export class CategoryChartComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input() transactions: Transaction[] = [];
   @Input() categories: Category[] = [];
+  @Output() categoryClick = new EventEmitter<string>();
   @ViewChild('canvas') canvas!: ElementRef<HTMLCanvasElement>;
   chart?: Chart;
   private palette = {
@@ -42,23 +48,48 @@ export class CategoryChartComponent implements AfterViewInit, OnChanges, OnDestr
     surface: this.getVar('--color-bg-tertiary', '#e8e8ed'),
     primary: this.getVar('--color-primary', '#6366f1'),
   };
+  private previousTransactionsLength = 0;
+  private previousCategoriesLength = 0;
+
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngAfterViewInit() {
     // Esperar un tick para asegurar que el canvas esté disponible
     setTimeout(() => {
       this.buildChart();
+      this.previousTransactionsLength = this.transactions.length;
+      this.previousCategoriesLength = this.categories.length;
     }, 100);
   }
 
-  ngOnChanges() {
-    // Si el canvas está disponible, construir o actualizar el gráfico
-    if (this.canvas?.nativeElement) {
-      if (this.chart) {
-        this.updateChart();
-      } else {
-        setTimeout(() => {
-          this.buildChart();
-        }, 100);
+  ngOnChanges(changes: SimpleChanges) {
+    // Detectar cambios en transactions o categories
+    const transactionsChanged = changes['transactions'] && 
+      (changes['transactions'].previousValue?.length !== changes['transactions'].currentValue?.length ||
+       changes['transactions'].previousValue !== changes['transactions'].currentValue);
+    
+    const categoriesChanged = changes['categories'] && 
+      (changes['categories'].previousValue?.length !== changes['categories'].currentValue?.length ||
+       changes['categories'].previousValue !== changes['categories'].currentValue);
+
+    // También verificar cambios por longitud (más eficiente)
+    const lengthChanged = this.transactions.length !== this.previousTransactionsLength ||
+                         this.categories.length !== this.previousCategoriesLength;
+
+    if (transactionsChanged || categoriesChanged || lengthChanged) {
+      this.previousTransactionsLength = this.transactions.length;
+      this.previousCategoriesLength = this.categories.length;
+      
+      // Si el canvas está disponible, construir o actualizar el gráfico
+      if (this.canvas?.nativeElement) {
+        // Usar requestAnimationFrame para asegurar que el DOM esté actualizado
+        requestAnimationFrame(() => {
+          if (this.chart) {
+            this.updateChart();
+          } else {
+            this.buildChart();
+          }
+        });
       }
     }
   }
@@ -119,6 +150,25 @@ export class CategoryChartComponent implements AfterViewInit, OnChanges, OnDestr
                 usePointStyle: true,
               },
             },
+            tooltip: {
+              callbacks: {
+                label: (context) => {
+                  const label = context.label || '';
+                  const value = formatCurrency(context.parsed);
+                  return `${label}: ${value}`;
+                }
+              }
+            }
+          },
+          onClick: (event, elements) => {
+            if (elements.length > 0) {
+              const index = elements[0].index;
+              const categoryLabel = data[index].label;
+              const category = this.categories.find(c => c.name === categoryLabel);
+              if (category) {
+                this.categoryClick.emit(category.id);
+              }
+            }
           },
           responsive: true,
           maintainAspectRatio: true,
@@ -126,7 +176,7 @@ export class CategoryChartComponent implements AfterViewInit, OnChanges, OnDestr
         },
       });
     } catch (error) {
-      // Silently fail - el mensaje de "no data" se mostrará
+      console.error('Error building chart:', error);
     }
   }
 
@@ -150,16 +200,16 @@ export class CategoryChartComponent implements AfterViewInit, OnChanges, OnDestr
       return;
     }
     
-    // Actualizar los datos del gráfico existente
+    // Reconstruir el gráfico completamente para asegurar que se actualice correctamente
+    // Esto es más confiable que actualizar solo los datos
     try {
-      this.chart.data.labels = data.map(d => d.label);
-      this.chart.data.datasets[0].data = data.map(d => d.value);
-      (this.chart.data.datasets[0] as any).backgroundColor = data.map(d => d.color || this.palette.primary);
-      (this.chart.data.datasets[0] as any).borderColor = this.palette.surface;
-      this.chart.update('active');
-    } catch (error) {
-      // Si hay error, reconstruir el gráfico
+      this.chart.destroy();
+      this.chart = undefined;
       this.buildChart();
+    } catch (error) {
+      // Si hay error, intentar reconstruir de nuevo
+      this.chart = undefined;
+      setTimeout(() => this.buildChart(), 100);
     }
   }
 
@@ -167,5 +217,12 @@ export class CategoryChartComponent implements AfterViewInit, OnChanges, OnDestr
     const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
     return value || fallback;
   }
+}
+
+function formatCurrency(amount: number): string {
+  return new Intl.NumberFormat('es-ES', {
+    style: 'currency',
+    currency: 'EUR',
+  }).format(amount);
 }
 

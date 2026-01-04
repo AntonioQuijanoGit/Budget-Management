@@ -42,6 +42,7 @@
     <app-category-chart
       [transactions]="transactions()"
       [categories]="categories()"
+      (categoryClick)="onCategoryClick($event)"
     ></app-category-chart>
     <app-trend-chart [transactions]="transactions()"></app-trend-chart>
   </div>

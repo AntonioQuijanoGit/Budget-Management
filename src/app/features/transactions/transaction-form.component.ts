@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, signal, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, signal, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
@@ -10,6 +10,8 @@ import { ButtonComponent } from '../../components/ui/button/button.component';
 import { BadgeComponent } from '../../components/ui/badge/badge.component';
 import { TagsInputComponent } from '../../components/ui/tags-input/tags-input.component';
 import { ToastService } from '../../services/toast.service';
+import { BudgetsService } from '../../services/budgets.service';
+import { TransactionsService } from '../../services/transactions.service';
 
 @Component({
   selector: 'app-transaction-form',
@@ -29,8 +31,11 @@ import { ToastService } from '../../services/toast.service';
 })
 export class TransactionFormComponent {
   private toastService = inject(ToastService);
+  private budgetsSvc = inject(BudgetsService);
+  private txSvc = inject(TransactionsService);
   
   @Input() categories: Category[] = [];
+  @Input() transactions: Transaction[] = [];
   @Input() set editing(value: Transaction | null) {
     this.editingTx = value;
     if (value) {
@@ -58,6 +63,49 @@ export class TransactionFormComponent {
   editingTx: Transaction | null = null;
   submitting = signal(false);
   errors = signal<{ description?: string; amount?: string; categoryId?: string; date?: string }>({});
+
+  // Budget feedback in real-time
+  budgetFeedback = computed(() => {
+    if (this.type !== 'expense' || !this.amount || this.amount <= 0 || !this.categoryId) {
+      return null;
+    }
+
+    const category = this.categories.find(c => c.id === this.categoryId);
+    if (!category || !category.budgetMonthly) {
+      return null;
+    }
+
+    const existingTx = this.editingTx;
+    const transactionsToCheck = existingTx 
+      ? this.transactions.filter(t => t.id !== existingTx.id)
+      : this.transactions;
+
+    const budgetCheck = this.budgetsSvc.checkBudgetBeforeAdd(
+      {
+        id: '',
+        type: 'expense',
+        categoryId: this.categoryId,
+        amount: this.amount,
+        date: this.date,
+        description: this.description,
+      },
+      this.categories,
+      transactionsToCheck
+    );
+
+    if (!budgetCheck.category) return null;
+
+    const remaining = budgetCheck.limit! - (budgetCheck.currentSpent || 0) - this.amount;
+    const newRatio = budgetCheck.newRatio || 0;
+
+    return {
+      category: budgetCheck.category.name,
+      remaining,
+      newRatio,
+      wouldExceed: budgetCheck.wouldExceed,
+      warning: budgetCheck.warning,
+    };
+  });
 
   get categoryOptions() {
     // Filtrar categorías que coincidan con el tipo de transacción
@@ -171,5 +219,8 @@ export class TransactionFormComponent {
     this.editingTx = null;
     this.errors.set({});
   }
+
+  // Expose Math for template
+  Math = Math;
 }
 

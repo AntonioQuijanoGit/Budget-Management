@@ -302,10 +302,71 @@ export class AppStore {
         // Merge with defaults to ensure all properties exist
         return { ...DEFAULT_STATE, ...parsed };
       }
+      
+      // Migration: Load from legacy services if AppStore is empty
+      return this.migrateFromLegacy();
     } catch (e) {
       console.error('Error loading state', e);
+      return this.migrateFromLegacy();
     }
-    return DEFAULT_STATE;
+  }
+
+  /**
+   * Migrate data from legacy services to AppStore
+   */
+  private migrateFromLegacy(): AppState {
+    const state = { ...DEFAULT_STATE };
+    
+    try {
+      // Migrate transactions
+      const txRaw = localStorage.getItem('bm_transactions_v1');
+      if (txRaw) {
+        state.transactions = JSON.parse(txRaw);
+      }
+      
+      // Migrate categories
+      const catRaw = localStorage.getItem('bm_categories_v1');
+      if (catRaw) {
+        const parsed = JSON.parse(catRaw);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          state.categories = parsed;
+        }
+      }
+      
+      // Migrate goals
+      const goalsRaw = localStorage.getItem('bm_goals_v1');
+      if (goalsRaw) {
+        state.goals = JSON.parse(goalsRaw);
+      }
+      
+      // Migrate reminders
+      const remindersRaw = localStorage.getItem('bm_reminders_v1');
+      if (remindersRaw) {
+        state.reminders = JSON.parse(remindersRaw);
+      }
+      
+      // Migrate recurring transactions
+      const recurringRaw = localStorage.getItem('bm_recurring_v1');
+      if (recurringRaw) {
+        state.recurringTransactions = JSON.parse(recurringRaw);
+      }
+      
+      // Migrate budget
+      const budgetRaw = localStorage.getItem('bm_presupuesto_v1');
+      if (budgetRaw) {
+        state.budget = JSON.parse(budgetRaw);
+      }
+      
+      // If we migrated data, persist it
+      if (txRaw || catRaw || goalsRaw || remindersRaw || recurringRaw || budgetRaw) {
+        this.state.set(state);
+        this.persist();
+      }
+    } catch (e) {
+      console.error('Error migrating from legacy services', e);
+    }
+    
+    return state;
   }
 
   // Reset store (useful for testing or resetting app)

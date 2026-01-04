@@ -28,7 +28,21 @@
           <strong>{{ cat.value | number: '1.2-2' }} €</strong>
         </li>
       </ul>
-      <p *ngIf="topCategories().length === 0" class="empty">Add expenses to see the ranking.</p>
+      <ui-empty-state
+        *ngIf="topCategories().length === 0"
+        icon="BarChart3"
+        title="No Data Yet"
+        description="Add some expenses to see category rankings and statistics."
+      >
+        <ui-button 
+          variant="primary" 
+          size="md"
+          iconLeft="Plus"
+          routerLink="/transactions"
+        >
+          Add Expense
+        </ui-button>
+      </ui-empty-state>
     </div>
   </div>
 </section>

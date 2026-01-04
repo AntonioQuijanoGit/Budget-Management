@@ -37,19 +37,41 @@
       placeholder="Choose category"
     ></ui-input>
 
-    <ui-input
-      label="Amount"
-      name="amount"
-      type="number"
-      [step]="0.01"
-      [min]="0"
-      [(ngModel)]="amount"
-      [required]="true"
-      [error]="errors().amount"
-      suffix="€"
-      placeholder="0.00"
-      helper="Amount in euros"
-    ></ui-input>
+    <div class="full">
+      <ui-input
+        label="Amount"
+        name="amount"
+        type="number"
+        [step]="0.01"
+        [min]="0"
+        [(ngModel)]="amount"
+        [required]="true"
+        [error]="errors().amount"
+        suffix="€"
+        placeholder="0.00"
+        helper="Amount in euros"
+      ></ui-input>
+      
+      <!-- Budget feedback in real-time -->
+      <div *ngIf="budgetFeedback() && type === 'expense'" class="budget-feedback" [class.warning]="budgetFeedback()!.newRatio >= 0.8" [class.danger]="budgetFeedback()!.wouldExceed">
+        <div style="display: flex; align-items: center; gap: var(--space-2);">
+          <lucide-icon 
+            [name]="budgetFeedback()!.wouldExceed ? 'AlertTriangle' : budgetFeedback()!.newRatio >= 0.8 ? 'AlertCircle' : 'Info'" 
+            [size]="16"
+          ></lucide-icon>
+          <span style="font-size: var(--font-size-sm);">
+            <strong>{{ budgetFeedback()!.category }}</strong>: 
+            <span *ngIf="budgetFeedback()!.remaining >= 0">
+              {{ budgetFeedback()!.remaining | number:'1.2-2' }}€ remaining
+            </span>
+            <span *ngIf="budgetFeedback()!.remaining < 0" style="color: var(--color-error);">
+              {{ Math.abs(budgetFeedback()!.remaining) | number:'1.2-2' }}€ over budget
+            </span>
+            ({{ (budgetFeedback()!.newRatio * 100) | number:'1.0-0' }}% used)
+          </span>
+        </div>
+      </div>
+    </div>
 
     <ui-input
       label="Date"

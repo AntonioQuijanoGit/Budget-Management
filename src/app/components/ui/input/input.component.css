@@ -63,13 +63,14 @@
 
 .ui-input__control:focus-within {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 25%, transparent); /* Más visible para accesibilidad */
-  transform: scale(1.01); /* Sutil aumento estilo Apple */
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 20%, transparent),
+              var(--shadow-sm);
+  background: color-mix(in srgb, var(--input) 98%, var(--color-primary));
   transition: all var(--transition-base);
 }
 
 .ui-input__control:active {
-  transform: scale(0.99); /* Feedback táctil */
+  border-color: color-mix(in srgb, var(--color-primary) 80%, var(--color-border));
   transition: all var(--transition-active);
 }
 

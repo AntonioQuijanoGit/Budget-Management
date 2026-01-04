@@ -3,14 +3,19 @@ import { BehaviorSubject, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FinancialGoal, Transaction } from '../core/models/finance.models';
 import { TransactionsService } from './transactions.service';
+import { AppStore } from '../core/store/app.store';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 const STORAGE_KEY = 'bm_goals_v1';
 
 @Injectable({ providedIn: 'root' })
 export class GoalsService {
+  private store = inject(AppStore);
   private txService = inject(TransactionsService);
-  private goals$ = new BehaviorSubject<FinancialGoal[]>(this.load());
-  goals = this.goals$.asObservable();
+  private goals$ = new BehaviorSubject<FinancialGoal[]>(this.store.goals());
+  
+  // Sync with AppStore
+  goals = toObservable(this.store.goals);
 
   // Goals with auto-calculated currentAmount from transactions
   goalsWithProgress$ = combineLatest([
@@ -26,6 +31,25 @@ export class GoalsService {
   );
 
   constructor() {
+    // Initialize from store
+    const storeGoals = this.store.goals();
+    if (storeGoals.length === 0) {
+      const legacy = this.load();
+      if (legacy.length > 0) {
+        this.store.setGoals(legacy);
+        this.goals$.next(legacy);
+      }
+    } else {
+      this.goals$.next(storeGoals);
+    }
+    
+    // Keep BehaviorSubject in sync with AppStore
+    this.store.goals.subscribe(goals => {
+      if (JSON.stringify(goals) !== JSON.stringify(this.goals$.value)) {
+        this.goals$.next(goals);
+      }
+    });
+    
     // Subscribe to transactions and auto-update goals
     this.txService.transactions$.subscribe(transactions => {
       this.updateGoalsFromTransactions(transactions);
@@ -33,25 +57,18 @@ export class GoalsService {
   }
 
   add(goal: FinancialGoal) {
-    this.goals$.next([...this.goals$.value, goal]);
-    this.persist();
+    this.store.addGoal(goal);
+    // BehaviorSubject will update via subscription
   }
 
   update(id: string, patch: Partial<FinancialGoal>) {
-    // If updating currentAmount manually, preserve it (don't auto-overwrite)
-    const goal = this.goals$.value.find(g => g.id === id);
-    if (goal && 'currentAmount' in patch && patch.currentAmount !== undefined) {
-      // Manual update - allow it but mark it somehow, or just allow manual override
-      this.goals$.next(this.goals$.value.map(g => (g.id === id ? { ...g, ...patch } : g)));
-    } else {
-      this.goals$.next(this.goals$.value.map(g => (g.id === id ? { ...g, ...patch } : g)));
-    }
-    this.persist();
+    this.store.updateGoal(id, patch);
+    // BehaviorSubject will update via subscription
   }
 
   remove(id: string) {
-    this.goals$.next(this.goals$.value.filter(g => g.id !== id));
-    this.persist();
+    this.store.removeGoal(id);
+    // BehaviorSubject will update via subscription
   }
 
   getProgress(id: string): number {
@@ -104,25 +121,13 @@ export class GoalsService {
     // Only auto-update if goal doesn't have a manual override
     // For now, we'll always auto-update based on transactions
     // Users can still manually set currentAmount in the form if needed
-    const updated = this.goals$.value.map(goal => ({
+    const currentGoals = this.store.goals();
+    const updated = currentGoals.map(goal => ({
       ...goal,
       currentAmount: this.calculateCurrentAmount(goal, transactions)
     }));
-    this.goals$.next(updated);
-    this.persist();
-  }
-
-  private persist() {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.goals$.value));
-    } catch (e: any) {
-      console.error('Error saving goals', e);
-      if (e.name === 'QuotaExceededError' || e.code === 22) {
-        console.warn('localStorage quota exceeded for goals');
-        throw new Error('Storage quota exceeded. Please clear some old data.');
-      }
-      throw e;
-    }
+    this.store.setGoals(updated);
+    // BehaviorSubject will update via subscription
   }
 
   private load(): FinancialGoal[] {

@@ -31,13 +31,13 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-8); /* Más espacio entre secciones */
-  /* Sombra suave extendida para transición más natural */
-  box-shadow: 2px 0 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
+  /* Sombra premium más sutil */
+  box-shadow: 1px 0 0 0 var(--color-border);
   overflow-y: auto;
   overflow-x: hidden;
-  /* Animación de entrada */
+  /* Animación de entrada suave */
   animation: slideIn var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
 }
 
 /* Scrollbar personalizado para el sidebar */
@@ -60,13 +60,28 @@
 
 .logo {
   font-weight: var(--font-weight-bold);
-  letter-spacing: -0.02em;
-  font-size: var(--font-size-xl); /* Más grande para mejor jerarquía */
-  color: var(--color-text-primary);
-  padding: var(--space-2) var(--space-3); /* Más padding para mejor touch target */
+  letter-spacing: -0.04em;
+  font-size: var(--font-size-2xl);
+  padding: var(--space-3) var(--space-4);
   margin-bottom: var(--space-2);
-  /* Mejorar legibilidad */
   line-height: var(--line-height-tight);
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  position: relative;
+}
+
+.logo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  opacity: 0.2;
+  filter: blur(12px);
+  z-index: -1;
+  border-radius: var(--radius-md);
 }
 
 .nav-main {
@@ -95,30 +110,28 @@
 .nav-footer a {
   text-decoration: none;
   color: var(--color-text-secondary);
-  padding: var(--space-3) var(--space-4); /* Más padding para mejor touch target */
-  border-radius: var(--radius-lg); /* Más redondeado estilo Apple */
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-sm);
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  transition: all var(--transition-base); /* Transición más suave */
+  transition: all var(--transition-base);
   position: relative;
-  min-height: var(--touch-target-min); /* 44px - WCAG AAA */
-  /* Mejorar accesibilidad */
-  -webkit-tap-highlight-color: transparent; /* Remover highlight nativo */
+  min-height: var(--touch-target-min);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .nav-main a:hover,
 .nav-footer a:hover {
-  background: var(--color-bg-tertiary);
+  background: var(--accent);
   color: var(--color-text-primary);
-  transform: translateX(2px); /* Sutil movimiento estilo Apple */
 }
 
 .nav-main a:active,
 .nav-footer a:active {
-  transform: translateX(1px) scale(0.98); /* Feedback táctil */
+  background: color-mix(in srgb, var(--accent) 95%, black);
   transition: all var(--transition-active);
 }
 
@@ -127,8 +140,6 @@
   background: color-mix(in srgb, var(--color-primary) 15%, transparent);
   color: var(--color-text-primary);
   font-weight: var(--font-weight-semibold);
-  /* Mejorar contraste para accesibilidad */
-  background: color-mix(in srgb, var(--color-primary) 20%, transparent);
 }
 
 .nav-main a.active::before,
@@ -138,10 +149,11 @@
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 3px;
-  height: 60%;
-  background: var(--color-primary);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  width: 4px;
+  height: 75%;
+  background: linear-gradient(180deg, #6366f1, #8b5cf6);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.6);
 }
 
 .nav-main a:focus-visible,
@@ -183,11 +195,12 @@
   right: 0;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  background: var(--color-bg-primary);
+  background: color-mix(in srgb, var(--color-bg-primary) 98%, var(--color-text-primary));
+  backdrop-filter: blur(20px) saturate(180%);
   border-top: 1px solid var(--color-border);
   padding: var(--space-2) var(--space-3);
   z-index: 20;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
 }
 
 .bottom-nav a {
@@ -209,13 +222,12 @@
 
 .bottom-nav a.active {
   color: var(--color-text-primary);
-  transform: translateY(-2px); /* Más movimiento para feedback visual */
-  background: color-mix(in srgb, var(--color-primary) 20%, transparent);
+  background: color-mix(in srgb, var(--color-primary) 15%, transparent);
   font-weight: var(--font-weight-semibold);
 }
 
 .bottom-nav a:active {
-  transform: translateY(0) scale(0.95); /* Feedback táctil */
+  background: color-mix(in srgb, var(--color-primary) 25%, transparent);
   transition: all var(--transition-active);
 }
 
@@ -225,16 +237,16 @@
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 32px;
+  width: 40px;
   height: 3px;
   background: var(--color-primary);
   border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--color-primary) 50%, transparent);
 }
 
 .bottom-nav a:hover {
   color: var(--color-text-primary);
   background: color-mix(in srgb, var(--color-primary) 10%, transparent);
-  transform: translateY(-1px); /* Sutil elevación */
 }
 
 .bottom-nav a lucide-icon {

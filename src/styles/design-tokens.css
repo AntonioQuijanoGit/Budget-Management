@@ -6,32 +6,32 @@
 :root {
   --radius: 0.5rem; /* 8px - base unified radius */
   
-  /* Colors - Apple System Design */
-  /* Dark theme (default) */
-  --background: #000000;        /* Background principal - negro puro */
-  --foreground: #fafafa;        /* Texto principal - casi blanco */
+  /* Colors - Premium Apple/Stripe/Linear Design */
+  /* Dark theme (default) - Refined for premium feel */
+  --background: #0a0a0a;        /* Background principal - negro sofisticado */
+  --foreground: #ffffff;        /* Texto principal - blanco puro para máximo contraste */
   
-  --primary: #6366f1;           /* Indigo - profesional y elegante */
+  --primary: #6366f1;           /* Indigo premium - vibrante pero elegante */
   --primary-foreground: #ffffff;
   
-  --secondary: #0a0a0a;
-  --secondary-foreground: #fafafa;
+  --secondary: #1a1a1a;         /* Secondary background - ligeramente más claro */
+  --secondary-foreground: #ffffff;
   
-  --muted: #262626;             /* Muted - gris medio */
-  --muted-foreground: #a1a1aa;
+  --muted: #262626;             /* Muted - gris medio suave */
+  --muted-foreground: #a3a3a3;  /* Texto muted más claro para mejor legibilidad */
   
-  --accent: #171717;            /* Accent (usado para cards hover) */
-  --accent-foreground: #fafafa;
+  --accent: #1f1f1f;            /* Accent - hover states más sutiles */
+  --accent-foreground: #ffffff;
   
-  --card: #1c1c1e;              /* Cards - Apple dark gray (más sutil) */
+  --card: #151515;              /* Cards - fondo premium con sutil elevación */
   --card-foreground: #ffffff;
   
-  --destructive: #FF3B30;       /* Apple Red - más suave que red-600 */
+  --destructive: #ef4444;       /* Red premium - más suave y moderno */
   --destructive-foreground: #ffffff;
   
-  --border: #38383a;            /* Borders - Apple border gray (más sutil) */
-  --input: #2c2c2e;            /* Apple input background */
-  --ring: #6366f1;              /* Focus ring - Indigo */
+  --border: #2a2a2a;            /* Borders - más visibles pero elegantes */
+  --input: #1a1a1a;             /* Input background - integrado pero distinguible */
+  --ring: #6366f1;              /* Focus ring - Indigo con mejor visibilidad */
 
   /* Semantic colors - Apple System Colors */
   --color-primary: var(--primary);
@@ -114,11 +114,16 @@
   --radius-4xl: calc(var(--radius) * 5);     /* 40px (2.5rem) */
   --radius-full: 9999px;
 
-  /* Shadows - Subtle for dark theme */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
+  /* Shadows - Premium subtle shadows with depth */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.6), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.7), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.8), 0 10px 10px -5px rgba(0, 0, 0, 0.6);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+  
+  /* Colored shadows for interactive elements */
+  --shadow-primary: 0 4px 14px 0 rgba(99, 102, 241, 0.25);
+  --shadow-primary-lg: 0 8px 24px 0 rgba(99, 102, 241, 0.3);
 
   /* Transiciones - Apple System Easing */
   /* Apple usa easing curves suaves y naturales */
@@ -225,38 +230,38 @@
 
 /* Dark theme is the default (ya definido arriba en :root) */
 
-/* Light theme - se activa con clase .light en <html> */
+/* Light theme - Premium light mode with refined colors */
 :root.light,
 .light {
   --background: #ffffff;
-  --foreground: #0a0a0a;
+  --foreground: #0f172a;        /* Slate-900 - más sofisticado que negro puro */
   
-  --primary: #6366f1;           /* Indigo - profesional */
+  --primary: #6366f1;           /* Indigo premium */
   --primary-foreground: #ffffff;
   
-  --secondary: #fafafa;
-  --secondary-foreground: #0a0a0a;
+  --secondary: #f8fafc;         /* Slate-50 - fondo suave */
+  --secondary-foreground: #0f172a;
   
-  --muted: #f5f5f5;
-  --muted-foreground: #525252;
+  --muted: #f1f5f9;             /* Slate-100 - más refinado */
+  --muted-foreground: #64748b;  /* Slate-500 - mejor legibilidad */
   
-  --accent: #f5f5f5;
-  --accent-foreground: #0a0a0a;
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172a;
   
-  --destructive: #FF3B30;       /* Apple Red */
+  --destructive: #ef4444;       /* Red premium */
   --destructive-foreground: #ffffff;
   
-  --border: rgba(0, 0, 0, 0.1);
-  --input: rgba(0, 0, 0, 0.08);
-  --ring: #6366f1;              /* Indigo focus ring */
+  --border: rgba(15, 23, 42, 0.08);  /* Border más sutil y elegante */
+  --input: #ffffff;
+  --ring: #6366f1;
   
   /* Semantic colors para light theme */
-  --color-success: #34C759;     /* Apple Green */
+  --color-success: #10b981;     /* Emerald-500 - más moderno */
   
   --card: #ffffff;
-  --card-foreground: #0a0a0a;
+  --card-foreground: #0f172a;
   --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
+  --popover-foreground: #0f172a;
 
   /* Semantic colors - manteniendo compatibilidad */
   --color-bg-primary: var(--background);
@@ -265,9 +270,18 @@
   
   --color-text-primary: var(--foreground);
   --color-text-secondary: var(--muted-foreground);
-  --color-text-tertiary: #737373;
+  --color-text-tertiary: #94a3b8;  /* Slate-400 */
   
   --color-border: var(--border);
+  
+  /* Shadows for light theme - more subtle */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  --shadow-primary: 0 4px 14px 0 rgba(99, 102, 241, 0.2);
+  --shadow-primary-lg: 0 8px 24px 0 rgba(99, 102, 241, 0.25);
 }
 
 /* Dark theme explícito - se activa con clase .dark en <html> */
@@ -294,22 +308,22 @@
   --destructive: #FF3B30;       /* Apple Red */
   --destructive-foreground: #ffffff;
   
-  --border: #38383a;            /* Borders - Apple border gray */
-  --input: #2c2c2e;            /* Apple input background */
+  --border: #2a2a2a;            /* Borders - premium subtle */
+  --input: #1a1a1a;             /* Input background */
   --ring: #6366f1;              /* Indigo focus ring */
   
-  --popover: #000000;
-  --popover-foreground: #fafafa;
+  --popover: #151515;
+  --popover-foreground: #ffffff;
 
   /* Semantic colors - manteniendo compatibilidad */
   --color-bg-primary: var(--background);
-  --color-bg-secondary: #0a0a0a;
+  --color-bg-secondary: #1a1a1a;
   --color-bg-tertiary: var(--muted);
   --color-bg-card: var(--card);
   
   --color-text-primary: var(--foreground);
   --color-text-secondary: var(--muted-foreground);
-  --color-text-tertiary: #71717a;
+  --color-text-tertiary: #737373;
   
   --color-border: var(--border);
   --color-card: var(--card);

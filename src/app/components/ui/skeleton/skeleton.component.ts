@@ -14,13 +14,28 @@ import { CommonModule } from '@angular/common';
     .skeleton {
       background: linear-gradient(
         90deg,
-        var(--color-bg-tertiary) 25%,
-        var(--color-bg-secondary) 50%,
-        var(--color-bg-tertiary) 75%
+        var(--color-bg-tertiary) 0%,
+        color-mix(in srgb, var(--color-bg-tertiary) 80%, var(--color-text-primary)) 50%,
+        var(--color-bg-tertiary) 100%
       );
       background-size: 200% 100%;
-      animation: loading 1.5s ease-in-out infinite;
+      animation: loading 1.8s ease-in-out infinite;
       display: block;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .skeleton::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        color-mix(in srgb, var(--color-text-primary) 5%, transparent) 50%,
+        transparent 100%
+      );
+      animation: shimmer 1.8s ease-in-out infinite;
     }
 
     .skeleton-text {
@@ -48,6 +63,15 @@ import { CommonModule } from '@angular/common';
       }
       100% {
         background-position: -200% 0;
+      }
+    }
+    
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
       }
     }
 

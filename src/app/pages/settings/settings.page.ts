@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, effect } from '@angular/core';
+import { Component, inject, OnInit, effect, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CardComponent } from '../../components/ui/card/card.component';
@@ -8,7 +8,10 @@ import { TransactionsService } from '../../services/transactions.service';
 import { CategoriesService } from '../../services/categories.service';
 import { ConfigService } from '../../services/config.service';
 import { ThemeService } from '../../services/theme.service';
+import { AppStore } from '../../core/store/app.store';
 import { Transaction } from '../../core/models/finance.models';
+import { totalByType } from '../../utils/calculations';
+import { formatCurrency } from '../../utils/currency';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
@@ -23,11 +26,24 @@ export class SettingsPage implements OnInit {
   private txService = inject(TransactionsService);
   private catService = inject(CategoriesService);
   private configService = inject(ConfigService);
+  private store = inject(AppStore);
   themeService = inject(ThemeService);
 
   currency = 'EUR';
   locale = 'es-ES';
   theme: 'dark' | 'light' = 'dark';
+  monthlyBudget = signal<number>(0);
+  
+  transactions = signal<Transaction[]>([]);
+  
+  budgetProgress = computed(() => {
+    const budget = this.monthlyBudget();
+    if (budget === 0) return { spent: 0, remaining: 0, percentage: 0 };
+    const spent = totalByType(this.transactions(), 'expense');
+    const remaining = Math.max(0, budget - spent);
+    const percentage = (spent / budget) * 100;
+    return { spent, remaining, percentage };
+  });
 
   constructor() {
     // Watch theme changes with effect
@@ -40,12 +56,21 @@ export class SettingsPage implements OnInit {
     this.currency = this.configService.currency;
     this.locale = this.configService.locale;
     this.theme = this.themeService.theme();
+    this.monthlyBudget.set(this.store.budget());
     
     // Subscribe to config changes
     this.configService.config.subscribe(config => {
       this.currency = config.currency;
       this.locale = config.locale;
     });
+    
+    // Subscribe to transactions
+    this.txService.transactions$.subscribe(t => this.transactions.set(t));
+  }
+  
+  onMonthlyBudgetChange() {
+    this.store.setBudget(this.monthlyBudget());
+    this.toastService.success(`Monthly budget set to ${formatCurrency(this.monthlyBudget())}`, 'Budget Updated');
   }
 
   onCurrencyChange() {
@@ -163,5 +188,8 @@ export class SettingsPage implements OnInit {
   openGitHub() {
     window.open('https://github.com/AntonioQuijanoGit/Budget-Management', '_blank', 'noopener,noreferrer');
   }
+  
+  formatCurrency = formatCurrency;
+  Math = Math;
 }
 

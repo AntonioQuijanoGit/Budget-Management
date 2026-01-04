@@ -1,45 +1,59 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { RecurringTransaction } from '../core/models/finance.models';
+import { AppStore } from '../core/store/app.store';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 const STORAGE_KEY = 'bm_recurring_v1';
 
 @Injectable({ providedIn: 'root' })
 export class RecurringTransactionsService {
-  private recurring$ = new BehaviorSubject<RecurringTransaction[]>(this.load());
-  recurring = this.recurring$.asObservable();
+  private store = inject(AppStore);
+  private recurring$ = new BehaviorSubject<RecurringTransaction[]>(this.store.recurringTransactions());
+  
+  // Sync with AppStore
+  recurring = toObservable(this.store.recurringTransactions);
+
+  constructor() {
+    // Initialize from store
+    const storeRecurring = this.store.recurringTransactions();
+    if (storeRecurring.length === 0) {
+      const legacy = this.load();
+      if (legacy.length > 0) {
+        this.store.setRecurringTransactions(legacy);
+        this.recurring$.next(legacy);
+      }
+    } else {
+      this.recurring$.next(storeRecurring);
+    }
+    
+    // Keep BehaviorSubject in sync with AppStore
+    this.store.recurringTransactions.subscribe(recurring => {
+      if (JSON.stringify(recurring) !== JSON.stringify(this.recurring$.value)) {
+        this.recurring$.next(recurring);
+      }
+    });
+  }
 
   add(recurring: RecurringTransaction) {
-    this.recurring$.next([...this.recurring$.value, recurring]);
-    this.persist();
+    this.store.addRecurringTransaction(recurring);
+    // BehaviorSubject will update via subscription
   }
 
   update(id: string, patch: Partial<RecurringTransaction>) {
-    this.recurring$.next(this.recurring$.value.map(r => (r.id === id ? { ...r, ...patch } : r)));
-    this.persist();
+    this.store.updateRecurringTransaction(id, patch);
+    // BehaviorSubject will update via subscription
   }
 
   remove(id: string) {
-    this.recurring$.next(this.recurring$.value.filter(r => r.id !== id));
-    this.persist();
+    this.store.removeRecurringTransaction(id);
+    // BehaviorSubject will update via subscription
   }
 
   getDueToday(): RecurringTransaction[] {
     const today = new Date().toISOString().split('T')[0];
-    return this.recurring$.value.filter(r => r.isActive && r.nextDueDate <= today);
-  }
-
-  private persist() {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.recurring$.value));
-    } catch (e: any) {
-      console.error('Error saving recurring transactions', e);
-      if (e.name === 'QuotaExceededError' || e.code === 22) {
-        console.warn('localStorage quota exceeded for recurring transactions');
-        throw new Error('Storage quota exceeded. Please clear some old data.');
-      }
-      throw e;
-    }
+    return this.store.recurringTransactions()
+      .filter(r => r.isActive && r.nextDueDate <= today);
   }
 
   private load(): RecurringTransaction[] {

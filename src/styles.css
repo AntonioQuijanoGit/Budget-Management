@@ -197,11 +197,11 @@ textarea:focus {
   background-clip: padding-box;
 }
 
-/* Animaciones - Apple System Style */
+/* Animaciones - Premium smooth animations */
 @keyframes fadeIn {
   from { 
     opacity: 0; 
-    transform: translateY(8px); 
+    transform: translateY(12px); 
   }
   to { 
     opacity: 1; 
@@ -212,7 +212,7 @@ textarea:focus {
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateX(-12px);
+    transform: translateX(-16px);
   }
   to {
     opacity: 1;
@@ -223,7 +223,7 @@ textarea:focus {
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.96);
+    transform: scale(0.97);
   }
   to {
     opacity: 1;
@@ -231,12 +231,23 @@ textarea:focus {
   }
 }
 
-/* Animación de entrada para páginas - Apple System Style */
-.page {
-  animation: fadeIn var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Animación de entrada para cards */
+/* Animación de entrada para páginas - Premium */
+.page {
+  animation: fadeInUp var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animación de entrada para cards - Staggered */
 .ui-card {
   animation: scaleIn var(--transition-base) cubic-bezier(0.4, 0, 0.2, 1);
 }

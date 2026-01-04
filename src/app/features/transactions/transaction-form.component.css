@@ -28,6 +28,26 @@
   justify-content: flex-end;
 }
 
+.budget-feedback {
+  margin-top: var(--space-2);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+
+.budget-feedback.warning {
+  background: color-mix(in srgb, var(--color-warning) 10%, transparent);
+  border-color: color-mix(in srgb, var(--color-warning) 30%, transparent);
+}
+
+.budget-feedback.danger {
+  background: color-mix(in srgb, var(--color-error) 10%, transparent);
+  border-color: color-mix(in srgb, var(--color-error) 30%, transparent);
+}
+
 @media (max-width: 768px) {
   .form-grid {
     grid-template-columns: 1fr;

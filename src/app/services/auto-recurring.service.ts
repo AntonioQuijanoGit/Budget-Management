@@ -3,6 +3,7 @@ import { firstValueFrom } from 'rxjs';
 import { RecurringTransactionsService } from './recurring-transactions.service';
 import { TransactionsService } from './transactions.service';
 import { NotificationsService } from './notifications.service';
+import { ToastService } from './toast.service';
 import { RecurringTransaction, Transaction, TransactionType } from '../core/models/finance.models';
 
 /**
@@ -14,6 +15,7 @@ export class AutoRecurringService {
   private recurringService = inject(RecurringTransactionsService);
   private transactionsService = inject(TransactionsService);
   private notificationsService = inject(NotificationsService);
+  private toastService = inject(ToastService);
 
   /**
    * Check and generate due recurring transactions
@@ -55,6 +57,12 @@ export class AutoRecurringService {
           await this.notificationsService.showRecurringTransaction(
             recurring.name,
             recurring.amount
+          );
+          
+          // Show toast feedback
+          this.toastService.info(
+            `Recurring transaction "${recurring.name}" (${recurring.amount}€) added automatically`,
+            'Auto-generated'
           );
         }
       }

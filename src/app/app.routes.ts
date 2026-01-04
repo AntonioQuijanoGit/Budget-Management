@@ -1,6 +1,4 @@
 import { RouterModule, Routes } from '@angular/router';
-import { IngresarPresupuestoComponent } from './components/ingresar-presupuesto/ingresar-presupuesto.component';
-import { GastosComponent } from './components/gastos/gastos.component';
 import { NgModule } from '@angular/core';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { WelcomePage } from './pages/welcome/welcome.page';
@@ -27,9 +25,9 @@ export const routes: Routes = [
   { path: 'statistics', component: StatisticsPage },
   { path: 'settings', component: SettingsPage },
   { path: 'history', component: HistoryPage },
-  // Legacy routes preserved
-  { path: 'ingresarPresupuesto', component: IngresarPresupuestoComponent },
-  { path: 'gastos', component: GastosComponent },
+  // Legacy routes - redirect to new routes
+  { path: 'ingresarPresupuesto', redirectTo: '/budgets', pathMatch: 'full' },
+  { path: 'gastos', redirectTo: '/transactions', pathMatch: 'full' },
   { path: '**', redirectTo: '/dashboard', pathMatch: 'full' },
 ];
 

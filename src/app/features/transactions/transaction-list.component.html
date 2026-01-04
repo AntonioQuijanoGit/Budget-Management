@@ -17,9 +17,9 @@
 
   <ng-template #empty>
     <ui-empty-state
-      icon="TrendingUp"
-      title="Add Your First Transaction"
-      description="Start managing your finances by adding your first income or expenses."
+      icon="Wallet"
+      title="Start Tracking Your Finances"
+      description="Add your first transaction to begin managing your budget. Track income, expenses, and see your financial overview in real-time."
     >
       <ui-button 
         variant="primary" 
@@ -28,8 +28,11 @@
         (buttonClick)="scrollToForm()"
         class="empty-cta-button"
       >
-        Add Transaction
+        Add Your First Transaction
       </ui-button>
+      <p style="margin-top: var(--space-4); font-size: var(--font-size-sm); color: var(--color-text-secondary);">
+        💡 Tip: Start by adding your monthly income, then track your expenses
+      </p>
     </ui-empty-state>
   </ng-template>
 </ui-card>

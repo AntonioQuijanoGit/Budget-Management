@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Category } from '../core/models/finance.models';
+import { AppStore } from '../core/store/app.store';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 const STORAGE_KEY = 'bm_categories_v1';
 
@@ -27,27 +29,55 @@ const DEFAULT_CATEGORIES: Category[] = [
 
 @Injectable({ providedIn: 'root' })
 export class CategoriesService {
-  private cat$ = new BehaviorSubject<Category[]>(this.load());
-  categories$ = this.cat$.asObservable();
+  private store = inject(AppStore);
+  private cat$ = new BehaviorSubject<Category[]>(this.store.categories());
+  
+  // Sync with AppStore - convert signal to observable for compatibility
+  categories$ = toObservable(this.store.categories);
+
+  constructor() {
+    // Initialize from store
+    const storeCats = this.store.categories();
+    if (storeCats.length === 0) {
+      // If store is empty, load from legacy or use defaults
+      const legacy = this.load();
+      if (legacy.length > 0) {
+        this.store.setCategories(legacy);
+        this.cat$.next(legacy);
+      } else {
+        this.store.setCategories(DEFAULT_CATEGORIES);
+        this.cat$.next(DEFAULT_CATEGORIES);
+      }
+    } else {
+      this.cat$.next(storeCats);
+    }
+    
+    // Keep BehaviorSubject in sync with AppStore
+    this.store.categories.subscribe(cats => {
+      if (JSON.stringify(cats) !== JSON.stringify(this.cat$.value)) {
+        this.cat$.next(cats);
+      }
+    });
+  }
 
   add(cat: Category) {
-    this.cat$.next([...this.cat$.value, cat]);
-    this.persist();
+    this.store.addCategory(cat);
+    // BehaviorSubject will update via subscription
   }
 
   update(id: string, patch: Partial<Category>) {
-    this.cat$.next(this.cat$.value.map(c => (c.id === id ? { ...c, ...patch } : c)));
-    this.persist();
+    this.store.updateCategory(id, patch);
+    // BehaviorSubject will update via subscription
   }
 
   remove(id: string) {
-    this.cat$.next(this.cat$.value.filter(c => c.id !== id));
-    this.persist();
+    this.store.removeCategory(id);
+    // BehaviorSubject will update via subscription
   }
 
   resetDefaults() {
-    this.cat$.next(DEFAULT_CATEGORIES);
-    this.persist();
+    this.store.setCategories(DEFAULT_CATEGORIES);
+    // BehaviorSubject will update via subscription
   }
 
   private persist() {

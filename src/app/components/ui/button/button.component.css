@@ -31,11 +31,12 @@
   user-select: none;
   white-space: nowrap;
   
-  /* Transitions - ONLY colors and shadows, NO transforms */
-  transition: background-color 0.15s ease,
-              border-color 0.15s ease,
-              box-shadow 0.15s ease,
-              color 0.15s ease;
+  /* Transitions - Premium smooth transitions */
+  transition: background-color var(--transition-fast),
+              border-color var(--transition-fast),
+              box-shadow var(--transition-fast),
+              color var(--transition-fast),
+              outline var(--transition-fast);
   
   /* Reset button styles */
   background: transparent;
@@ -113,57 +114,95 @@
    VARIANTS
    ============================================ */
 
-/* Primary - Professional Indigo style */
+/* Primary - Premium Indigo with enhanced shadows */
 .ui-btn.variant-primary {
-  background: var(--primary) !important;
+  background: linear-gradient(135deg, #6366f1, #7c3aed) !important;
   color: var(--primary-foreground) !important;
-  border-color: var(--primary) !important;
-  border-radius: var(--radius-lg);
+  border-color: transparent !important;
+  border-radius: var(--radius-xl);
   font-weight: var(--font-weight-semibold);
   letter-spacing: -0.01em;
+  box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.ui-btn.variant-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.ui-btn.variant-primary:hover::before {
+  opacity: 1;
 }
 
 .ui-btn.variant-primary:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--primary) 90%, black) !important;
-  border-color: color-mix(in srgb, var(--primary) 90%, black) !important;
-  box-shadow: 0 4px 12px color-mix(in srgb, var(--primary) 25%, transparent);
-  transform: none !important;
+  box-shadow: 0 8px 24px 0 rgba(99, 102, 241, 0.45);
+  transform: translateY(-1px) !important;
   scale: 1 !important;
 }
 
-.ui-btn.variant-primary:active:not(:disabled),
+.ui-btn.variant-primary:hover:not(:disabled) .label,
+.ui-btn.variant-primary:hover:not(:disabled) ::ng-deep lucide-icon {
+  position: relative;
+  z-index: 1;
+}
+
+.ui-btn.variant-primary:active:not(:disabled) {
+  box-shadow: 0 2px 8px 0 rgba(99, 102, 241, 0.3);
+  transform: translateY(0) !important;
+  scale: 1 !important;
+}
+
+.ui-btn.variant-primary:active:not(:disabled)::before {
+  opacity: 0.8;
+}
+
 .ui-btn.variant-primary:focus:not(:disabled),
 .ui-btn.variant-primary:focus-visible:not(:disabled) {
-  background: color-mix(in srgb, var(--primary) 95%, black) !important;
-  border-color: color-mix(in srgb, var(--primary) 95%, black) !important;
-  box-shadow: 0 2px 6px color-mix(in srgb, var(--primary) 20%, transparent);
+  outline: 3px solid rgba(99, 102, 241, 0.4);
+  outline-offset: 2px;
+  box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.35);
   transform: none !important;
   scale: 1 !important;
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
 }
 
-/* Secondary - Subtle background */
+/* Secondary - Premium subtle with refined hover */
 .ui-btn.variant-secondary {
   background: var(--secondary);
   color: var(--secondary-foreground);
   border-color: var(--border);
+  box-shadow: var(--shadow-sm);
 }
 
 .ui-btn.variant-secondary:hover:not(:disabled) {
   background: var(--accent);
   color: var(--accent-foreground);
-  border-color: var(--border);
+  border-color: color-mix(in srgb, var(--border) 150%, transparent);
+  box-shadow: var(--shadow-md);
   transform: none !important;
 }
 
-.ui-btn.variant-secondary:active:not(:disabled),
-.ui-btn.variant-secondary:focus:not(:disabled) {
+.ui-btn.variant-secondary:active:not(:disabled) {
+  background: color-mix(in srgb, var(--accent) 95%, black);
+  box-shadow: var(--shadow-sm);
   transform: none !important;
   scale: 1 !important;
 }
 
-/* Ghost - Transparent, border on hover */
+.ui-btn.variant-secondary:focus:not(:disabled),
+.ui-btn.variant-secondary:focus-visible:not(:disabled) {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  transform: none !important;
+  scale: 1 !important;
+}
+
+/* Ghost - Premium transparent with smooth transitions */
 .ui-btn.variant-ghost {
   background: transparent;
   color: var(--foreground);
@@ -173,36 +212,55 @@
 .ui-btn.variant-ghost:hover:not(:disabled) {
   background: var(--accent);
   color: var(--accent-foreground);
-  border-color: var(--border);
+  border-color: transparent;
+  box-shadow: none;
   transform: none !important;
 }
 
-.ui-btn.variant-ghost:active:not(:disabled),
-.ui-btn.variant-ghost:focus:not(:disabled) {
+.ui-btn.variant-ghost:active:not(:disabled) {
+  background: color-mix(in srgb, var(--accent) 95%, black);
   transform: none !important;
   scale: 1 !important;
 }
 
-/* Danger - Red/destructive */
+.ui-btn.variant-ghost:focus:not(:disabled),
+.ui-btn.variant-ghost:focus-visible:not(:disabled) {
+  background: var(--accent);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  transform: none !important;
+  scale: 1 !important;
+}
+
+/* Danger - Premium destructive with refined shadows */
 .ui-btn.variant-danger {
   background: var(--destructive);
   color: var(--destructive-foreground);
   border-color: var(--destructive);
+  box-shadow: 0 4px 14px 0 rgba(239, 68, 68, 0.25);
 }
 
 .ui-btn.variant-danger:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--destructive) 90%, black);
-  border-color: color-mix(in srgb, var(--destructive) 90%, black);
-  box-shadow: 0 4px 12px color-mix(in srgb, var(--destructive) 25%, transparent);
+  background: color-mix(in srgb, var(--destructive) 95%, white);
+  border-color: color-mix(in srgb, var(--destructive) 95%, white);
+  box-shadow: 0 8px 24px 0 rgba(239, 68, 68, 0.3);
   transform: none !important;
   scale: 1 !important;
 }
 
-.ui-btn.variant-danger:active:not(:disabled),
-.ui-btn.variant-danger:focus:not(:disabled) {
-  box-shadow: 0 2px 6px color-mix(in srgb, var(--destructive) 20%, transparent);
-  background: color-mix(in srgb, var(--destructive) 95%, black) !important;
-  border-color: color-mix(in srgb, var(--destructive) 95%, black) !important;
+.ui-btn.variant-danger:active:not(:disabled) {
+  background: color-mix(in srgb, var(--destructive) 90%, black);
+  border-color: color-mix(in srgb, var(--destructive) 90%, black);
+  box-shadow: 0 4px 14px 0 rgba(239, 68, 68, 0.25);
+  transform: none !important;
+  scale: 1 !important;
+}
+
+.ui-btn.variant-danger:focus:not(:disabled),
+.ui-btn.variant-danger:focus-visible:not(:disabled) {
+  outline: 3px solid color-mix(in srgb, var(--destructive) 40%, transparent);
+  outline-offset: 2px;
+  box-shadow: 0 4px 14px 0 rgba(239, 68, 68, 0.25);
   transform: none !important;
   scale: 1 !important;
 }
