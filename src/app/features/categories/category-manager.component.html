@@ -73,13 +73,25 @@
       </div>
 
       <div class="form-field">
-        <ui-input 
-          label="Color" 
-          name="color" 
-          [(ngModel)]="color" 
-          type="text" 
-          placeholder="#3b82f6"
-        ></ui-input>
+        <label class="color-picker-label">Color</label>
+        <div class="color-picker-wrapper">
+          <input 
+            type="color" 
+            name="color" 
+            [(ngModel)]="color" 
+            class="color-picker-input"
+            [value]="color"
+            (input)="color = $any($event.target).value"
+          />
+          <ui-input 
+            label="" 
+            name="colorText" 
+            [(ngModel)]="color" 
+            type="text" 
+            placeholder="#3b82f6"
+            class="color-text-input"
+          ></ui-input>
+        </div>
       </div>
     </div>
 

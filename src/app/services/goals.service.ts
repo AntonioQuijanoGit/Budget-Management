@@ -44,7 +44,7 @@ export class GoalsService {
     }
     
     // Keep BehaviorSubject in sync with AppStore
-    this.store.goals.subscribe(goals => {
+    this.goals.subscribe(goals => {
       if (JSON.stringify(goals) !== JSON.stringify(this.goals$.value)) {
         this.goals$.next(goals);
       }

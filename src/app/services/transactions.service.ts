@@ -17,7 +17,7 @@ export class TransactionsService {
     this.tx$.next(this.store.transactions());
     
     // Keep BehaviorSubject in sync with AppStore for backward compatibility
-    this.store.transactions.subscribe(tx => {
+    this.transactions$.subscribe(tx => {
       if (JSON.stringify(tx) !== JSON.stringify(this.tx$.value)) {
         this.tx$.next(tx);
       }

@@ -173,13 +173,11 @@ export class TransactionsPage {
         );
 
         if (budgetCheck.wouldExceed) {
-          // Show warning but allow user to proceed
-          const proceed = confirm(
-            `⚠️ Budget Warning\n\n${budgetCheck.warning}\n\nDo you want to proceed anyway?`
+          // Show warning toast but allow transaction to proceed
+          this.toastService.warning(
+            budgetCheck.warning || 'This expense exceeds your budget',
+            'Budget Exceeded'
           );
-          if (!proceed) {
-            return;
-          }
         } else if (budgetCheck.warning) {
           // Show info toast
           this.toastService.info(budgetCheck.warning, 'Budget Info');
@@ -238,6 +236,12 @@ export class TransactionsPage {
 
   cancelEdit() {
     this.editing.set(null);
+  }
+
+  getCategoryName(categoryId?: string): string {
+    if (!categoryId) return 'Uncategorized';
+    const category = this.categories().find(c => c.id === categoryId);
+    return category?.name || 'Uncategorized';
   }
 
   scrollToForm() {

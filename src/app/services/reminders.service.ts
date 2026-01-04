@@ -28,7 +28,7 @@ export class RemindersService {
     }
     
     // Keep BehaviorSubject in sync with AppStore
-    this.store.reminders.subscribe(reminders => {
+    this.reminders.subscribe(reminders => {
       if (JSON.stringify(reminders) !== JSON.stringify(this.reminders$.value)) {
         this.reminders$.next(reminders);
       }

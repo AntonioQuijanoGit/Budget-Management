@@ -177,12 +177,74 @@
 
 .form-field {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-4);
+}
+
+.color-picker-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.02em;
+  margin-bottom: var(--space-2);
+}
+
+.color-picker-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.color-picker-input {
+  width: 60px;
+  height: 44px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  padding: 0;
+  background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  flex-shrink: 0;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.color-picker-input:hover {
+  border-color: var(--color-primary);
+}
+
+.color-picker-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 20%, transparent);
+}
+
+.color-picker-input::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.color-picker-input::-webkit-color-swatch {
+  border: none;
+  border-radius: var(--radius-md);
+}
+
+.color-picker-input::-moz-color-swatch {
+  border: none;
+  border-radius: var(--radius-md);
+}
+
+.color-text-input {
+  flex: 1;
 }
 
 .form-actions {

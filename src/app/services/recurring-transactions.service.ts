@@ -28,7 +28,7 @@ export class RecurringTransactionsService {
     }
     
     // Keep BehaviorSubject in sync with AppStore
-    this.store.recurringTransactions.subscribe(recurring => {
+    this.recurring.subscribe(recurring => {
       if (JSON.stringify(recurring) !== JSON.stringify(this.recurring$.value)) {
         this.recurring$.next(recurring);
       }

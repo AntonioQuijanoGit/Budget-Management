@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal, OnInit } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { TransactionFiltersService } from '../../services/transaction-filters.service';
 import { TransactionsService } from '../../services/transactions.service';
 import { CategoriesService } from '../../services/categories.service';
-import { TransactionFiltersService } from '../../services/transaction-filters.service';
 import { Transaction } from '../../core/models/finance.models';
 import { CategoryChartComponent } from '../../features/dashboard/category-chart.component';
 import { TrendChartComponent } from '../../features/dashboard/trend-chart.component';
@@ -17,6 +16,7 @@ import { GoalsService } from '../../services/goals.service';
 import { RemindersService } from '../../services/reminders.service';
 import { FinancialGoal } from '../../core/models/finance.models';
 import { Reminder } from '../../core/models/finance.models';
+import { DemoService } from '../../services/demo.service';
 import { totalByType, balance } from '../../utils/calculations';
 import { formatCurrency } from '../../utils/currency';
 import { LucideAngularModule } from 'lucide-angular';
@@ -40,13 +40,44 @@ import { LucideAngularModule } from 'lucide-angular';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardPage {
+export class DashboardPage implements OnInit {
   private txSvc = inject(TransactionsService);
   private catSvc = inject(CategoriesService);
   private goalsSvc = inject(GoalsService);
   private remindersSvc = inject(RemindersService);
   private filtersSvc = inject(TransactionFiltersService);
   private router = inject(Router);
+  private demoService = inject(DemoService);
+  
+  // Demo mode indicator
+  isDemoMode = signal(false);
+
+  ngOnInit() {
+    // Check if we should auto-load demo data (only on first visit when no data exists)
+    if (this.demoService.shouldLoadDemo()) {
+      this.demoService.loadDemoData(true);
+    }
+    
+    // Update demo mode status
+    this.updateDemoModeStatus();
+    
+    // Watch for transaction changes
+    this.txSvc.transactions$.subscribe(() => {
+      this.updateDemoModeStatus();
+      // If user adds their own transaction (not demo), clear demo mode
+      if (this.isDemoMode() && this.transactions().length > 0) {
+        const hasRealData = this.transactions().some(tx => !tx.id.startsWith('demo-'));
+        if (hasRealData) {
+          this.demoService.clearDemoMode();
+          this.updateDemoModeStatus();
+        }
+      }
+    });
+  }
+
+  private updateDemoModeStatus() {
+    this.isDemoMode.set(this.demoService.isDemoMode());
+  }
   
   onCategoryClick(categoryId: string) {
     // Set filter to this category and navigate to transactions

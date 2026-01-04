@@ -109,7 +109,7 @@
         <div class="preview-details">
           <span class="preview-detail">
             <lucide-icon name="Tag" [size]="14"></lucide-icon>
-            {{ categories().find(c => c.id === deletingTransaction()?.categoryId)?.name || 'Uncategorized' }}
+            {{ getCategoryName(deletingTransaction()?.categoryId) }}
           </span>
           <span class="preview-detail">
             <lucide-icon name="Calendar" [size]="14"></lucide-icon>

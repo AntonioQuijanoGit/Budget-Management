@@ -96,6 +96,33 @@
       </div>
     </ui-card>
 
+    <ui-card eyebrow="Demo" title="Demo Mode" [hoverable]="true" padding="md" *ngIf="isDemoMode()">
+      <div class="setting-item">
+        <p class="setting-description">
+          You're currently viewing <strong style="color: var(--primary);">demo data</strong>. 
+          This helps showcase the app's features. You can add your own data anytime - it will automatically replace the demo.
+        </p>
+        <div class="setting-actions">
+          <ui-button variant="secondary" (buttonClick)="resetToDemo()" iconLeft="RotateCcw">
+            Reload Demo Data
+          </ui-button>
+        </div>
+      </div>
+    </ui-card>
+
+    <ui-card eyebrow="Demo" title="Load Demo Data" [hoverable]="true" padding="md" *ngIf="!isDemoMode()">
+      <div class="setting-item">
+        <p class="setting-description">
+          Load sample data to explore all features of the app. This will replace your current data.
+        </p>
+        <div class="setting-actions">
+          <ui-button variant="primary" (buttonClick)="resetToDemo()" iconLeft="TestTube">
+            Load Demo Data
+          </ui-button>
+        </div>
+      </div>
+    </ui-card>
+
     <ui-card eyebrow="System" title="Information" [hoverable]="true" padding="md">
       <div class="setting-item">
         <p class="setting-description">
@@ -106,6 +133,9 @@
         </p>
         <p class="setting-description">
           <strong>Framework:</strong> Angular 18
+        </p>
+        <p class="setting-description" *ngIf="isDemoMode()">
+          <strong>Mode:</strong> <span style="color: var(--primary);">Demo Mode</span>
         </p>
       </div>
       <div class="setting-item">

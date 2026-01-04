@@ -46,6 +46,7 @@ export class AppComponent implements OnInit {
   tutorialStep = signal(0);
   tutorialSteps: TutorialStep[] = [
     { title: 'Welcome', desc: 'Quick overview of how to track income and expenses.', img: '' },
+    { title: 'Demo Mode', desc: 'You\'re viewing demo data to explore all features. Add your own data anytime - it will automatically replace the demo. Or reset to demo data from Settings.', img: '' },
     { title: 'Dashboard & Balance', desc: 'See balance, income, expenses and trends at a glance.', img: '' },
     { title: 'Add Transactions', desc: 'Create incomes or expenses with categories and notes.', img: '' },
     { title: 'Filters & Search', desc: 'Refine by type, category, date range, and keywords.', img: '' },

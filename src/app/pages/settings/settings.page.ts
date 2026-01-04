@@ -8,6 +8,7 @@ import { TransactionsService } from '../../services/transactions.service';
 import { CategoriesService } from '../../services/categories.service';
 import { ConfigService } from '../../services/config.service';
 import { ThemeService } from '../../services/theme.service';
+import { DemoService } from '../../services/demo.service';
 import { AppStore } from '../../core/store/app.store';
 import { Transaction } from '../../core/models/finance.models';
 import { totalByType } from '../../utils/calculations';
@@ -26,8 +27,11 @@ export class SettingsPage implements OnInit {
   private txService = inject(TransactionsService);
   private catService = inject(CategoriesService);
   private configService = inject(ConfigService);
+  private demoService = inject(DemoService);
   private store = inject(AppStore);
   themeService = inject(ThemeService);
+
+  isDemoMode = signal(false);
 
   currency = 'EUR';
   locale = 'es-ES';
@@ -57,6 +61,7 @@ export class SettingsPage implements OnInit {
     this.locale = this.configService.locale;
     this.theme = this.themeService.theme();
     this.monthlyBudget.set(this.store.budget());
+    this.isDemoMode.set(this.demoService.isDemoMode());
     
     // Subscribe to config changes
     this.configService.config.subscribe(config => {
@@ -66,6 +71,14 @@ export class SettingsPage implements OnInit {
     
     // Subscribe to transactions
     this.txService.transactions$.subscribe(t => this.transactions.set(t));
+  }
+  
+  resetToDemo() {
+    if (confirm('This will replace all current data with demo data. Continue?')) {
+      this.demoService.resetToDemo();
+      this.isDemoMode.set(true);
+      this.toastService.success('Demo data loaded successfully', 'Demo Mode');
+    }
   }
   
   onMonthlyBudgetChange() {
@@ -161,9 +174,14 @@ export class SettingsPage implements OnInit {
   }
 
   clearAllData() {
-    if (confirm('Are you sure you want to delete all data? This action cannot be undone.')) {
+    if (confirm('Are you sure you want to delete all data? This action cannot be undone. The app will be left empty.')) {
+      // Marcar que ya se visitó antes, para que NO auto-cargue demo después
+      localStorage.setItem('bm_first_visit', 'done');
+      // Limpiar todo
       localStorage.clear();
-      this.toastService.warning('All data has been deleted', 'Data Deleted');
+      // Restaurar el flag de primera visita para que no auto-cargue demo
+      localStorage.setItem('bm_first_visit', 'done');
+      this.toastService.warning('All data has been deleted. The app is now empty.', 'Data Deleted');
       setTimeout(() => window.location.reload(), 1000);
     }
   }

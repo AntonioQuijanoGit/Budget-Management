@@ -1,10 +1,67 @@
 <section class="page">
+  <!-- Visual Hero Section -->
+  <div class="dashboard-hero">
+    <div class="hero-background-pattern"></div>
+    <div class="hero-content">
+      <div class="hero-text-section">
+        <div class="hero-badge">
+          <lucide-icon name="TrendingUp" [size]="16"></lucide-icon>
+          <span>Financial Dashboard</span>
+        </div>
+        <h1 class="hero-title">
+          <span class="title-line">Take Control of</span>
+          <span class="title-line title-accent">Your Finances</span>
+        </h1>
+        <p class="hero-description">
+          Track expenses, monitor budgets, and achieve your financial goals with beautiful insights and analytics.
+        </p>
+        <div class="hero-features">
+          <div class="hero-feature-item">
+            <lucide-icon name="CheckCircle2" [size]="20" style="color: var(--color-success);"></lucide-icon>
+            <span>Real-time Analytics</span>
+          </div>
+          <div class="hero-feature-item">
+            <lucide-icon name="CheckCircle2" [size]="20" style="color: var(--color-success);"></lucide-icon>
+            <span>Smart Budgeting</span>
+          </div>
+          <div class="hero-feature-item">
+            <lucide-icon name="CheckCircle2" [size]="20" style="color: var(--color-success);"></lucide-icon>
+            <span>Goal Tracking</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-stats-section">
+        <div class="hero-stats-grid">
+          <div class="hero-stat-card premium" *ngFor="let card of summaryCards(); let i = index">
+            <div class="stat-glow" [style.background]="card.accent + '20'"></div>
+            <div class="stat-icon-wrapper" [style.background]="'linear-gradient(135deg, ' + card.accent + '15, ' + card.accent + '05)'" [style.border-color]="card.accent + '40'">
+              <lucide-icon [name]="card.icon || 'Circle'" [size]="28" [style.color]="card.accent"></lucide-icon>
+            </div>
+            <div class="stat-content">
+              <p class="stat-label">{{ card.label }}</p>
+              <p class="stat-value" [style.color]="card.accent">{{ card.value || '€0.00' }}</p>
+            </div>
+            <div class="stat-decoration"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Dashboard Header -->
   <header class="dashboard-header">
     <div>
-      <p class="eyebrow">Dashboard</p>
-      <h1 class="page-title">Financial Overview</h1>
-      <p class="page-subtitle">Balance, category distribution, and temporal trends.</p>
+      <div class="header-title-row">
+        <div>
+          <p class="eyebrow">Analytics</p>
+          <h1 class="page-title">Financial Overview</h1>
+          <p class="page-subtitle">Balance, category distribution, and temporal trends.</p>
+        </div>
+        <div class="demo-badge" *ngIf="isDemoMode()">
+          <lucide-icon name="TestTube" [size]="14"></lucide-icon>
+          <span>Demo Mode</span>
+        </div>
+      </div>
     </div>
     <div class="header-actions">
       <ui-button 

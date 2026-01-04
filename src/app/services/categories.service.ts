@@ -14,17 +14,29 @@ const palette = {
 };
 
 const DEFAULT_CATEGORIES: Category[] = [
-  { id: 'food', name: 'Food', color: palette.error, icon: 'UtensilsCrossed', type: 'expense', budgetMonthly: 250 },
-  { id: 'transport', name: 'Transport', color: palette.primary, icon: 'Bus', type: 'expense', budgetMonthly: 120 },
+  // Income categories
   { id: 'salary', name: 'Salary', color: palette.success, icon: 'Wallet', type: 'income' },
-  {
-    id: 'entertainment',
-    name: 'Entertainment',
-    color: palette.warning,
-    icon: 'Film',
-    type: 'expense',
-    budgetMonthly: 150,
-  },
+  { id: 'freelance', name: 'Freelance', color: palette.success, icon: 'Briefcase', type: 'income' },
+  { id: 'investment', name: 'Investment', color: palette.success, icon: 'TrendingUp', type: 'income' },
+  { id: 'gift', name: 'Gift', color: palette.success, icon: 'Gift', type: 'income' },
+  
+  // Expense categories
+  { id: 'food', name: 'Food', color: '#ef4444', icon: 'UtensilsCrossed', type: 'expense', budgetMonthly: 250 },
+  { id: 'transport', name: 'Transport', color: palette.primary, icon: 'Bus', type: 'expense', budgetMonthly: 120 },
+  { id: 'entertainment', name: 'Entertainment', color: palette.warning, icon: 'Film', type: 'expense', budgetMonthly: 150 },
+  { id: 'shopping', name: 'Shopping', color: '#ec4899', icon: 'ShoppingBag', type: 'expense', budgetMonthly: 200 },
+  { id: 'bills', name: 'Bills & Utilities', color: '#3b82f6', icon: 'Receipt', type: 'expense', budgetMonthly: 300 },
+  { id: 'healthcare', name: 'Healthcare', color: '#f59e0b', icon: 'Heart', type: 'expense', budgetMonthly: 100 },
+  { id: 'education', name: 'Education', color: '#8b5cf6', icon: 'GraduationCap', type: 'expense', budgetMonthly: 150 },
+  { id: 'housing', name: 'Housing', color: '#06b6d4', icon: 'Home', type: 'expense', budgetMonthly: 800 },
+  { id: 'travel', name: 'Travel', color: '#10b981', icon: 'Plane', type: 'expense', budgetMonthly: 200 },
+  { id: 'subscriptions', name: 'Subscriptions', color: '#f97316', icon: 'CreditCard', type: 'expense', budgetMonthly: 50 },
+  { id: 'clothing', name: 'Clothing', color: '#a855f7', icon: 'Shirt', type: 'expense', budgetMonthly: 100 },
+  { id: 'personal-care', name: 'Personal Care', color: '#ec4899', icon: 'Sparkles', type: 'expense', budgetMonthly: 80 },
+  { id: 'coffee', name: 'Coffee & Drinks', color: '#92400e', icon: 'Coffee', type: 'expense', budgetMonthly: 60 },
+  { id: 'sports', name: 'Sports & Fitness', color: '#059669', icon: 'Dumbbell', type: 'expense', budgetMonthly: 75 },
+  { id: 'pets', name: 'Pets', color: '#dc2626', icon: 'Heart', type: 'expense', budgetMonthly: 90 },
+  { id: 'technology', name: 'Technology', color: '#1e40af', icon: 'Smartphone', type: 'expense', budgetMonthly: 120 },
 ];
 
 @Injectable({ providedIn: 'root' })
@@ -53,7 +65,7 @@ export class CategoriesService {
     }
     
     // Keep BehaviorSubject in sync with AppStore
-    this.store.categories.subscribe(cats => {
+    this.categories$.subscribe(cats => {
       if (JSON.stringify(cats) !== JSON.stringify(this.cat$.value)) {
         this.cat$.next(cats);
       }
