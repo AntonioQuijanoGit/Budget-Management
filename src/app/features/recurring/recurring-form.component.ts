@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RecurringTransaction } from '../../core/models/finance.models';
+import { RecurringTransaction, Category } from '../../core/models/finance.models';
 import { CardComponent } from '../../components/ui/card/card.component';
 import { InputComponent } from '../../components/ui/input/input.component';
 import { ButtonComponent } from '../../components/ui/button/button.component';
@@ -103,7 +103,7 @@ import { todayIso } from '../../utils/date';
 })
 export class RecurringFormComponent {
   @Input() editingRecurring?: RecurringTransaction;
-  @Input() categories: any[] = [];
+  @Input() categories: Category[] = [];
   @Output() save = new EventEmitter<RecurringTransaction>();
   @Output() cancel = new EventEmitter<void>();
 

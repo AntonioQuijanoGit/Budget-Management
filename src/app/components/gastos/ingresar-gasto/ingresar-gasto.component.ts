@@ -74,8 +74,6 @@ export class IngresarGastoComponent implements OnInit {
     const cantidad = parseFloat(cantidadStr) || 0;
     const restante = this._presupuestoService.restante;
 
-    console.log('Agregando gasto - Nombre:', nombre, 'Cantidad:', cantidad, 'Restante:', restante);
-
     // Validations
     if (!nombre || nombre === '') {
       this.error.set({
@@ -106,17 +104,14 @@ export class IngresarGastoComponent implements OnInit {
 
     // Crear y enviar gasto
     this.isSubmitting.set(true);
-    const GASTO = {
+    const gasto = {
       nombre: nombre,
       cantidad: cantidad,
     };
 
-    console.log('Gasto creado:', GASTO);
-
     // Agregar el gasto al servicio
     try {
-      this._presupuestoService.agregarGasto(GASTO);
-      console.log('Gasto agregado al servicio');
+      this._presupuestoService.agregarGasto(gasto);
       
       // Actualizar el restante inmediatamente
       this.updateRestante();

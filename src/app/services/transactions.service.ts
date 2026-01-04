@@ -57,13 +57,3 @@ export class TransactionsService {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
