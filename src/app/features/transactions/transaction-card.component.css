@@ -160,14 +160,40 @@
   .tx-card {
     flex-direction: column;
     align-items: flex-start;
+    gap: var(--space-4);
   }
+
   .tx-actions {
     width: 100%;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
   }
+
   .tx-amount {
     min-width: 0;
     text-align: left;
+    width: 100%;
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .tx-buttons {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .action-btn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .action-btn span {
+    display: none;
+  }
+
+  .action-btn lucide-icon {
+    margin: 0;
   }
 }
 

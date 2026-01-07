@@ -90,6 +90,44 @@
   flex-wrap: wrap;
 }
 
+@media (max-width: 640px) {
+  .recurring-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .recurring-header {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .recurring-info {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .recurring-name {
+    word-break: break-word;
+  }
+
+  .recurring-amount {
+    word-break: break-word;
+  }
+
+  .recurring-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .recurring-actions ui-button {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .recurring-actions ui-button ::ng-deep .ui-btn {
+    width: 100%;
+  }
+}
+
 .empty-state {
   text-align: center;
 }
