@@ -20,16 +20,20 @@ export class DemoService {
   private readonly FIRST_VISIT_KEY = 'bm_first_visit';
 
   /**
-   * Check if we should auto-load demo data (only on first visit)
+   * Check if we should auto-load demo data
+   * - First visit: always load demo
+   * - Returning user with no data: load demo (they probably cleared it)
    */
   shouldLoadDemo(): boolean {
-    // Si ya se hizo la primera visita, no auto-cargar
-    if (localStorage.getItem(this.FIRST_VISIT_KEY) === 'done') {
-      return false;
-    }
-    // Solo auto-cargar si no hay transacciones (primera visita real)
     const transactions = this.store.transactions();
-    return transactions.length === 0;
+    const categories = this.store.categories();
+    
+    // If there's no data at all, load demo
+    if (transactions.length === 0 && categories.length === 0) {
+      return true;
+    }
+    
+    return false;
   }
 
   /**
@@ -68,34 +72,48 @@ export class DemoService {
       return date.toISOString().split('T')[0];
     };
 
-    // Clear existing data
+    // Clear existing data first
     this.store.setTransactions([]);
     this.store.setGoals([]);
     this.store.setReminders([]);
     this.store.setCategories([]);
 
-    // Create demo categories
+    // Create demo categories with fixed IDs
     const demoCategories: Category[] = [
-      { id: 'salary', name: 'Salary', color: '#34C759', icon: 'Wallet', type: 'income' },
-      { id: 'freelance', name: 'Freelance', color: '#34C759', icon: 'Briefcase', type: 'income' },
-      { id: 'food', name: 'Food', color: '#ef4444', icon: 'UtensilsCrossed', type: 'expense', budgetMonthly: 400 },
-      { id: 'transport', name: 'Transport', color: '#6366f1', icon: 'Bus', type: 'expense', budgetMonthly: 150 },
-      { id: 'entertainment', name: 'Entertainment', color: '#FF9500', icon: 'Film', type: 'expense', budgetMonthly: 200 },
-      { id: 'shopping', name: 'Shopping', color: '#ec4899', icon: 'ShoppingBag', type: 'expense', budgetMonthly: 300 },
-      { id: 'bills', name: 'Bills & Utilities', color: '#3b82f6', icon: 'Receipt', type: 'expense', budgetMonthly: 450 },
-      { id: 'housing', name: 'Housing', color: '#06b6d4', icon: 'Home', type: 'expense', budgetMonthly: 1200 },
-      { id: 'healthcare', name: 'Healthcare', color: '#f59e0b', icon: 'Heart', type: 'expense', budgetMonthly: 150 },
-      { id: 'subscriptions', name: 'Subscriptions', color: '#f97316', icon: 'CreditCard', type: 'expense', budgetMonthly: 80 },
+      { id: 'demo-cat-salary', name: 'Salary', color: '#34C759', icon: 'Wallet', type: 'income' },
+      { id: 'demo-cat-freelance', name: 'Freelance', color: '#34C759', icon: 'Briefcase', type: 'income' },
+      { id: 'demo-cat-food', name: 'Food', color: '#ef4444', icon: 'UtensilsCrossed', type: 'expense', budgetMonthly: 400 },
+      { id: 'demo-cat-transport', name: 'Transport', color: '#6366f1', icon: 'Bus', type: 'expense', budgetMonthly: 150 },
+      { id: 'demo-cat-entertainment', name: 'Entertainment', color: '#FF9500', icon: 'Film', type: 'expense', budgetMonthly: 200 },
+      { id: 'demo-cat-shopping', name: 'Shopping', color: '#ec4899', icon: 'ShoppingBag', type: 'expense', budgetMonthly: 300 },
+      { id: 'demo-cat-bills', name: 'Bills & Utilities', color: '#3b82f6', icon: 'Receipt', type: 'expense', budgetMonthly: 450 },
+      { id: 'demo-cat-housing', name: 'Housing', color: '#06b6d4', icon: 'Home', type: 'expense', budgetMonthly: 1200 },
+      { id: 'demo-cat-healthcare', name: 'Healthcare', color: '#f59e0b', icon: 'Heart', type: 'expense', budgetMonthly: 150 },
+      { id: 'demo-cat-subscriptions', name: 'Subscriptions', color: '#f97316', icon: 'CreditCard', type: 'expense', budgetMonthly: 80 },
     ];
 
+    // Add categories synchronously
     demoCategories.forEach(cat => this.store.addCategory(cat));
 
-    // Wait a bit for categories to be saved, then create transactions
-    setTimeout(() => {
-      const cats = this.store.categories();
-      const getCategoryId = (name: string) => cats.find(c => c.name === name)?.id || cats[0]?.id || 'food';
+    // Use fixed category IDs directly (no need to wait)
+    const getCategoryId = (name: string) => {
+      const map: Record<string, string> = {
+        'Salary': 'demo-cat-salary',
+        'Freelance': 'demo-cat-freelance',
+        'Food': 'demo-cat-food',
+        'Transport': 'demo-cat-transport',
+        'Entertainment': 'demo-cat-entertainment',
+        'Shopping': 'demo-cat-shopping',
+        'Bills & Utilities': 'demo-cat-bills',
+        'Housing': 'demo-cat-housing',
+        'Healthcare': 'demo-cat-healthcare',
+        'Subscriptions': 'demo-cat-subscriptions',
+      };
+      return map[name] || 'demo-cat-food';
+    };
 
-      const demoTransactions: Transaction[] = [
+    // Create transactions immediately (no setTimeout needed)
+    const demoTransactions: Transaction[] = [
         // Income - last 3 months
         { id: 'demo-1', type: 'income', categoryId: getCategoryId('Salary'), amount: 3200, date: getDate(65), description: 'Monthly Salary - December' },
         { id: 'demo-2', type: 'income', categoryId: getCategoryId('Salary'), amount: 3200, date: getDate(35), description: 'Monthly Salary - January' },
@@ -129,12 +147,12 @@ export class DemoService {
         { id: 'demo-26', type: 'expense', categoryId: getCategoryId('Bills & Utilities'), amount: 125.60, date: getDate(45), description: 'Electricity Bill' },
         { id: 'demo-27', type: 'expense', categoryId: getCategoryId('Housing'), amount: 1200.00, date: getDate(46), description: 'Monthly Rent' },
         { id: 'demo-28', type: 'expense', categoryId: getCategoryId('Shopping'), amount: 89.99, date: getDate(50), description: 'Nike - Running Shoes' },
-      ];
+    ];
 
-      demoTransactions.forEach(tx => this.store.addTransaction(tx));
+    demoTransactions.forEach(tx => this.store.addTransaction(tx));
 
-      // Demo Goals
-      const demoGoals: FinancialGoal[] = [
+    // Demo Goals
+    const demoGoals: FinancialGoal[] = [
         {
           id: 'goal-1',
           title: 'Emergency Fund',
@@ -158,13 +176,13 @@ export class DemoService {
           deadline: getDate(-90),
           icon: 'Plane',
           color: '#6366f1'
-        }
-      ];
+      }
+    ];
 
-      demoGoals.forEach(goal => this.store.addGoal(goal));
+    demoGoals.forEach(goal => this.store.addGoal(goal));
 
-      // Demo Reminders
-      const demoReminders: Reminder[] = [
+    // Demo Reminders
+    const demoReminders: Reminder[] = [
         {
           id: 'rem-1',
           title: 'Pay Credit Card Bill',
@@ -182,22 +200,21 @@ export class DemoService {
           priority: 'medium',
           type: 'budget',
           isCompleted: false
-        }
-      ];
-
-      demoReminders.forEach(rem => this.store.addReminder(rem));
-
-      // Mark as demo mode
-      this.setDemoMode(true);
-      
-      // Mark first visit as done (so it won't auto-load again)
-      this.markFirstVisitDone();
-
-      // Show toast only if requested
-      if (showToast) {
-        this.toastService.info('Demo data loaded. You can add your own data anytime.', 'Demo Mode');
       }
-    }, 100);
+    ];
+
+    demoReminders.forEach(rem => this.store.addReminder(rem));
+
+    // Mark as demo mode
+    this.setDemoMode(true);
+    
+    // Mark first visit as done
+    this.markFirstVisitDone();
+
+    // Show toast only if requested
+    if (showToast) {
+      this.toastService.info('Demo data loaded. You can add your own data anytime.', 'Demo Mode');
+    }
   }
 
   /**
